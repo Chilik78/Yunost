@@ -1,10 +1,5 @@
 using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using TMPro;
-using UnityEditor;
-using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using Global;
 using ProgressModul;
@@ -42,7 +37,7 @@ public class DialogActivator : MonoBehaviour
         historyText.text = "Олег: Вот мы и у твоего дома! Но...видимо я обронил ключ...";
 
         // Добавление кнопки №1
-        button1 = Instantiate(AssetDatabase.LoadAssetAtPath("Assets/_Project/Prefabs/AnswerButton.prefab", typeof(Object))) as GameObject;
+        button1 = Instantiate(Resources.Load<GameObject>("AnswerButton"));
         button1.transform.SetParent(DialogContainer.transform);
         btnText1 = button1.GetComponentInChildren<TMP_Text>(true);
         btnText1.text = "Ты потерял ключ? Ну чтож, придётся подумать как попасть в дом...";
@@ -51,7 +46,7 @@ public class DialogActivator : MonoBehaviour
         button1.transform.localPosition = new Vector3(1.627869f, -25, 0);
         
         // Добавление кнопки №2
-        button2 = Instantiate(AssetDatabase.LoadAssetAtPath("Assets/_Project/Prefabs/AnswerButton.prefab", typeof(Object))) as GameObject;
+        button2 = Instantiate(Resources.Load<GameObject>("AnswerButton"));
         button2.transform.SetParent(DialogContainer.transform);
         btnText2 = button2.GetComponentInChildren<TMP_Text>(true);
         btnText2.text = "Как ты умудрился потерять ключ?! Ничего тебе доверить нельзя!";
