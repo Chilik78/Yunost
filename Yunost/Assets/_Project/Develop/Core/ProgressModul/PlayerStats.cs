@@ -1,4 +1,3 @@
-using Global;
 using System;
 
 namespace ProgressModul
