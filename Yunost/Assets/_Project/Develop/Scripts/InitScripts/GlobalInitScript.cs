@@ -2,10 +2,16 @@ using Global;
 using ProgressModul;
 using UnityEngine;
 
-public class InitScriptMenu : MonoBehaviour
+public static class GlobalInitScript
 {
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
-    static void OnBeforeSceneLoadRuntimeMethod()
+    public static void Execute()
+    {
+        Object.DontDestroyOnLoad(Object.Instantiate(Resources.Load("Systems")));
+        InitServices();
+    }
+
+    private static void InitServices()
     {
         SceneControl sceneControl = new SceneControl(1);
         ServiceLocator.Register(sceneControl);
