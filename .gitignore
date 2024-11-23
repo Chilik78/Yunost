@@ -72,7 +72,3 @@ Yunost/[Aa]ssets/[Aa]ddressable[Aa]ssets[Dd]ata/*/*.bin*
 # Temporary auto-generated Android Assets
 Yunost/[Aa]ssets/[Ss]treamingAssets/aa.meta
 Yunost/[Aa]ssets/[Ss]treamingAssets/aa/*
-
-# Exceptions
-!*.dll
-!*.obj
