@@ -51,7 +51,7 @@ ExportedObj/
 *.pidb.meta
 *.pdb.meta
 *.mdb.meta
-*.meta
+#*.meta
 
 # Unity3D generated file on crash reports
 Yunost/sysinfo.txt
@@ -73,5 +73,5 @@ crashlytics-build.properties
 /[Aa]ssets/[Ss]treamingAssets/aa/*
 
 # Exceptions
-!*.dll
-!*.obj
+#!*.dll
+#!*.obj
