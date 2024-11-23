@@ -9,7 +9,8 @@ namespace ProgressModul
     {
         private List<Task> _inProgressTasks;
         private List<Task> _doneTasks;
-        public event Action HaveDoneTask;
+        public delegate void DoneTaskHandler(Task task);
+        public event DoneTaskHandler HaveDoneTask;
 
         public TaskObserver(List<Task> initInProgressTasks, List<Task> initDoneTasks)
         {
@@ -38,7 +39,7 @@ namespace ProgressModul
             task.setDone();
             _inProgressTasks.Remove(task);
             _doneTasks.Add(task);
-            HaveDoneTask();
+            HaveDoneTask(task);
         }
 
         public Task GetLastDoneTask

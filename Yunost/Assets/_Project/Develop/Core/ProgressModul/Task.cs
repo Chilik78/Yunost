@@ -9,9 +9,10 @@ namespace ProgressModul
         private string _description;
         private bool _isDone = false;
 
-        public Task(string name, string description) {
+        public Task(string name, string description, string id) {
             _name = name;
             _description = description;
+            _id = id;
         }
 
         public void setDone()
