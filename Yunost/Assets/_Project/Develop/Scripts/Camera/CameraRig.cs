@@ -4,32 +4,46 @@ public class CameraRig : MonoBehaviour
 {
     public float smoothTime = 0.7f;
     public float offset = 3f;
+    public int lowerLimitZoom = 2;
+    public int upperLimitZoom = 6;
 
-    private Vector3 vel;
-    private GameObject player;
+    private Vector3 _vel;
+    private GameObject _player;
 
-    private float ScrollSpeed = 10;
-    private Camera ZoomCamera;
+    private float _scrollSpeed = 10;
+    private Camera _camera;
 
 
     void Start()
     {
-        ZoomCamera = Camera.main;
-        player = GameObject.FindWithTag("Player");
+        _camera = Camera.main;
+        _player = GameObject.FindWithTag("Player");
     }
 
     void Update()
     {
-        Vector3 targetCoord = new Vector3(player.transform.position.x - offset, transform.position.y, player.transform.position.z - offset);
-        transform.position = Vector3.SmoothDamp(transform.position, targetCoord, ref vel, smoothTime); //плавно перемещает камеру в точку координату персонажа
+        FollowPlayer();
+        Zoom();
+    }
 
-        if (ZoomCamera.orthographic)
+    private void FollowPlayer()
+    {
+        Vector3 targetCoord = new Vector3(_player.transform.position.x - offset, transform.position.y, _player.transform.position.z - offset);
+        transform.position = Vector3.SmoothDamp(transform.position, targetCoord, ref _vel, smoothTime); // Плавно перемещает камеру в точку координату персонажа
+    }
+
+    private void Zoom()
+    {
+        if (_camera.orthographic)
         {
-            ZoomCamera.orthographicSize -= Input.GetAxis("Mouse ScrollWheel") * ScrollSpeed;
-        }
-        else
-        {
-            ZoomCamera.fieldOfView -= Input.GetAxis("Mouse ScrollWheel") * ScrollSpeed;
+            float currentOrthographicSize = _camera.orthographicSize;
+            float newOrthographicSize = currentOrthographicSize - Input.GetAxis("Mouse ScrollWheel") * _scrollSpeed;
+
+            if (newOrthographicSize <= upperLimitZoom && newOrthographicSize >= lowerLimitZoom)
+            {
+                _camera.orthographicSize = newOrthographicSize;
+            }
+
         }
     }
 }
