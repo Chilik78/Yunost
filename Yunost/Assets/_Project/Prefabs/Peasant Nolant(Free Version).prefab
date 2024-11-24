@@ -138,8 +138,12 @@ GameObject:
   - component: {fileID: 550019113904273483}
   - component: {fileID: 5457016928909461297}
   - component: {fileID: 7763939781658087684}
-  - component: {fileID: 3843803559156760556}
+  - component: {fileID: 2800577117300285055}
   - component: {fileID: 5960415185101476964}
+  - component: {fileID: 2123343484092540299}
+  - component: {fileID: 5935688706941863932}
+  - component: {fileID: 777901838942355702}
+  - component: {fileID: 8093200167909377533}
   m_Layer: 0
   m_Name: Peasant Nolant(Free Version)
   m_TagString: Player
@@ -199,10 +203,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9f251b2038d7a942a9550c64e2ac490, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 3
-  rotationAngle: 720
---- !u!65 &3843803559156760556
-BoxCollider:
+  speedOnWalk: 3
+  speedOnRun: 5
+  speedTurn: 360
+--- !u!136 &2800577117300285055
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -219,9 +224,11 @@ BoxCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.68, y: 1.41, z: 0.65}
-  m_Center: {x: 0, y: 0.88, z: 0}
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!54 &5960415185101476964
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -247,8 +254,73 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!114 &2123343484092540299
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 667009691969789161}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36d1b0afa385b04418e63dd95c4bbe79, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  NPC: {fileID: 0}
+  DialogWindow: {fileID: 0}
+  DialogContainer: {fileID: 0}
+  DialogHistory: {fileID: 0}
+  ExitButton: {fileID: 0}
+  button1: {fileID: 0}
+  button2: {fileID: 0}
+  button3: {fileID: 0}
+  button4: {fileID: 0}
+  btnText1: {fileID: 0}
+  btnText2: {fileID: 0}
+  btnText3: {fileID: 0}
+  historyText: {fileID: 0}
+--- !u!114 &5935688706941863932
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 667009691969789161}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cfa4f25daef0a4442b41fa97c869ca26, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bar: {fileID: 0}
+  type: 0
+--- !u!114 &777901838942355702
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 667009691969789161}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cfa4f25daef0a4442b41fa97c869ca26, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bar: {fileID: 0}
+  type: 1
+--- !u!114 &8093200167909377533
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 667009691969789161}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bfc83cd89c79ca842afb955fe02fc2df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &676183712559232323
 GameObject:
   m_ObjectHideFlags: 0

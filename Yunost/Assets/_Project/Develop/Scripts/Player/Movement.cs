@@ -1,31 +1,65 @@
 using UnityEngine;
 
-public class Movement : MonoBehaviour
+namespace Player
 {
-    public float speed = 3f;
-    public float rotationAngle = 720f;
-
-    private Rigidbody rb;   
-
-    void Start()
+    public class Movement : MonoBehaviour
     {
-        rb = GetComponent<Rigidbody>(); 
-    }
+        public float speedOnWalk = 3f;
+        public float speedOnRun = 5f;
+        public float speedTurn = 360f;
 
-    private void FixedUpdate()
-    {
-        float moveHorizontal = Input.GetAxis("Horizontal");
-        float moveVertical = Input.GetAxis("Vertical");
+        private Rigidbody _rb;
+        private Vector3 _input;
+        private float _speed;
 
-        Vector3 movement = new Vector3(moveHorizontal, 0.0f, moveVertical);
-        movement.Normalize();
-
-        transform.Translate(movement * speed * Time.fixedDeltaTime, Space.World);
-
-        if (movement != Vector3.zero)
+        void Start()
         {
-            Quaternion toRotation = Quaternion.LookRotation(movement, Vector3.up);
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, rotationAngle * Time.deltaTime);
+            _rb = GetComponent<Rigidbody>();
+            _input = new Vector3();
+            _speed = speedOnWalk;
+        }
+
+        private void Update()
+        {
+            Rotate();
+        }
+
+        private void FixedUpdate()
+        {
+            Move();
+        }
+        private void Move()
+        {
+            float moveHorizontal = Input.GetAxis("Horizontal");
+            float moveVertical = Input.GetAxis("Vertical");
+
+            _input = new Vector3(moveHorizontal, 0, moveVertical);
+
+            if (Input.GetKey(KeyCode.LeftShift))
+            {
+                _speed = speedOnRun;
+            }
+            else
+            {
+                _speed = speedOnWalk;
+            }
+
+            _rb.MovePosition(transform.position + (transform.forward * _input.magnitude) * _speed * Time.deltaTime);
+        }
+        private void Rotate()
+        {
+            if (_input != Vector3.zero)
+            {
+                Vector3 relative = (transform.position + _input.ToIso()) - transform.position;
+                var rotate = Quaternion.LookRotation(relative, Vector3.up);
+                transform.rotation = Quaternion.RotateTowards(transform.rotation, rotate, speedTurn * Time.deltaTime);
+                GetComponent<AnimationController>().Run(true);
+            }
+            else
+            {
+                GetComponent<AnimationController>().Run(false);
+            }
         }
     }
 }
+
