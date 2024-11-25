@@ -66,7 +66,7 @@ namespace CameraModule
 
             GameObject hitGameObj = hit.transform.gameObject;
 
-            if (hitGameObj.tag != "Player")
+            if (hitGameObj.tag != "Player" || hitGameObj.tag != "NPC")
             {
                 Material mat = hitGameObj.GetComponent<MeshRenderer>().material;
                 SwitchToTransparent(mat);
