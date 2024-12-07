@@ -14,6 +14,10 @@ public class Movement : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (DialogManager.GetInstance().dialogIsPlaying)
+        {
+            return;
+        }
         float moveHorizontal = Input.GetAxis("Horizontal");
         float moveVertical = Input.GetAxis("Vertical");
 

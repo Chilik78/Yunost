@@ -4,15 +4,17 @@ using Global;
 
 public class InitScript : MonoBehaviour
 {
-
-    void Start()
+    private Object _gameSystems;
+    void Awake()
     {
         PlayerStats playerStats = new(100, 100);
         ServiceLocator.Register(playerStats);
+        _gameSystems = Instantiate(Resources.Load("GameSystems"));
     }
 
     void OnDestroy()
     {
         ServiceLocator.Unregister<PlayerStats>();
+        Destroy(_gameSystems);
     }
 }
