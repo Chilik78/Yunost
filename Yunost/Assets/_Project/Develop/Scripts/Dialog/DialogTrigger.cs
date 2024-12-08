@@ -1,4 +1,5 @@
 using Global;
+using MiniGames;
 using ProgressModul;
 using UnityEngine;
 
@@ -31,6 +32,9 @@ public class DialogTrigger : MonoBehaviour
             {
                 DialogManager.GetInstance().EnterDialogMode(inkJSON);
                 ServiceLocator.Get<TaskObserver>().SetDoneFirstTask();
+
+                MiniGameContext testContext = new MiniGameContext(TypesMiniGames.BreakingLock, 0f, 5);
+                GameObject.Find("GameSystems").GetComponent<MiniGamesManager>().RunMiniGame(testContext);
             }
         }
         else

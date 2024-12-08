@@ -17,8 +17,6 @@ public class InitScript : MonoBehaviour
 
         TaskObserver taskObserver = new(initTasksJson.text);
         ServiceLocator.Register(taskObserver);
-
-        _gameSystems = Instantiate(Resources.Load("GameSystems"));
     }
 
     void OnDestroy()
