@@ -393,6 +393,7 @@ GameObject:
   - component: {fileID: 157207114}
   - component: {fileID: 157207113}
   - component: {fileID: 157207115}
+  - component: {fileID: 157207116}
   m_Layer: 0
   m_Name: Sun
   m_TagString: Untagged
@@ -622,6 +623,22 @@ MonoBehaviour:
   m_ObsoleteUseShadowQualitySettings: 0
   m_ObsoleteCustomShadowResolution: 512
   m_ObsoleteContactShadows: 0
+--- !u!114 &157207116
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 157207112}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6acfadf067c9317418ffa9e8f1e593d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _gameTime: {fileID: 0}
+  directionalLight: {fileID: 157207114}
+  fullDay: 120
+  currentTime: 0
 --- !u!1 &160518199
 GameObject:
   m_ObjectHideFlags: 0
@@ -978,7 +995,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1716420030}
   m_HandleRect: {fileID: 1716420029}
   m_Direction: 2
-  m_Value: 1.0000033
+  m_Value: 1.0000037
   m_Size: 0.60999995
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -2071,7 +2088,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1880050932}
   m_HandleRect: {fileID: 1880050931}
   m_Direction: 0
-  m_Value: 0
+  m_Value: 1
   m_Size: 0.9999998
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -13723,6 +13740,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   smoothTime: 0.7
   offset: 3
+  lowerLimitZoom: 2
+  upperLimitZoom: 6
 --- !u!33 &3352551704347820107
 MeshFilter:
   m_ObjectHideFlags: 0
