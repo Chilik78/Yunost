@@ -9,6 +9,8 @@ public class InitScript : MonoBehaviour
     {
         PlayerStats playerStats = new(100, 100);
         ServiceLocator.Register(playerStats);
+        TimeControl timeControl = new(7, 0);
+        ServiceLocator.Register(timeControl);
         _gameSystems = Instantiate(Resources.Load("GameSystems"));
     }
 

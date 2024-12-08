@@ -1,18 +1,34 @@
-﻿using System;
-
+﻿
 namespace ProgressModul
 {
     public class TimeControl
     {
         int _currentTime = 0;
-        public event Action TimeChanged;
+        public delegate void TimeChangedHandler(int time);
+        public event TimeChangedHandler TimeChanged;
 
         public TimeControl(int currentTime)
         {
-            this.currentTime = currentTime;
+            this.CurrentTime = currentTime;
         }
 
-        public int currentTime
+        public TimeControl(int h, int m)
+        {
+            SetTimeFormat(h, m);
+        }
+
+        public void SetTimeFormat(int h, int m)
+        {
+            float hf = (m + 60 * h) / 60f;
+            CurrentTime = (int)(hf / 24f * 1000f);
+        }
+
+        public void AddTime(int time)
+        {
+            CurrentTime = CurrentTime + time;
+        }
+
+        public int CurrentTime
         {
             get => _currentTime;
             set
@@ -22,7 +38,7 @@ namespace ProgressModul
                     _currentTime = value;
                     if (TimeChanged != null)
                     {
-                        TimeChanged();
+                        TimeChanged(_currentTime);
                     }
                 }
             }
