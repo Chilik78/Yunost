@@ -1,7 +1,10 @@
 ﻿
 
+using System;
+
 namespace ProgressModul
 {
+    [Serializable]
     public class Task
     {
         private string _id;
@@ -9,13 +12,21 @@ namespace ProgressModul
         private string _description;
         private bool _isDone = false;
 
+        public Task(TaskModel model)
+        {
+            _name = model.name;
+            _description = model.description;
+            _id = model.id;
+            _isDone = model.isDone;
+        }
+
         public Task(string name, string description, string id) {
             _name = name;
             _description = description;
             _id = id;
         }
 
-        public void setDone()
+        public void SetDone()
         {
             _isDone = true;
         }

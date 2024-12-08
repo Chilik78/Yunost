@@ -1,6 +1,7 @@
 using UnityEngine;
 using ProgressModul;
 using Global;
+using System.Collections.Generic;
 
 public class InitScript : MonoBehaviour
 {
@@ -11,6 +12,12 @@ public class InitScript : MonoBehaviour
         ServiceLocator.Register(playerStats);
         TimeControl timeControl = new(7, 0);
         ServiceLocator.Register(timeControl);
+
+        TextAsset initTasksJson = Resources.Load<TextAsset>("InitTasks");
+
+        TaskObserver taskObserver = new(initTasksJson.text);
+        ServiceLocator.Register(taskObserver);
+
         _gameSystems = Instantiate(Resources.Load("GameSystems"));
     }
 

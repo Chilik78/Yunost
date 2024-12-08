@@ -1,3 +1,5 @@
+using Global;
+using ProgressModul;
 using UnityEngine;
 
 public class DialogTrigger : MonoBehaviour
@@ -28,6 +30,7 @@ public class DialogTrigger : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.E))
             {
                 DialogManager.GetInstance().EnterDialogMode(inkJSON);
+                ServiceLocator.Get<TaskObserver>().SetDoneFirstTask();
             }
         }
         else
