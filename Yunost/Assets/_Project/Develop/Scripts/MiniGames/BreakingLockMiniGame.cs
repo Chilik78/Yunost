@@ -1,38 +1,47 @@
+using MiniGames.BreakingLock;
 using System;
+using TMPro;
 using UnityEngine;
 
 namespace MiniGames
 {
     public class BreakingLockMiniGame : MiniGame
     {
+        private bool isGameEnd = false;
+
         private float _unlockAngle; // Какой угол откроет замок
         private Vector2 _unlockRange; // Диапазон углов, при которых замок будет считаться открытым
 
         private float _maxRotationAngle = 90; // Как далеко может поворачиваться внутреняя часть замка (влево и вправо)
-        private float _forConvertToAngle; // Для конвертации в нормальный угол поворота
         private float _lockRange; // Сложность замка
 
-        private float _currPosPick = 0f; // Текущий угол отмычки
+        private Lock _lock; // Крутящее основания замка
+        private Pick _pick; // Отмычка
+        private Screwdriver _screwdriver; // GameObject отмычки
 
-        private GameObject _lock; // GameObject крутящего основания замка
-        private GameObject _pick; // GameObject отмычки
-        private GameObject _screwdriver; // GameObject отмычки
+        private TMP_Text _textCountPicks;
 
-        private float _timeCount = 0.0f;
-        private float _maxDiffBetweenUnlocAngleAndCurrPosPick = 2; // Максимально возможная разница между текущим углом отмычки и углом, который откроет замок
-        private float _speedRotateLock = 0.001f; // Скорость поворота замка
+        private float _maxDiffBetweenUnlocAngleAndCurrPosPick = 3; // Максимально возможная разница между текущим углом отмычки и углом, который откроет замок
+
+        private int _countPicks;
 
         public override void Init(MiniGameContext context)
         {
             _currentContext = context;
             TypeDifficultMiniGames difficult = _currentContext.СurrentDifficult;
-            _lock = GameObject.Find("sm_lock_02");
-            _pick = GameObject.Find("LockPick");
-            _screwdriver = GameObject.Find("Screwdriver_Tool");
-            _forConvertToAngle = 1 / _maxRotationAngle;
+            _countPicks = context.getCountItems;
+
+            _pick = new Pick(_maxRotationAngle);
+            _screwdriver = new Screwdriver();
+            _lock = new Lock(_unlockAngle, _maxDiffBetweenUnlocAngleAndCurrPosPick, _maxRotationAngle, _pick);
+
+            _pick.OnPickBroken += OnBrokenPick;
+
+            _textCountPicks = GameObject.Find("Count LockPicks Text").GetComponent<TMP_Text>();
 
             ChooseLockRangeByDifficult(difficult);
             GenerateUnlockAngle();
+            BuildUI();
         }
 
         private void ChooseLockRangeByDifficult(TypeDifficultMiniGames difficult)
@@ -53,65 +62,47 @@ namespace MiniGames
 
         public override void TrackingProgressGame()
         {
-            RotatePick();
-            RotateScrewdriver();
-            RotateLock();
+            if (!isGameEnd && _pick.getSwap)
+            {
+                _pick.Rotate();
+                _screwdriver.Rotate(_pick.getCurrPosPick);
+                _lock.Rotate();
+                CheckEndGame();
+            }
+            else if (!_pick.getSwap)
+            {
+                _pick.SwapPick();
+            }
         }
 
-        private void RotatePick()
+        private void CheckEndGame()
         {
-            float moveHorizontalMouse = Input.GetAxis("Mouse X");
-            float newPos = _currPosPick + moveHorizontalMouse * (_maxRotationAngle * _forConvertToAngle);
-
-            if (Mathf.Abs(newPos) < _maxRotationAngle)
+            if (Math.Abs(_maxRotationAngle - _lock.getRotateAngle) <= _maxDiffBetweenUnlocAngleAndCurrPosPick && _countPicks != 0)
             {
-                _currPosPick = newPos;
-                _pick.transform.localEulerAngles = new Vector3(0, _currPosPick, 0); 
+                isGameEnd = true;
+                _pick.OnPickBroken -= OnBrokenPick;
+                CalculateResult(new MiniGamesResultInfo(TypeResultMiniGames.Сompleted, _currentContext.getCountItems - _countPicks));
+            }
+            else if(_countPicks == 0)
+            {
+                isGameEnd = true;
+                _pick.OnPickBroken -= OnBrokenPick;
+                CalculateResult(new MiniGamesResultInfo(TypeResultMiniGames.Failed, _currentContext.getCountItems));
             }
         }
 
-        private void RotateScrewdriver()
+        private void OnBrokenPick()
         {
-            if(_currPosPick < 0)
-            {
-                _screwdriver.transform.localEulerAngles = new Vector3(0, 20, 0);
-            }
-            else
-            {
-                _screwdriver.transform.localEulerAngles = new Vector3(0, -10, 0);
-            }
+            _countPicks--;
+            Debug.LogWarning($"Count Picks {_countPicks}");
+            BuildUI();
+            CheckEndGame();
         }
 
-        private void RotateLock()
+        protected override void BuildUI()
         {
-            float moveHorizontalKeyboard = Input.GetAxis("Horizontal");
-            float diffBetweenUnlocAngleAndCurrPosPick = Math.Abs(_unlockAngle - _currPosPick);
-
-            if (moveHorizontalKeyboard > 0)
-            {
-                var rotate = Quaternion.Euler(new Vector3(0, diffBetweenUnlocAngleAndCurrPosPick > _maxRotationAngle ? 5 : _maxRotationAngle - diffBetweenUnlocAngleAndCurrPosPick, 0));
-
-                if (diffBetweenUnlocAngleAndCurrPosPick <= _maxDiffBetweenUnlocAngleAndCurrPosPick)
-                {
-                    rotate = Quaternion.Euler(new Vector3(0, _maxRotationAngle, 0));
-                }
-
-                _lock.transform.localRotation = Quaternion.Slerp(_lock.transform.localRotation, rotate, _speedRotateLock * _timeCount);
-            }
-            else if (_lock.transform.localRotation.y != 0 && diffBetweenUnlocAngleAndCurrPosPick > _maxDiffBetweenUnlocAngleAndCurrPosPick && moveHorizontalKeyboard == 0)
-            {
-                var rotate = Quaternion.Euler(new Vector3(0, 0, 0));
-                _lock.transform.localRotation = Quaternion.Slerp(_lock.transform.localRotation, rotate, _speedRotateLock * _timeCount);
-            }
-
-            if(_maxRotationAngle - _lock.transform.localEulerAngles.y <= 1)
-            {
-                Debug.LogError("Игра окончена");
-            }
-
-            _timeCount += Time.deltaTime;
+            _textCountPicks.text = $"Осталось отмычек: {_countPicks}";
         }
-
     }
 }
 

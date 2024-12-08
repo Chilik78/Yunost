@@ -27,4 +27,9 @@ namespace MiniGames
         Medium,
         Hard,
     }
+    public enum TypeResultMiniGames
+    {
+        Failed,
+        Ñompleted,
+    }
 }

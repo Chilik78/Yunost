@@ -1,4 +1,4 @@
-namespace MiniGames 
+namespace MiniGames
 {
     abstract public class MiniGame
     {
@@ -6,7 +6,12 @@ namespace MiniGames
         public virtual void Init(MiniGameContext context) { }
         protected virtual void TakingAwayCharact() { }
         public virtual void TrackingProgressGame() { }
-        protected virtual void CalculateResult() { }
+
+        public delegate void MiniGameEndHandler(MiniGamesResultInfo resultInfo);
+
+        public event MiniGameEndHandler OnMiniGameEnd;
+        protected virtual void CalculateResult(MiniGamesResultInfo resultInfo) => 
+            OnMiniGameEnd?.Invoke(new MiniGamesResultInfo(resultInfo.getResultMiniGame, resultInfo.getNumLostItems));
         protected virtual void BuildUI() { }
     }
 }

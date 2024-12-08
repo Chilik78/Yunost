@@ -8,7 +8,7 @@ namespace MiniGames
 
         private void Start()
         {
-            MiniGameContext testContext = new MiniGameContext(TypesMiniGames.BreakingLock, 0f);
+            MiniGameContext testContext = new MiniGameContext(TypesMiniGames.BreakingLock, 0f, 5);
             RunMiniGame(testContext);
         }
 
@@ -22,14 +22,15 @@ namespace MiniGames
         {
             ChooseDifficultMiniGame(ref(context));
             ChooseMiniGame(context);
+            Run(context);
         }
 
-        void ChooseDifficultMiniGame(ref MiniGameContext context)
+        private void ChooseDifficultMiniGame(ref MiniGameContext context)
         {
             context.СurrentDifficult = TypeDifficultMiniGames.Easy;
         }
 
-        void ChooseMiniGame(MiniGameContext context)
+        private void ChooseMiniGame(MiniGameContext context)
         {
             switch (context.TypeMiniGame)
             {
@@ -43,9 +44,28 @@ namespace MiniGames
                 case TypesMiniGames.BreakingLock: _currGame = new BreakingLockMiniGame(); break;
                 default: break;
             }
+        }
 
+        private void Run(MiniGameContext context)
+        {
             if (_currGame != null)
+            {
                 _currGame.Init(context);
+                _currGame.OnMiniGameEnd += OnMiniGameEnd;
+            }
+        }
+
+        private void OnMiniGameEnd(MiniGamesResultInfo resultInfo)
+        {
+            if(resultInfo.getResultMiniGame == TypeResultMiniGames.Failed)
+            {
+                Debug.LogError($"Проигрыш | Кол-во предметов, которые нужно забрать: {resultInfo.getNumLostItems}");
+            }
+            else
+            {
+                Debug.Log($"Выигрыш | Кол-во предметов, которые нужно забрать: {resultInfo.getNumLostItems}");
+            }
+            _currGame.OnMiniGameEnd -= OnMiniGameEnd;
         }
     }
 }
