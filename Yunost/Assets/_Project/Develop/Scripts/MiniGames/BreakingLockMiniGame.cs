@@ -81,13 +81,13 @@ namespace MiniGames
             {
                 isGameEnd = true;
                 _pick.OnPickBroken -= OnBrokenPick;
-                CalculateResult(new MiniGamesResultInfo(TypeResultMiniGames.Ñompleted, _currentContext.getCountItems - _countPicks));
+                CalculateResult(new MiniGameResultInfo(TypeResultMiniGames.Ñompleted, _currentContext.getCountItems - _countPicks));
             }
             else if(_countPicks == 0)
             {
                 isGameEnd = true;
                 _pick.OnPickBroken -= OnBrokenPick;
-                CalculateResult(new MiniGamesResultInfo(TypeResultMiniGames.Failed, _currentContext.getCountItems));
+                CalculateResult(new MiniGameResultInfo(TypeResultMiniGames.Failed, _currentContext.getCountItems));
             }
         }
 

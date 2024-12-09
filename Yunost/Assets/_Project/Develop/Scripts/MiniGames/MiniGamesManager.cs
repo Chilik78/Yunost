@@ -10,6 +10,10 @@ namespace MiniGames
         private GameObject _canvases;
         private Object _screen;
 
+        public delegate void MiniGameEndHandler(MiniGameResultInfo resultInfo);
+
+        public event MiniGameEndHandler MiniGameEnd;
+
         private void Update()
         {
             if (_currGame != null)
@@ -77,10 +81,14 @@ namespace MiniGames
             }
         }
 
-        private void OnMiniGameEnd(MiniGamesResultInfo resultInfo)
+        private void OnMiniGameEnd(MiniGameResultInfo resultInfo)
         {
+            _currGame.OnMiniGameEnd -= OnMiniGameEnd;
             _mainCamera.SetActive(true);
             _canvases.SetActive(true);
+
+            MiniGameEnd?.Invoke(resultInfo);
+
             if (resultInfo.getResultMiniGame == TypeResultMiniGames.Failed)
             {
                 Debug.LogError($"Проигрыш | Кол-во предметов, которые нужно забрать: {resultInfo.getNumLostItems}");
@@ -89,8 +97,8 @@ namespace MiniGames
             {
                 Debug.Log($"Выигрыш | Кол-во предметов, которые нужно забрать: {resultInfo.getNumLostItems}");
             }
+
             Destroy(_screen);
-            _currGame.OnMiniGameEnd -= OnMiniGameEnd;
         }
     }
 }

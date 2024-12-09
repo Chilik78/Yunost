@@ -7,11 +7,11 @@ namespace MiniGames
         protected virtual void TakingAwayCharact() { }
         public virtual void TrackingProgressGame() { }
 
-        public delegate void MiniGameEndHandler(MiniGamesResultInfo resultInfo);
+        public delegate void MiniGameEndHandler(MiniGameResultInfo resultInfo);
 
         public event MiniGameEndHandler OnMiniGameEnd;
-        protected virtual void CalculateResult(MiniGamesResultInfo resultInfo) => 
-            OnMiniGameEnd?.Invoke(new MiniGamesResultInfo(resultInfo.getResultMiniGame, resultInfo.getNumLostItems));
+        protected virtual void CalculateResult(MiniGameResultInfo resultInfo) => 
+            OnMiniGameEnd?.Invoke(new MiniGameResultInfo(resultInfo.getResultMiniGame, resultInfo.getNumLostItems));
         protected virtual void BuildUI() { }
     }
 }
