@@ -6,6 +6,10 @@ namespace MiniGames
     {
         private MiniGame _currGame;
 
+        public delegate void MiniGameEndHandler(MiniGameResultInfo resultInfo);
+
+        public event MiniGameEndHandler MiniGameEnd;    
+
         private void Start()
         {
             MiniGameContext testContext = new MiniGameContext(TypesMiniGames.BreakingLock, 0f, 5);
@@ -55,17 +59,20 @@ namespace MiniGames
             }
         }
 
-        private void OnMiniGameEnd(MiniGamesResultInfo resultInfo)
+        private void OnMiniGameEnd(MiniGameResultInfo resultInfo)
         {
-            if(resultInfo.getResultMiniGame == TypeResultMiniGames.Failed)
+            _currGame.OnMiniGameEnd -= OnMiniGameEnd;
+
+            if (resultInfo.getResultMiniGame == TypeResultMiniGames.Failed)
             {
+                MiniGameEnd?.Invoke(resultInfo);    
                 Debug.LogError($"Проигрыш | Кол-во предметов, которые нужно забрать: {resultInfo.getNumLostItems}");
             }
             else
             {
+                MiniGameEnd?.Invoke(resultInfo);
                 Debug.Log($"Выигрыш | Кол-во предметов, которые нужно забрать: {resultInfo.getNumLostItems}");
             }
-            _currGame.OnMiniGameEnd -= OnMiniGameEnd;
         }
     }
 }
