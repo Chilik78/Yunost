@@ -137,11 +137,12 @@ GameObject:
   m_Component:
   - component: {fileID: 550019113904273483}
   - component: {fileID: 5457016928909461297}
-  - component: {fileID: 7763939781658087684}
   - component: {fileID: 3843803559156760556}
   - component: {fileID: 5960415185101476964}
+  - component: {fileID: 3702747981982428519}
+  - component: {fileID: 1458820198677478850}
   m_Layer: 0
-  m_Name: Peasant Nolant(Free Version)
+  m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -187,20 +188,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &7763939781658087684
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 667009691969789161}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b9f251b2038d7a942a9550c64e2ac490, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 3
-  rotationAngle: 720
 --- !u!65 &3843803559156760556
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -249,6 +236,33 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &3702747981982428519
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 667009691969789161}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0aa585b5b69c3e04fb84c085fe52db60, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1458820198677478850
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 667009691969789161}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 623a67bd65fc4394b8f41315178f5bb6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speedOnWalk: 3
+  speedOnRun: 5
+  speedTurn: 360
 --- !u!1 &676183712559232323
 GameObject:
   m_ObjectHideFlags: 0
