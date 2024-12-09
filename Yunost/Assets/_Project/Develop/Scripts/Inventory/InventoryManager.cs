@@ -2,10 +2,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+
 public class InventoryManager : MonoBehaviour
 {
     [Header("UI Elements")]
     public GameObject inventoryUI; // Панель инвентаря
+    public GameObject craftingZoneUI;
+    public List<GameObject> HUDButtons = new List<GameObject>();
     public Button inventoryButton; // Кнопка для открытия инвентаря
     public Transform itemParent;   // Родитель для слотов инвентаря
     public GameObject slotPrefab;  // Префаб слота для предметов
@@ -13,6 +16,7 @@ public class InventoryManager : MonoBehaviour
     private bool isInventoryOpen = false;
     private List<Item> inventoryItems = new List<Item>();
     private PickupItem nearbyItem;
+    private bool isPaused = false;
 
     void Start()
     {
@@ -23,8 +27,13 @@ public class InventoryManager : MonoBehaviour
         }
 
         inventoryUI.SetActive(false);
+        craftingZoneUI.SetActive(false);
         inventoryButton.onClick.AddListener(ToggleInventory);
+       
     }
+
+
+
 
     void Update()
     {
@@ -32,7 +41,9 @@ public class InventoryManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.I))
         {
             ToggleInventory();
+
         }
+
 
         // Подбор предмета по кнопке F
         if (Input.GetKeyDown(KeyCode.F))
@@ -52,32 +63,68 @@ public class InventoryManager : MonoBehaviour
     {
         isInventoryOpen = !isInventoryOpen;
         inventoryUI.SetActive(isInventoryOpen);
-    }
-
-    public void AddItem(Item newItem)
-    {
-        if (newItem == null)
+        craftingZoneUI.SetActive(isInventoryOpen);
+        if (isPaused)
         {
-            Debug.LogWarning("Попытка добавить пустой предмет!");
-            return;
-        }
-
-        inventoryItems.Add(newItem);
-
-        // Создание слота для нового предмета
-        GameObject slot = Instantiate(slotPrefab, itemParent);
-
-        // Обновление текстуры и текста
-        InventorySlot inventorySlot = slot.GetComponent<InventorySlot>();
-        if (inventorySlot != null)
-        {
-            inventorySlot.SetItem(newItem);
+            Resume();
+            for (int i = 0; i < HUDButtons.Count; i++) HUDButtons[i].SetActive(true);
         }
         else
         {
-            Debug.LogError("Префаб слота не содержит компонент InventorySlot!");
+            Pause();
+            for (int i = 0; i < HUDButtons.Count; i++) HUDButtons[i].SetActive(false);
         }
     }
+
+    public void Resume()
+    {
+        Time.timeScale = 1f;
+        isPaused = false;
+    }
+
+    void Pause()
+    {
+        Time.timeScale = 0f;
+        isPaused = true;
+    }
+
+
+    public void AddItem(Item item)
+    {
+        Debug.Log(item.name);
+        inventoryItems.Add(item);
+        UpdateInventoryUI();
+    }
+
+    /*    public void AddItem(Item newItem)
+        {
+            if (newItem == null)
+            {
+                Debug.LogWarning("Попытка добавить пустой предмет!");
+                return;
+            }
+
+            inventoryItems.Add(newItem);
+
+            
+            GameObject slot = Instantiate(slotPrefab, itemParent);
+
+            
+            InventorySlot inventorySlot = slot.GetComponent<InventorySlot>();
+            if (inventorySlot != null)
+            {
+                if (slot.GetComponent<CanvasGroup>() == null)
+                {
+                    slot.AddComponent<CanvasGroup>();
+                }
+                inventorySlot.SetItem(newItem);
+                inventorySlot.SetParent(itemParent);
+            }
+            else
+            {
+                Debug.LogError("Префаб слота не содержит компонент InventorySlot!");
+            }
+        }*/
 
     public void ShowPickupUI(PickupItem item)
     {
@@ -103,6 +150,37 @@ public class InventoryManager : MonoBehaviour
         else
         {
             Debug.LogWarning("Невозможно подобрать предмет: либо nearbyItem, либо его item == null.");
+        }
+    }
+
+
+    public void RemoveItem(Item itemToRemove)
+    {
+        int index = inventoryItems.IndexOf(itemToRemove);
+        if (index != -1)
+        {
+            inventoryItems.RemoveAt(index);
+       
+            UpdateInventoryUI(); 
+        }
+    }
+
+    private void UpdateInventoryUI()
+    {
+   
+        foreach (Transform child in itemParent)
+        {
+            Destroy(child.gameObject);
+        }
+ 
+        foreach (Item item in inventoryItems)
+        {
+            GameObject slot = Instantiate(slotPrefab, itemParent);
+            InventorySlot inventorySlot = slot.GetComponent<InventorySlot>();
+            if (inventorySlot != null)
+            {
+                inventorySlot.SetItem(item);
+            }
         }
     }
 }
