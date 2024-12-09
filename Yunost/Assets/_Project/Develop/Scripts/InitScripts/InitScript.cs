@@ -10,7 +10,7 @@ public class InitScript : MonoBehaviour
     {
         PlayerStats playerStats = new(100, 100);
         ServiceLocator.Register(playerStats);
-        TimeControl timeControl = new(7, 0);
+        TimeControl timeControl = new(14, 0);
         ServiceLocator.Register(timeControl);
 
         TextAsset initTasksJson = Resources.Load<TextAsset>("InitTasks");

@@ -1,7 +1,7 @@
 fileFormatVersion: 2
 guid: 1e91fdbfb2b154a18b675257bc4d43d9
 timeCreated: 1485360612
-licenseType: Pro
+licenseType: Store
 TextureImporter:
   fileIDToRecycleName: {}
   serializedVersion: 4
@@ -82,3 +82,10 @@ TextureImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 60055
+  packageName: Ink Integration for Unity
+  packageVersion: 1.1.8
+  assetPath: Assets/Ink/Editor/Tools/File Icons/Resources/InkCompileManualIcon.psd
+  uploadId: 600250

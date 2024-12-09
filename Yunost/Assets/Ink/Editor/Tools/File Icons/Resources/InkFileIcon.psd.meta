@@ -1,7 +1,7 @@
 fileFormatVersion: 2
 guid: 8e6b218461abe4192baeeabfbe7a9ced
 timeCreated: 1459341708
-licenseType: Pro
+licenseType: Store
 TextureImporter:
   fileIDToRecycleName: {}
   serializedVersion: 2
@@ -55,3 +55,10 @@ TextureImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 60055
+  packageName: Ink Integration for Unity
+  packageVersion: 1.1.8
+  assetPath: Assets/Ink/Editor/Tools/File Icons/Resources/InkFileIcon.psd
+  uploadId: 600250

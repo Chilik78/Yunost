@@ -5,6 +5,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
 using Ink.UnityIntegration;
+using MiniGames;
+using Global;
+using ProgressModul;
 
 public class DialogManager : MonoBehaviour
 {
@@ -101,6 +104,17 @@ public class DialogManager : MonoBehaviour
         // Ќачало прослушивани€ изменени€ Ink переменных
         dialogVariables.StartListening(currentStory);
 
+        
+        currentStory.BindExternalFunction("startMiniGame", () => {
+            MiniGameContext testContext = new MiniGameContext(TypesMiniGames.BreakingLock, 0f, 5);
+            GameObject.Find("GameSystems").GetComponent<MiniGamesManager>().RunMiniGame(testContext);
+        });
+        
+
+        currentStory.BindExternalFunction("setDoneTask", () => {
+            ServiceLocator.Get<TaskObserver>().SetDoneFirstTask();
+        });
+        
         ContinueStory();
     }
 

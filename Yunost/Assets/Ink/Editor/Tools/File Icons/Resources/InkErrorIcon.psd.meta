@@ -1,7 +1,7 @@
 fileFormatVersion: 2
 guid: ab12885a47a21456596113fc9233946c
 timeCreated: 1461099630
-licenseType: Pro
+licenseType: Store
 TextureImporter:
   fileIDToRecycleName: {}
   serializedVersion: 2
@@ -55,3 +55,10 @@ TextureImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 60055
+  packageName: Ink Integration for Unity
+  packageVersion: 1.1.8
+  assetPath: Assets/Ink/Editor/Tools/File Icons/Resources/InkErrorIcon.psd
+  uploadId: 600250

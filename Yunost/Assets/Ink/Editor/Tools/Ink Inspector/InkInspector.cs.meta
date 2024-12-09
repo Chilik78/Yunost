@@ -1,7 +1,7 @@
 fileFormatVersion: 2
 guid: 6905e53703af64a70aa6eb42f98b047c
 timeCreated: 1460011343
-licenseType: Pro
+licenseType: Store
 MonoImporter:
   serializedVersion: 2
   defaultReferences: []
@@ -10,3 +10,10 @@ MonoImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 60055
+  packageName: Ink Integration for Unity
+  packageVersion: 1.1.8
+  assetPath: Assets/Ink/Editor/Tools/Ink Inspector/InkInspector.cs
+  uploadId: 600250

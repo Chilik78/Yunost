@@ -1,7 +1,7 @@
 fileFormatVersion: 2
 guid: efc1324f6160840a9a4c26231cc2d304
 timeCreated: 1461099630
-licenseType: Pro
+licenseType: Store
 TextureImporter:
   fileIDToRecycleName: {}
   serializedVersion: 2
@@ -55,3 +55,10 @@ TextureImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 60055
+  packageName: Ink Integration for Unity
+  packageVersion: 1.1.8
+  assetPath: Assets/Ink/Editor/Tools/File Icons/Resources/InkWarningIcon.psd
+  uploadId: 600250

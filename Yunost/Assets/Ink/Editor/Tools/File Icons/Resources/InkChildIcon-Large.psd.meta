@@ -1,7 +1,7 @@
 fileFormatVersion: 2
 guid: f4e541342c07c476094e04dc118fed7b
 timeCreated: 1463742861
-licenseType: Pro
+licenseType: Store
 TextureImporter:
   fileIDToRecycleName: {}
   serializedVersion: 2
@@ -55,3 +55,10 @@ TextureImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 60055
+  packageName: Ink Integration for Unity
+  packageVersion: 1.1.8
+  assetPath: Assets/Ink/Editor/Tools/File Icons/Resources/InkChildIcon-Large.psd
+  uploadId: 600250

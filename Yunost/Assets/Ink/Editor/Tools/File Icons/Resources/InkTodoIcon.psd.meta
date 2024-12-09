@@ -1,7 +1,7 @@
 fileFormatVersion: 2
 guid: 73b0b2e787c654227845ff231c5eab5d
 timeCreated: 1485360612
-licenseType: Pro
+licenseType: Store
 TextureImporter:
   fileIDToRecycleName: {}
   serializedVersion: 4
@@ -82,3 +82,10 @@ TextureImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 60055
+  packageName: Ink Integration for Unity
+  packageVersion: 1.1.8
+  assetPath: Assets/Ink/Editor/Tools/File Icons/Resources/InkTodoIcon.psd
+  uploadId: 600250
