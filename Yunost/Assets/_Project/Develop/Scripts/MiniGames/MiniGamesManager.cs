@@ -9,6 +9,7 @@ namespace MiniGames
         private GameObject _mainCamera;
         private GameObject _canvases;
         private Object _screen;
+        private GameObject _player;
 
         public delegate void MiniGameEndHandler(MiniGameResultInfo resultInfo);
 
@@ -24,6 +25,8 @@ namespace MiniGames
         {
             _mainCamera = GameObject.Find("Canvases");
             _canvases = GameObject.Find("Main Camera");
+            _player = GameObject.FindGameObjectWithTag("Player");
+            _player.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePosition;
 
             _mainCamera.SetActive(false);
             _canvases.SetActive(false);
@@ -86,6 +89,7 @@ namespace MiniGames
             _currGame.OnMiniGameEnd -= OnMiniGameEnd;
             _mainCamera.SetActive(true);
             _canvases.SetActive(true);
+            _player.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
 
             MiniGameEnd?.Invoke(resultInfo);
 

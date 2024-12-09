@@ -144,6 +144,7 @@ public class DialogManager : MonoBehaviour
         }
         else
         {
+            GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
             // Закрытие диалогового окна
             StartCoroutine(ExitDialogMode());
         }
