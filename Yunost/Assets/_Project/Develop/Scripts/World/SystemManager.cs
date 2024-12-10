@@ -1,12 +1,12 @@
+using MiniGames;
 using Player;
-using UnityEditor;
 using UnityEngine;
 
 public class SystemManager : MonoBehaviour
 {
     private static SystemManager _instance;
     private GameObject _gameSystems, _player, _mainCamera, _canvases;
-
+    public MiniGamesManager MiniGamesManager {get ; set; }
 
     void Awake()
     {
@@ -25,6 +25,7 @@ public class SystemManager : MonoBehaviour
         _player = GameObject.FindGameObjectWithTag("Player");
         _mainCamera = GameObject.Find("Canvases");
         _canvases = GameObject.Find("Main Camera");
+        MiniGamesManager = _gameSystems.GetComponent<MiniGamesManager>();
     }
 
     public void UnfreezePlayer()

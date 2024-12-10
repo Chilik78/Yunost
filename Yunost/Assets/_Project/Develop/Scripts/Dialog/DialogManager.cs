@@ -145,6 +145,7 @@ public class DialogManager : MonoBehaviour
         else
         {
             SystemManager.GetInstance().UnfreezePlayer();
+            SystemManager.GetInstance().MiniGamesManager.MiniGameEnd += (MiniGameResultInfo info) => ServiceLocator.Get<SceneControl>().GoToScene(2);
             // Закрытие диалогового окна
             StartCoroutine(ExitDialogMode());
         }

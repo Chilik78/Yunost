@@ -45847,6 +45847,7 @@ GameObject:
   - component: {fileID: 5097107238997959251}
   - component: {fileID: 7537037366075796515}
   - component: {fileID: 4584501015512552491}
+  - component: {fileID: 8992353145767544616}
   m_Layer: 0
   m_Name: GameSystems
   m_TagString: Untagged
@@ -45854,6 +45855,18 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &8992353145767544616
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8992353145767544615}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3410e251b1f8f5546bed6ffda3ce70e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!64 &8997864416237888960
 MeshCollider:
   m_ObjectHideFlags: 0
