@@ -144,7 +144,7 @@ public class DialogManager : MonoBehaviour
         }
         else
         {
-            GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
+            SystemManager.GetInstance().UnfreezePlayer();
             // Закрытие диалогового окна
             StartCoroutine(ExitDialogMode());
         }

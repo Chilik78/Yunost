@@ -5,11 +5,7 @@ namespace MiniGames
     public class MiniGamesManager : MonoBehaviour
     {
         private MiniGame _currGame;
-
-        private GameObject _mainCamera;
-        private GameObject _canvases;
         private Object _screen;
-        private GameObject _player;
 
         public delegate void MiniGameEndHandler(MiniGameResultInfo resultInfo);
 
@@ -23,13 +19,8 @@ namespace MiniGames
 
         public void RunMiniGame(MiniGameContext context)
         {
-            _mainCamera = GameObject.Find("Canvases");
-            _canvases = GameObject.Find("Main Camera");
-            _player = GameObject.FindGameObjectWithTag("Player");
-            _player.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePosition;
+            SystemManager.GetInstance().DisableSystemsToMiniGame();   
 
-            _mainCamera.SetActive(false);
-            _canvases.SetActive(false);
             _screen = Instantiate(GetScreen(context));
             ChooseDifficultMiniGame(ref(context));
             ChooseMiniGame(context);
@@ -87,9 +78,7 @@ namespace MiniGames
         private void OnMiniGameEnd(MiniGameResultInfo resultInfo)
         {
             _currGame.OnMiniGameEnd -= OnMiniGameEnd;
-            _mainCamera.SetActive(true);
-            _canvases.SetActive(true);
-            _player.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
+            SystemManager.GetInstance().EnableSystemsToMiniGame();
 
             MiniGameEnd?.Invoke(resultInfo);
 

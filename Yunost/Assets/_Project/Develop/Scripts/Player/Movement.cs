@@ -12,6 +12,8 @@ namespace Player
         private Vector3 _input;
         private float _speed;
 
+        private bool _isFrezed = false;
+
         void Start()
         {
             _rb = GetComponent<Rigidbody>();
@@ -21,6 +23,7 @@ namespace Player
 
         private void Update()
         {
+            if(_isFrezed) return;
             Rotate();
         }
 
@@ -28,6 +31,13 @@ namespace Player
         {
             Move();
         }
+
+        public void SetFreezed(bool val)
+        {
+            _isFrezed = val;
+            GetComponent<AnimationController>().Run(false);
+        }
+
         private void Move()
         {
             float moveHorizontal = Input.GetAxis("Horizontal");

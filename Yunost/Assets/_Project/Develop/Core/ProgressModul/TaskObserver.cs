@@ -83,6 +83,15 @@ namespace ProgressModul
             SetDoneTask(GetFirstInProgressTask);
         }
 
+        public void SetDoneTaskById(string id)
+        {
+            Task task = _inProgressTasks.Where(t => t.Id == id).First();
+            if(task != null)
+            {
+                SetDoneTask(task);
+            }
+        }
+
         public Task GetLastDoneTask
         {
             get => _doneTasks.Last();

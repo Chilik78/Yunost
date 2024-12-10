@@ -35,7 +35,7 @@ public class DialogTrigger : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.E))
             {
                 DialogManager.GetInstance().EnterDialogMode(inkJSON);
-                GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
+                SystemManager.GetInstance().FreezePlayer();
             }
         }
         else
