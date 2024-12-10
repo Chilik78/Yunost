@@ -9803,18 +9803,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d3e503559ceeb844bec45e645ec763c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  globalsInkFile:
-    inkAsset: {fileID: 102900000, guid: 7ab1a8cd9f32a55489cf0786da3714ee, type: 3}
-    jsonAssetDirectory: {fileID: 0}
-    jsonAsset: {fileID: 0}
-    unhandledCompileErrors: []
-    recursiveIncludeErrorPaths: []
-    errors: []
-    warnings: []
-    todos: []
-    masterInkAssets: []
-    localIncludePaths: []
-    includes: []
   dialoguePanel: {fileID: 762542615946485494}
   dialogueText: {fileID: 8588176497792791916}
   choices:

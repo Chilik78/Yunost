@@ -4,16 +4,14 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
-using Ink.UnityIntegration;
 using MiniGames;
 using Global;
 using ProgressModul;
+using System.IO;
 
 public class DialogManager : MonoBehaviour
 {
-    // Файл global.ink
-    [Header("Global Ink File")]
-    [SerializeField] private InkFile globalsInkFile;
+    private string globalsInkFile;
 
     // Диалог
     [Header("Dialog UI")]
@@ -44,9 +42,14 @@ public class DialogManager : MonoBehaviour
             Debug.LogWarning("На сцене больше одного диалога");
         }
         instance = this;
-
         // Инициализация Ink переменных
-        dialogVariables = new DialogVariables(globalsInkFile.filePath);
+        using (StreamReader sr = new StreamReader(Directory.GetCurrentDirectory() + "/" + "Assets/_Project/Resources/InkJSON/globals.ink"))
+        {
+            globalsInkFile = sr.ReadToEnd();
+        }
+
+        dialogVariables = new DialogVariables(globalsInkFile);
+
     }
 
     // Получение объекта 

@@ -1,28 +1,25 @@
 using Ink.Runtime;
 using System.Collections.Generic;
 using System.IO;
-using UnityEngine;
-using Ink.UnityIntegration;
 
 // Класс Ink переменных
 public class DialogVariables
 {
     // Словарь Ink переменных
-    public Dictionary<string, Ink.Runtime.Object> variables { get; private set; }
+    public Dictionary<string, Object> variables { get; private set; }
 
     // Ink переменные
-    public DialogVariables(string globalsFilePath)
+    public DialogVariables(string inkFileContents)
     {
         // Чтение файла global.ink и компиляция
-        string inkFileContents = File.ReadAllText(globalsFilePath);
         Ink.Compiler compiler = new Ink.Compiler(inkFileContents);
         Story globalVariablesStory = compiler.Compile();
 
         // Получение Ink переменных и их значений
-        variables = new Dictionary<string, Ink.Runtime.Object>();
+        variables = new Dictionary<string, Object>();
         foreach(string name in globalVariablesStory.variablesState)
         {
-            Ink.Runtime.Object value = globalVariablesStory.variablesState.GetVariableWithName(name);
+            Object value = globalVariablesStory.variablesState.GetVariableWithName(name);
             variables.Add(name, value);
         }
     }
@@ -40,7 +37,7 @@ public class DialogVariables
     }
 
     // Изменение Ink переменных
-    private void VariableChanged(string name, Ink.Runtime.Object value)
+    private void VariableChanged(string name, Object value)
     {
         if (variables.ContainsKey(name))
         {
@@ -52,7 +49,7 @@ public class DialogVariables
     // Установка состояния Ink переменных в Story
     private void VariablesToStory(Story story)
     {
-        foreach(KeyValuePair<string, Ink.Runtime.Object> variable in variables)
+        foreach(KeyValuePair<string, Object> variable in variables)
         {
             story.variablesState.SetGlobal(variable.Key, variable.Value);
         }
