@@ -5,16 +5,11 @@ namespace MiniGames
     public class MiniGamesManager : MonoBehaviour
     {
         private MiniGame _currGame;
+        private Object _screen;
 
         public delegate void MiniGameEndHandler(MiniGameResultInfo resultInfo);
 
-        public event MiniGameEndHandler MiniGameEnd;    
-
-        private void Start()
-        {
-            MiniGameContext testContext = new MiniGameContext(TypesMiniGames.BreakingLock, 0f, 5);
-            RunMiniGame(testContext);
-        }
+        public event MiniGameEndHandler MiniGameEnd;
 
         private void Update()
         {
@@ -24,6 +19,9 @@ namespace MiniGames
 
         public void RunMiniGame(MiniGameContext context)
         {
+            SystemManager.GetInstance().DisableSystemsToMiniGame();   
+
+            _screen = Instantiate(GetScreen(context));
             ChooseDifficultMiniGame(ref(context));
             ChooseMiniGame(context);
             Run(context);
@@ -50,6 +48,24 @@ namespace MiniGames
             }
         }
 
+        private Object GetScreen(MiniGameContext context)
+        {
+            string path = "MiniGameScreens/";
+            switch (context.TypeMiniGame)
+            {
+                case TypesMiniGames.HoldingObjectInRange: break;
+                case TypesMiniGames.AdvancePathEachStage: break;
+                case TypesMiniGames.QuickPressKeyCertainTime: break;
+                case TypesMiniGames.GameWolfConsole: break;
+                case TypesMiniGames.QuickTempPressKeyCertainRange: break;
+                case TypesMiniGames.ConnectElements: break;
+                case TypesMiniGames.ReachEndPointWithObstacles: break;
+                case TypesMiniGames.BreakingLock: path += "BreakingLock"; break;
+                default: break;
+            }
+            return Resources.Load(path);
+        }
+
         private void Run(MiniGameContext context)
         {
             if (_currGame != null)
@@ -62,17 +78,20 @@ namespace MiniGames
         private void OnMiniGameEnd(MiniGameResultInfo resultInfo)
         {
             _currGame.OnMiniGameEnd -= OnMiniGameEnd;
+            SystemManager.GetInstance().EnableSystemsToMiniGame();
+
+            MiniGameEnd?.Invoke(resultInfo);
 
             if (resultInfo.getResultMiniGame == TypeResultMiniGames.Failed)
             {
-                MiniGameEnd?.Invoke(resultInfo);    
                 Debug.LogError($"Проигрыш | Кол-во предметов, которые нужно забрать: {resultInfo.getNumLostItems}");
             }
             else
             {
-                MiniGameEnd?.Invoke(resultInfo);
                 Debug.Log($"Выигрыш | Кол-во предметов, которые нужно забрать: {resultInfo.getNumLostItems}");
             }
+
+            Destroy(_screen);
         }
     }
 }

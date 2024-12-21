@@ -28,27 +28,27 @@ namespace CameraModule
         void Update()
         {
             FollowPlayer();
-            ShowPlayerBehindObj();
+            //ShowPlayerBehindObj();
             Zoom();
         }
 
         private void OnTriggerEnter(Collider collider)
         {
-            ShowPlayerBehindObj(collider);
+            //ShowPlayerBehindObj(collider);
         }
 
         private void OnTriggerStay(Collider collider)
         {
-            ShowPlayerBehindObj(collider);
+            //ShowPlayerBehindObj(collider);
         }
 
         private void OnTriggerExit(Collider collider)
         {
-            foreach (var gameObj in _hiddenGameObjects)
+            /*foreach (var gameObj in _hiddenGameObjects)
             {
                 SwitchToOpaque(gameObj.GetComponent<MeshRenderer>().material);
             }
-            _hiddenGameObjects.Clear();
+            _hiddenGameObjects.Clear();*/
         }
         
         private void FollowPlayer()

@@ -6,7 +6,7 @@ namespace Player
     {
         private Animator _anim;
 
-        private void Start()
+        void Start()
         {
             _anim = GetComponent<Animator>();
         }
