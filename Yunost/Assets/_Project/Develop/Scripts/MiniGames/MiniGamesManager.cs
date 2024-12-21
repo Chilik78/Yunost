@@ -11,6 +11,13 @@ namespace MiniGames
 
         public event MiniGameEndHandler MiniGameEnd;
 
+        private UniversalTutorialManager universalTutorialManager;
+
+        private void Start()
+        {
+            universalTutorialManager = FindObjectOfType<UniversalTutorialManager>();
+        }
+
         private void Update()
         {
             if (_currGame != null)
@@ -68,10 +75,13 @@ namespace MiniGames
 
         private void Run(MiniGameContext context)
         {
+            universalTutorialManager.TriggerTutorial("MiniGame1"); //Триггер на появление окна туториала
             if (_currGame != null)
             {
+                
                 _currGame.Init(context);
                 _currGame.OnMiniGameEnd += OnMiniGameEnd;
+               
             }
         }
 

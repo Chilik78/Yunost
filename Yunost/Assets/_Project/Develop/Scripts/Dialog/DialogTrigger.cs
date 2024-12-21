@@ -9,12 +9,20 @@ public class DialogTrigger : MonoBehaviour
 
     private GameObject _visualCue;
 
+    private UniversalTutorialManager universalTutorialManager;
+
     // Ink JSON файл с диалогами данного NPC
     [Header("Ink JSON")]
     [SerializeField] private string jsonPath;
 
     // Игрок в области NPC
     private bool playerInRange;
+
+
+    private void Start()
+    {
+        universalTutorialManager = FindObjectOfType<UniversalTutorialManager>();
+    }
 
     private void Awake()
     {
@@ -38,6 +46,8 @@ public class DialogTrigger : MonoBehaviour
                 }
                 DialogManager.GetInstance().EnterDialogMode(json);
                 SystemManager.GetInstance().FreezePlayer();
+                universalTutorialManager.TriggerTutorial("StartDialog");
+
             }
         }
         else
