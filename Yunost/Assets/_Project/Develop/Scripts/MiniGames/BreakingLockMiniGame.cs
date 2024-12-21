@@ -21,8 +21,6 @@ namespace MiniGames
 
         private TMP_Text _textCountPicks;
 
-        private float _maxDiffBetweenUnlocAngleAndCurrPosPick = 3; // Максимально возможная разница между текущим углом отмычки и углом, который откроет замок
-
         private int _countPicks;
 
         public override void Init(MiniGameContext context)
@@ -31,16 +29,16 @@ namespace MiniGames
             TypeDifficultMiniGames difficult = _currentContext.СurrentDifficult;
             _countPicks = context.getCountItems;
 
+            ChooseLockRangeByDifficult(difficult);
+            GenerateUnlockAngle();
+            
             _pick = new Pick(_maxRotationAngle);
             _screwdriver = new Screwdriver();
-            _lock = new Lock(_unlockAngle, _maxDiffBetweenUnlocAngleAndCurrPosPick, _maxRotationAngle, _pick);
+            _lock = new Lock(_unlockAngle, _unlockRange, _maxRotationAngle, _pick);
 
             _pick.OnPickBroken += OnBrokenPick;
 
             _textCountPicks = GameObject.Find("Count LockPicks Text").GetComponent<TMP_Text>();
-
-            ChooseLockRangeByDifficult(difficult);
-            GenerateUnlockAngle();
             BuildUI();
         }
 
@@ -77,7 +75,7 @@ namespace MiniGames
 
         private void CheckEndGame()
         {
-            if (Math.Abs(_maxRotationAngle - _lock.getRotateAngle) <= _maxDiffBetweenUnlocAngleAndCurrPosPick && _countPicks != 0)
+            if (Math.Abs(_maxRotationAngle - _lock.getRotateAngle) <= _lockRange && _countPicks != 0)
             {
                 isGameEnd = true;
                 _pick.OnPickBroken -= OnBrokenPick;

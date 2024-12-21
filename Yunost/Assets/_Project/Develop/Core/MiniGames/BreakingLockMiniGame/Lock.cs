@@ -10,9 +10,8 @@ namespace MiniGames
             private GameObject _lock; // GameObject крутящего основания замка
             private Pick _pick; // Отмычка
             private float _unlockAngle; // Какой угол откроет замок
+            private Vector2 _unlockRange; // Диапазон углов, при которых замок будет считаться открытым
             private float _maxRotationAngle = 90; // Как далеко может поворачиваться внутреняя часть замка (влево и вправо)
-            private float _maxDiffBetweenUnlocAngleAndCurrPosPick = 3; // Максимально возможная разница между
-                                                                       // текущим углом отмычки и углом, который откроет замок
 
             //private float _speedRotateLock = 0.001f; // Скорость поворота замка
             private float _speedRotateLock = 0.07f; // Скорость поворота замка
@@ -21,11 +20,11 @@ namespace MiniGames
 
             public float getRotateAngle { get => _lock.transform.localEulerAngles.y; }
 
-            public Lock(float unlockAngle, float maxDiffBetweenUnlocAngleAndCurrPosPick, float maxRotationAngle, Pick pick)
+            public Lock(float unlockAngle, Vector2 unlockRange, float maxRotationAngle, Pick pick)
             {
                 _lock = GameObject.Find("sm_lock_02");
                 _unlockAngle = unlockAngle;
-                _maxDiffBetweenUnlocAngleAndCurrPosPick = maxDiffBetweenUnlocAngleAndCurrPosPick;
+                _unlockRange = unlockRange;
                 _maxRotationAngle = maxRotationAngle;
                 _pick = pick;
             }
@@ -39,7 +38,7 @@ namespace MiniGames
                 {
                     RotateForward(diffBetweenUnlocAngleAndCurrPosPick);
                 }
-                else if (_lock.transform.localRotation.y != 0 && diffBetweenUnlocAngleAndCurrPosPick > _maxDiffBetweenUnlocAngleAndCurrPosPick && moveHorizontalKeyboard == 0)
+                else if (_lock.transform.localRotation.y != 0 && !PickIsInRange() && moveHorizontalKeyboard == 0)
                 {
                     RotateBack();
                 }
@@ -60,7 +59,7 @@ namespace MiniGames
             {
                 Quaternion rotate = Quaternion.Euler(new Vector3(0, diffBetweenUnlocAngleAndCurrPosPick > _maxRotationAngle ? 5 : _maxRotationAngle - diffBetweenUnlocAngleAndCurrPosPick, 0));
 
-                if (diffBetweenUnlocAngleAndCurrPosPick <= _maxDiffBetweenUnlocAngleAndCurrPosPick)
+                if (PickIsInRange())
                 {
                     rotate = Quaternion.Euler(new Vector3(0, _maxRotationAngle, 0));
                 }
@@ -81,6 +80,10 @@ namespace MiniGames
                 Quaternion rotate = Quaternion.Euler(new Vector3(0, sign * yAngle, 0));
                 _lock.transform.localRotation = Quaternion.Slerp(_lock.transform.localRotation, rotate, _speedShake);
                 _pick.Break();  
+            }
+
+            private bool PickIsInRange() { 
+                return _pick.getCurrPosPick >= _unlockRange.x  && _pick.getCurrPosPick  <= _unlockRange.y;
             }
         }
     }
