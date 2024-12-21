@@ -15,42 +15,38 @@ namespace CameraModule
 
         private float _scrollSpeed = 10;
         private Camera _camera;
-        private List<GameObject> _hiddenGameObjects;
+        private Dictionary<GameObject, Color> _hiddenGameObjects;
 
 
         void Start()
         {
             _camera = Camera.main;
             _player = GameObject.FindWithTag("Player");
-            _hiddenGameObjects = new List<GameObject>();
+            _hiddenGameObjects = new Dictionary<GameObject, Color>();   
         }
 
         void Update()
         {
             FollowPlayer();
-            //ShowPlayerBehindObj();
+            ShowPlayerBehindObj();
             Zoom();
         }
 
         private void OnTriggerEnter(Collider collider)
         {
-            //ShowPlayerBehindObj(collider);
+            ShowPlayerBehindObj(collider);
         }
 
         private void OnTriggerStay(Collider collider)
         {
-            //ShowPlayerBehindObj(collider);
+            ShowPlayerBehindObj(collider);
         }
 
         private void OnTriggerExit(Collider collider)
         {
-            /*foreach (var gameObj in _hiddenGameObjects)
-            {
-                SwitchToOpaque(gameObj.GetComponent<MeshRenderer>().material);
-            }
-            _hiddenGameObjects.Clear();*/
+            ShowObjects();
         }
-        
+
         private void FollowPlayer()
         {
             Vector3 targetCoord = new Vector3(_player.transform.position.x - offset, transform.position.y, _player.transform.position.z - offset);
@@ -68,53 +64,50 @@ namespace CameraModule
 
             if (hitGameObj.tag != "Player" && hitGameObj.tag != "NPC")
             {
-                Material mat = hitGameObj.GetComponent<MeshRenderer>().material;
-                SwitchToTransparent(mat);
-
-                if(!_hiddenGameObjects.Contains(hitGameObj))
-                {
-                    _hiddenGameObjects.Add(hitGameObj);
-                }
+                ShowPlayerBehindObj(hitGameObj.GetComponent<Collider>());
             }
             else if(_hiddenGameObjects.Count != 0)
             {
-                foreach (var gameObj in _hiddenGameObjects)
-                {
-                    SwitchToOpaque(gameObj.GetComponent<MeshRenderer>().material);
-                }
-                _hiddenGameObjects.Clear();
+                ShowObjects();
             }
         }
 
         private void ShowPlayerBehindObj(Collider collider)
         {
             GameObject gameObj = collider.gameObject;
-            Material mat = gameObj.GetComponent<MeshRenderer>().material;
-            SwitchToTransparent(mat);
-            if (!_hiddenGameObjects.Contains(gameObj))
+            SwitchToTransparent(gameObj);
+        }
+
+        private void ShowObjects()
+        {
+            foreach (var hiddenGameObject in _hiddenGameObjects)
             {
-                _hiddenGameObjects.Add(gameObj);
+                SwitchToOpaque(hiddenGameObject.Key, hiddenGameObject.Value);
             }
+            _hiddenGameObjects.Clear(); 
         }
 
-        void SwitchToTransparent(Material mat)
+        void SwitchToTransparent(GameObject gameObject)
         {
-            mat.SetOverrideTag("RenderType", "Transparent");
-            mat.SetFloat("_Mode", 3);
-            mat.EnableKeyword("_ALPHAPREMULTIPLY_ON");
-            mat.renderQueue = 3000;
-            mat.SetFloat("_SrcBlend", 1);
-            mat.SetFloat("_DstBlend", 10);
+            if (!_hiddenGameObjects.ContainsKey(gameObject))
+            {
+                try
+                {
+                    Color oldColor = gameObject.GetComponent<Renderer>().material.color;
+                    _hiddenGameObjects[gameObject] = oldColor;
+                    gameObject.GetComponent<Renderer>().material.color = new Color(oldColor.r, oldColor.g, oldColor.b, 0.5f);
+                }
+                catch
+                {
+                    Debug.LogWarning($"Не удалось сделать прозрачным {gameObject.name}");
+                }
+            }
+            
         }
 
-        void SwitchToOpaque(Material mat)
+        void SwitchToOpaque(GameObject gameObject, Color oldColor)
         {
-            mat.SetOverrideTag("RenderType", "");
-            mat.SetFloat("_Mode", 0);
-            mat.DisableKeyword("_ALPHAPREMULTIPLY_ON");
-            mat.renderQueue = -1;
-            mat.SetFloat("_SrcBlend", 1);
-            mat.SetFloat("_DstBlend", 0);
+            gameObject.GetComponent<Renderer>().material.color = new Color(oldColor.r, oldColor.g, oldColor.b, oldColor.a);
         }
 
         private void Zoom()
