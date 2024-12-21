@@ -8,7 +8,7 @@ public class InitScript : MonoBehaviour
     private Object _gameSystems;
     void Awake()
     {
-        PlayerStats playerStats = new(100, 100);
+        PlayerStats playerStats = new(50, 100);
         ServiceLocator.Register(playerStats);
         TimeControl timeControl = new(14, 0);
         ServiceLocator.Register(timeControl);

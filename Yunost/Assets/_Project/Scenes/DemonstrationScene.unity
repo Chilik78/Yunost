@@ -19331,6 +19331,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 920938810096487100, guid: c5fc38c3effe21e48a500f87fa5542e6, type: 3}
+      propertyPath: jsonPath
+      value: TestStory
+      objectReference: {fileID: 0}
+    - target: {fileID: 920938810096487100, guid: c5fc38c3effe21e48a500f87fa5542e6, type: 3}
       propertyPath: visualCue
       value: 
       objectReference: {fileID: 0}
@@ -20127,6 +20131,10 @@ PrefabInstance:
     - target: {fileID: 2728694246942729353, guid: 2454af43d5ac55146abb8c9f5620e28c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5854917949466136425, guid: 2454af43d5ac55146abb8c9f5620e28c, type: 3}
+      propertyPath: jsonPath
+      value: Makar
       objectReference: {fileID: 0}
     - target: {fileID: 5854917949466136425, guid: 2454af43d5ac55146abb8c9f5620e28c, type: 3}
       propertyPath: visualCue

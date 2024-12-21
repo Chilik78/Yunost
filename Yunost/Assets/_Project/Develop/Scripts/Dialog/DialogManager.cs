@@ -41,9 +41,11 @@ public class DialogManager : MonoBehaviour
         {
             Debug.LogWarning("На сцене больше одного диалога");
         }
+
         instance = this;
+
         // Инициализация Ink переменных
-        using (StreamReader sr = new StreamReader(Directory.GetCurrentDirectory() + "/" + "Assets/_Project/Resources/InkJSON/globals.ink"))
+        using (StreamReader sr = new StreamReader(Application.streamingAssetsPath + "/" + "InkJSON/globals.ink"))
         {
             globalsInkFile = sr.ReadToEnd();
         }
@@ -98,9 +100,9 @@ public class DialogManager : MonoBehaviour
     }
 
     // Открытие диалогового окна
-    public void EnterDialogMode(TextAsset inkJSON)
+    public void EnterDialogMode(string json)
     {
-        currentStory = new Story(inkJSON.text);
+        currentStory = new Story(json);
         dialogIsPlaying = true;
         dialoguePanel.SetActive(true);
 
