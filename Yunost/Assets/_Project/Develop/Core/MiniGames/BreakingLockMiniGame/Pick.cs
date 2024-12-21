@@ -40,7 +40,7 @@ namespace MiniGames
                 float moveHorizontalMouse = Input.GetAxis("Mouse X");
                 float newPos = _currPosPick + moveHorizontalMouse * (_maxRotationAngle * _forConvertToAngle);
 
-                if (Mathf.Abs(newPos) < _maxRotationAngle && newPos != _currPosPick)
+                if (Mathf.Abs(newPos) < _maxRotationAngle && newPos != _currPosPick && Input.GetAxis("Horizontal") == 0)
                 {
                     _currPosPick = newPos;
                     _pick.transform.localEulerAngles = new Vector3(0, _currPosPick, 0);
