@@ -40,6 +40,6 @@ public class TutorialManager : MonoBehaviour
         Debug.Log("Добавили текст к окну Inventory");
         universalTutorialManager.AddMessage("MiniGame1", "Чтобы пройти мини-игру, необходимо, используя МЫШЬ, повернуть отмычку в желаемое положение, затем нажать и удерживать кнопку D.");
         Debug.Log("Добавили текст к окну MiniGames");
-        universalTutorialManager.AddMessage("StartDialog", "Здесь вы можете выбиорать варианты диалога нажав на них ПКМ или нажав на клавиатура 1, 2, 3, 4 ");
+        universalTutorialManager.AddMessage("StartDialog", "Здесь вы можете выбирать варианты диалога нажав на них ПКМ или нажав на клавиатуре 1, 2, 3, 4 ");
     }
 }
