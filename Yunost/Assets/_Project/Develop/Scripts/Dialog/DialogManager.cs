@@ -117,7 +117,7 @@ public class DialogManager : MonoBehaviour
         
 
         currentStory.BindExternalFunction("setDoneTask", () => {
-            ServiceLocator.Get<TaskObserver>().SetDoneFirstTask();
+            ServiceLocator.Get<TaskObserver>().SetDoneNextFirstTaskSubTask();
         });
         
         ContinueStory();
