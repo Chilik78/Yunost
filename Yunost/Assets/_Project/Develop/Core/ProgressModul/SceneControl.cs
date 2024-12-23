@@ -1,11 +1,27 @@
-﻿using UnityEngine.SceneManagement;
+﻿using System;
+using System.Collections;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+
 
 namespace ProgressModul
 {
+    public enum Scenes
+    {
+        Menu,
+        CampStation,
+        MainCamp
+    }
+
     public class SceneControl
     {
         private string _initSceneName;
         private int _initSceneIndex;
+        public delegate void ProgressLoadingHandler(float progress);
+        public delegate void LoadingHandler();
+        public event ProgressLoadingHandler ProgressLoading;
+        public event LoadingHandler StartLoading;
+        public event LoadingHandler StoptLoading;
 
         public SceneControl(string initSceneName)
         {
@@ -43,6 +59,21 @@ namespace ProgressModul
             SceneManager.LoadScene(index - 1);
         }
 
+        public AsyncOperation GoToSceneAsync(int index)
+        {
+            return SceneManager.LoadSceneAsync(index);
+        }
+
+        public AsyncOperation GoToSceneAsync(string name)
+        {
+            return SceneManager.LoadSceneAsync(name);
+        }
+
+        public AsyncOperation GoToSceneAsync(Scenes scene)
+        {
+            return SceneManager.LoadSceneAsync((int)scene);
+        }
+
         public void GoToScene(int index)
         {
             SceneManager.LoadScene(index);
@@ -53,14 +84,61 @@ namespace ProgressModul
             SceneManager.LoadScene(name);
         }
 
-        public void UnloadScene(int index)
+        public void GoToScene(Scenes scene)
         {
-            SceneManager.UnloadSceneAsync(index);
+            SceneManager.LoadScene((int)scene);
         }
 
-        public void UnloadScene(string name)
+        public AsyncOperation UnloadSceneAsync(int index)
         {
-            SceneManager.UnloadSceneAsync(name);
+            return SceneManager.UnloadSceneAsync(index);
+        }
+
+        public AsyncOperation UnloadSceneAsync(string name)
+        {
+            return SceneManager.UnloadSceneAsync(name);
+        }
+
+        private IEnumerator _loadNewSceneAsync(AsyncOperation loadSceneOp)
+        {
+            if (StartLoading != null)
+                StartLoading();
+
+            loadSceneOp.allowSceneActivation = false;
+            while (!loadSceneOp.isDone)
+            {
+                if (ProgressLoading != null)
+                    ProgressLoading(loadSceneOp.progress / 0.9f);
+
+                if (loadSceneOp.progress >= 0.9f)
+                {
+                    break;
+                }
+                yield return null;
+            }
+            yield return new WaitForSeconds(5);
+            loadSceneOp.allowSceneActivation = true;
+            
+            if (StoptLoading != null)
+                StoptLoading();
+        }
+
+        public IEnumerator LoadNewSceneAsync(int index)
+        {
+            var loadSceneOp = GoToSceneAsync(index);
+            return _loadNewSceneAsync(loadSceneOp);
+        }
+
+        public IEnumerator LoadNewSceneAsync(string name)
+        {
+            var loadSceneOp = GoToSceneAsync(name);
+            return _loadNewSceneAsync(loadSceneOp);
+        }
+
+        public IEnumerator LoadNewSceneAsync(Scenes scene)
+        {
+            var loadSceneOp = GoToSceneAsync(scene);
+            return _loadNewSceneAsync(loadSceneOp);
         }
     }
 }
