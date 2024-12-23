@@ -116,7 +116,6 @@ namespace ProgressModul
                 }
                 yield return null;
             }
-            yield return new WaitForSeconds(5);
             loadSceneOp.allowSceneActivation = true;
             
             if (StoptLoading != null)

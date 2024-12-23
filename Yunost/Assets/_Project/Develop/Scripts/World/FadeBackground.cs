@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
@@ -19,10 +20,22 @@ public class FadeBackground : MonoBehaviour
     {
         while (_color.a < 1f)
         {
+            Debug.Log("StartFading");
             _color.a += _fadeSpeed * Time.deltaTime;
             _background.color = _color;
             yield return null;
         }
+    }
+
+    public IEnumerator ReverseFading(Action onEnd)
+    {
+        while (_color.a > 0f)
+        {
+            _color.a -= _fadeSpeed * Time.deltaTime;
+            _background.color = _color;
+            yield return null;
+        }
+        onEnd.Invoke();
     }
 
     public void ClearFading()
