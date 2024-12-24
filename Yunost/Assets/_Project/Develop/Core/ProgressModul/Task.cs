@@ -111,13 +111,14 @@ namespace ProgressModul
             return SetDoneSubTask(GetFirstInProgressSubTask);
         }
 
-        public void SetDoneSubTaskById(string id)
+        public bool SetDoneSubTaskById(string id)
         {
             SubTask task = _inProgressSubTasks.Where(t => t.Id == id).First();
             if (task != null)
             {
-                SetDoneSubTask(task);
+                return SetDoneSubTask(task);
             }
+            return false;
         }
 
         public SubTask GetLastDoneSubTask

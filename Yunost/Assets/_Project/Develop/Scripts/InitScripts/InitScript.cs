@@ -16,7 +16,12 @@ public class InitScript : MonoBehaviour
 
         TaskObserver taskObserver = new(initTasksJson.text);
         ServiceLocator.Register(taskObserver);
-
         DontDestroyOnLoad(GameObject.Find("GameSystems"));
+    }
+
+    private void OnDestroy()
+    {
+        foreach(var player in GameObject.FindGameObjectsWithTag("Player"))
+            Destroy(player);
     }
 }

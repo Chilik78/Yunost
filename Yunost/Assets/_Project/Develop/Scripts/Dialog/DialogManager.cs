@@ -24,7 +24,7 @@ public class DialogManager : MonoBehaviour
 
     //[SerializeField] private ScrollRect scrollRect;
 
-
+    private CraftingManager craftManager;
 
     private TextMeshProUGUI[] choicesText;
 
@@ -71,7 +71,6 @@ public class DialogManager : MonoBehaviour
             choice.GetComponent<Button>().onClick.AddListener(() => ContinueStory());
         }
 
-
         // Игрок вне диалога
         dialogIsPlaying = false;
 
@@ -102,6 +101,8 @@ public class DialogManager : MonoBehaviour
             ContinueStory();
         }
 
+        
+
         if (currentStory.currentChoices.Count > 0)
         {
             if (Input.GetKeyDown(KeyCode.Alpha1) && currentStory.currentChoices.Count > 0)
@@ -121,6 +122,7 @@ public class DialogManager : MonoBehaviour
                 MakeChoice(3); 
             }
         }
+        
 
     }
 
@@ -135,16 +137,39 @@ public class DialogManager : MonoBehaviour
         dialogVariables.StartListening(currentStory);
 
         
+        // Старт Мини игры   
         currentStory.BindExternalFunction("startMiniGame", () => {
             MiniGameContext testContext = new MiniGameContext(TypesMiniGames.BreakingLock, 0f, 5);
             GameObject.Find("GameSystems").GetComponent<MiniGamesManager>().RunMiniGame(testContext);
         });
-        
 
-        currentStory.BindExternalFunction("setDoneTask", () => {
-            ServiceLocator.Get<TaskObserver>().SetDoneNextFirstTaskSubTask();
+        // Проверка на наличие предмета в инвентаре
+        currentStory.BindExternalFunction("itemInInventory", (string item) =>{
+            craftManager = FindAnyObjectByType<CraftingManager>();
+            bool inInventory = craftManager.IsExistInInventory(item);
+            return inInventory;
         });
-        
+
+        // Смена выполнение задания
+        currentStory.BindExternalFunction("setDoneTask", (string taskId) => {
+            ServiceLocator.Get<TaskObserver>().SetDoneTaskById(taskId);
+        });
+
+        // Смена выполнение подзадания
+        currentStory.BindExternalFunction("setDoneSubTask", (string taskId, string subTaskId) => {
+            ServiceLocator.Get<TaskObserver>().SetDoneSubTaskByIds(taskId, subTaskId);
+        });
+
+        // Уменьшение здоровья
+        currentStory.BindExternalFunction("hitHealth", (int value) => {
+            ServiceLocator.Get<PlayerStats>().hitHealth(value);
+        });
+
+        // Смена сцены
+        currentStory.BindExternalFunction("changeScene", (string sceneName) => {
+            StartCoroutine(ServiceLocator.Get<SceneControl>().LoadNewSceneAsync(sceneName));
+        });
+
         ContinueStory();
     }
 
@@ -179,7 +204,7 @@ public class DialogManager : MonoBehaviour
         else
         {
             SystemManager.GetInstance().UnfreezePlayer();
-            SystemManager.GetInstance().MiniGamesManager.MiniGameEnd += (MiniGameResultInfo info) => ServiceLocator.Get<SceneControl>().GoToScene(2);
+            //SystemManager.GetInstance().MiniGamesManager.MiniGameEnd += (MiniGameResultInfo info) => ServiceLocator.Get<SceneControl>().GoToScene(2);
             // Закрытие диалогового окна
             StartCoroutine(ExitDialogMode());
         }

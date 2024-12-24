@@ -30,33 +30,39 @@ public class SystemManager : MonoBehaviour
 
     public void UnfreezePlayer()
     {
+        if (_player == null) return;
         _player.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
         _player.GetComponent<Movement>().SetFreezed(false);
     }
 
     public void FreezePlayer()
     {
+        if (_player == null) return;
         _player.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
         _player.GetComponent<Movement>().SetFreezed(true);
     }
 
     public void DisableCanvases()
     {
+        if (_canvases == null) return;
         _canvases.SetActive(false);
     }
 
     public void EnableCanvases()
     {
+        if (_canvases == null) return;
         _canvases.SetActive(true);
     }
 
     public void DisableMainCamera()
     {
+        if (_mainCamera == null) return;
         _mainCamera.SetActive(false);
     }
 
     public void EnableMainCamera()
     {
+        if (_mainCamera == null) return;
         _mainCamera.SetActive(true);
     }
 

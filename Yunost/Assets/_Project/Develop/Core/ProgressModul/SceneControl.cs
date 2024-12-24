@@ -10,7 +10,8 @@ namespace ProgressModul
     {
         Menu,
         CampStation,
-        MainCamp
+        MainCamp,
+        MyHome,
     }
 
     public class SceneControl

@@ -112,6 +112,22 @@ namespace ProgressModul
             }
         }
 
+        public void SetDoneSubTaskByIds(string taskId, string subTaskId)
+        {
+            Task task = _inProgressTasks.Where(t => t.Id == taskId).First();
+            if(task == null) return;
+
+            bool isAllDone = task.SetDoneSubTaskById(subTaskId);
+            if (isAllDone)
+            {
+                SetDoneTask(task);
+            }
+            else
+            {
+                if (HaveNewSubTask != null) HaveNewSubTask(task);
+            }
+        }
+
         public Task GetLastDoneTask
         {
             get => _doneTasks.Last();

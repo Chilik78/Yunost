@@ -6,32 +6,60 @@
             "subTasks": [
                 {
                     "id": "1",
-                    "description": "Поинтересоваться у Макара о дальнейших действиях",
+                    "description": "Поговорить с Макаром",
                     "isDone": false
                 },
                 {
                     "id": "2",
-                    "description": "Найти Дом и поговорить с Олегом",
+                    "description": "Взять Чемодан и вернуться к Макару",
                     "isDone": false
-                }     
+                },
+                {
+                    "id": "3",
+                    "description": "Найти Олега у Домиков",
+                    "isDone": false
+                } 
             ],
             "isDone": false
 
         },
         {
             "id": "2",
-            "name": "Долгая дорога 2",
+            "name": "Помощь другу",
             "subTasks": [
                 {
                     "id": "1",
-                    "description": "Поинтересоваться у Макара о дальнейших действиях",
+                    "description": "Поговорить с Олегом",
                     "isDone": false
                 },
                 {
                     "id": "2",
-                    "description": "Найти Дом и поговорить с Олегом",
+                    "description": "Найти Инструменты ИЛИ взломать Дверь",
                     "isDone": false
-                }     
+                }    
+            ],
+            "isDone": false
+
+        },
+        {
+            "id": "3",
+            "name": "Дом, милый дом",
+            "subTasks": [
+                {
+                    "id": "1",
+                    "description": "Поговорить с Директором рядом с Администрацией",
+                    "isDone": false
+                },
+                {
+                    "id": "2",
+                    "description": "Найти Ключ и открыть Дверь в Дом",
+                    "isDone": false
+                },
+                {
+                    "id": "3",
+                    "description": "Зайти в Дом",
+                    "isDone": false
+                }       
             ],
             "isDone": false
 

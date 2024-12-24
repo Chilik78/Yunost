@@ -28,29 +28,29 @@ namespace CameraModule
         void Update()
         {
             FollowPlayer();
-            ShowPlayerBehindObj();
+            //ShowPlayerBehindObj();
             Zoom();
         }
 
         private void OnTriggerEnter(Collider collider)
         {
-            ShowPlayerBehindObj(collider);
+            //ShowPlayerBehindObj(collider);
         }
 
         private void OnTriggerStay(Collider collider)
         {
-            ShowPlayerBehindObj(collider);
+            //ShowPlayerBehindObj(collider);
         }
 
         private void OnTriggerExit(Collider collider)
         {
-            ShowObjects();
+            //ShowObjects();
         }
 
         private void FollowPlayer()
         {
             Vector3 targetCoord = new Vector3(_player.transform.position.x - offset, transform.position.y, _player.transform.position.z - offset);
-            transform.position = Vector3.SmoothDamp(transform.position, targetCoord, ref _vel, smoothTime); // Ïëàâíî ïåðåìåùàåò êàìåðó â òî÷êó êîîðäèíàòó ïåðñîíàæà 
+            transform.position = Vector3.SmoothDamp(transform.position, targetCoord, ref _vel, smoothTime); // Плавно перемещает камеру в точку координату персонажа  
         }
 
         private void ShowPlayerBehindObj()
@@ -99,7 +99,7 @@ namespace CameraModule
                 }
                 catch
                 {
-                    Debug.LogWarning($"Íå óäàëîñü ñäåëàòü ïðîçðà÷íûì {gameObject.name}");
+                    Debug.LogWarning($"Не удалось сделать прозрачным {gameObject.name}");
                 }
             }
 
