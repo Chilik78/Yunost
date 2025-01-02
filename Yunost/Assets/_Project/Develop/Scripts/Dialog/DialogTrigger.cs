@@ -1,3 +1,4 @@
+using System.IO;
 using UnityEngine;
 
 public class DialogTrigger : MonoBehaviour
@@ -8,12 +9,20 @@ public class DialogTrigger : MonoBehaviour
 
     private GameObject _visualCue;
 
+    private UniversalTutorialManager universalTutorialManager;
+
     // Ink JSON файл с диалогами данного NPC
     [Header("Ink JSON")]
-    [SerializeField] private TextAsset inkJSON;
+    [SerializeField] private string jsonPath;
 
     // Игрок в области NPC
     private bool playerInRange;
+
+
+    private void Start()
+    {
+        universalTutorialManager = FindObjectOfType<UniversalTutorialManager>();
+    }
 
     private void Awake()
     {
@@ -30,8 +39,15 @@ public class DialogTrigger : MonoBehaviour
             _visualCue.SetActive(true);
             if (Input.GetKeyDown(KeyCode.E))
             {
-                DialogManager.GetInstance().EnterDialogMode(inkJSON);
+                string json = "";
+                using (StreamReader sr = new StreamReader(Application.streamingAssetsPath + "/" + "InkJSON/" + jsonPath + ".json"))
+                {
+                    json = sr.ReadToEnd();
+                }
+                DialogManager.GetInstance().EnterDialogMode(json);
                 SystemManager.GetInstance().FreezePlayer();
+                universalTutorialManager.TriggerTutorial("StartDialog");
+
             }
         }
         else

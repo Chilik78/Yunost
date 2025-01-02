@@ -18,6 +18,8 @@ public class InventoryManager : MonoBehaviour
     private PickupItem nearbyItem;
     private bool isPaused = false;
 
+    private UniversalTutorialManager universalTutorialManager;
+
     void Start()
     {
         if (inventoryUI == null || inventoryButton == null || itemParent == null || slotPrefab == null)
@@ -29,7 +31,8 @@ public class InventoryManager : MonoBehaviour
         inventoryUI.SetActive(false);
         craftingZoneUI.SetActive(false);
         inventoryButton.onClick.AddListener(ToggleInventory);
-       
+
+        universalTutorialManager = FindObjectOfType<UniversalTutorialManager>();
     }
 
 
@@ -74,6 +77,8 @@ public class InventoryManager : MonoBehaviour
             Pause();
             for (int i = 0; i < HUDButtons.Count; i++) HUDButtons[i].SetActive(false);
         }
+
+        universalTutorialManager.TriggerTutorial("Inventory"); //Триггер на появление окна туториала
     }
 
     public void Resume()

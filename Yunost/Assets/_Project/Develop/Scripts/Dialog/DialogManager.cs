@@ -22,7 +22,10 @@ public class DialogManager : MonoBehaviour
     // Кнопки выбора варинтов действия/ответа
     [SerializeField] private GameObject[] choices;
 
-    
+    //[SerializeField] private ScrollRect scrollRect;
+
+
+
     private TextMeshProUGUI[] choicesText;
 
     private static DialogManager instance;
@@ -41,9 +44,11 @@ public class DialogManager : MonoBehaviour
         {
             Debug.LogWarning("На сцене больше одного диалога");
         }
+
         instance = this;
+
         // Инициализация Ink переменных
-        using (StreamReader sr = new StreamReader(Directory.GetCurrentDirectory() + "/" + "Assets/_Project/Resources/InkJSON/globals.ink"))
+        using (StreamReader sr = new StreamReader(Application.streamingAssetsPath + "/" + "InkJSON/globals.ink"))
         {
             globalsInkFile = sr.ReadToEnd();
         }
@@ -65,6 +70,7 @@ public class DialogManager : MonoBehaviour
         {
             choice.GetComponent<Button>().onClick.AddListener(() => ContinueStory());
         }
+
 
         // Игрок вне диалога
         dialogIsPlaying = false;
@@ -89,18 +95,39 @@ public class DialogManager : MonoBehaviour
             return;
         }
 
+
         // Если отсутствуют варианты выбора -> продолжать историю
         if (currentStory.currentChoices.Count == 0)
         {
             ContinueStory();
         }
 
+        if (currentStory.currentChoices.Count > 0)
+        {
+            if (Input.GetKeyDown(KeyCode.Alpha1) && currentStory.currentChoices.Count > 0)
+            {
+                MakeChoice(0); 
+            }
+            else if (Input.GetKeyDown(KeyCode.Alpha2) && currentStory.currentChoices.Count > 1)
+            {
+                MakeChoice(1); 
+            }
+            else if (Input.GetKeyDown(KeyCode.Alpha3) && currentStory.currentChoices.Count > 2)
+            {
+                MakeChoice(2); 
+            }
+            else if (Input.GetKeyDown(KeyCode.Alpha4) && currentStory.currentChoices.Count > 3)
+            {
+                MakeChoice(3); 
+            }
+        }
+
     }
 
     // Открытие диалогового окна
-    public void EnterDialogMode(TextAsset inkJSON)
+    public void EnterDialogMode(string json)
     {
-        currentStory = new Story(inkJSON.text);
+        currentStory = new Story(json);
         dialogIsPlaying = true;
         dialoguePanel.SetActive(true);
 
@@ -142,6 +169,10 @@ public class DialogManager : MonoBehaviour
             // Обновление истории диалога
             dialogueText.text += "\n" + currentStory.Continue();
 
+            // Прокрутка ScrollView вниз
+            //Canvas.ForceUpdateCanvases(); // Обновляем макет
+            //scrollRect.verticalNormalizedPosition = 0f;
+
             // Включение кнопок выбора и получения вариантов выбора
             DisplayChoices();
         }
@@ -172,7 +203,7 @@ public class DialogManager : MonoBehaviour
         foreach(Choice choice in currentChoices)
         {
             choices[index].gameObject.SetActive(true);
-            choicesText[index].text = choice.text;
+            choicesText[index].text = $"{index + 1}. {choice.text}"; // choice.text
             index++;
         }
 

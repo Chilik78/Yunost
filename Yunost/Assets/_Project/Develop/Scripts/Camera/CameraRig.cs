@@ -1,4 +1,4 @@
-using UnityEngine;
+п»їusing UnityEngine;
 using System.Collections.Generic;
 
 namespace CameraModule
@@ -22,7 +22,7 @@ namespace CameraModule
         {
             _camera = Camera.main;
             _player = GameObject.FindWithTag("Player");
-            _hiddenGameObjects = new Dictionary<GameObject, Color>();   
+            _hiddenGameObjects = new Dictionary<GameObject, Color>();
         }
 
         void Update()
@@ -50,7 +50,7 @@ namespace CameraModule
         private void FollowPlayer()
         {
             Vector3 targetCoord = new Vector3(_player.transform.position.x - offset, transform.position.y, _player.transform.position.z - offset);
-            transform.position = Vector3.SmoothDamp(transform.position, targetCoord, ref _vel, smoothTime); // Плавно перемещает камеру в точку координату персонажа 
+            transform.position = Vector3.SmoothDamp(transform.position, targetCoord, ref _vel, smoothTime); // ГЏГ«Г ГўГ­Г® ГЇГҐГ°ГҐГ¬ГҐГ№Г ГҐГІ ГЄГ Г¬ГҐГ°Гі Гў ГІГ®Г·ГЄГі ГЄГ®Г®Г°Г¤ГЁГ­Г ГІГі ГЇГҐГ°Г±Г®Г­Г Г¦Г  
         }
 
         private void ShowPlayerBehindObj()
@@ -66,7 +66,7 @@ namespace CameraModule
             {
                 ShowPlayerBehindObj(hitGameObj.GetComponent<Collider>());
             }
-            else if(_hiddenGameObjects.Count != 0)
+            else if (_hiddenGameObjects.Count != 0)
             {
                 ShowObjects();
             }
@@ -84,7 +84,7 @@ namespace CameraModule
             {
                 SwitchToOpaque(hiddenGameObject.Key, hiddenGameObject.Value);
             }
-            _hiddenGameObjects.Clear(); 
+            _hiddenGameObjects.Clear();
         }
 
         void SwitchToTransparent(GameObject gameObject)
@@ -99,10 +99,10 @@ namespace CameraModule
                 }
                 catch
                 {
-                    Debug.LogWarning($"Не удалось сделать прозрачным {gameObject.name}");
+                    Debug.LogWarning($"ГЌГҐ ГіГ¤Г Г«Г®Г±Гј Г±Г¤ГҐГ«Г ГІГј ГЇГ°Г®Г§Г°Г Г·Г­Г»Г¬ {gameObject.name}");
                 }
             }
-            
+
         }
 
         void SwitchToOpaque(GameObject gameObject, Color oldColor)
@@ -126,4 +126,3 @@ namespace CameraModule
         }
     }
 }
-
