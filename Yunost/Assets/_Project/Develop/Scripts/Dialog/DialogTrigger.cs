@@ -60,7 +60,7 @@ public class DialogTrigger : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         var npcTransform = this.GetComponentInParent<Transform>();
-        var newPos = new Vector3(npcTransform.position.x, npcTransform.position.y + 2f, npcTransform.position.z);
+        var newPos = new Vector3(npcTransform.position.x, npcTransform.position.y, npcTransform.position.z);
         _visualCue.transform.position = newPos;
 
         if (other.gameObject.tag == "Player")

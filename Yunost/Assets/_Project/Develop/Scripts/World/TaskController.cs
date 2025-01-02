@@ -13,11 +13,13 @@ public class TaskController : MonoBehaviour
 
     void Start()
     {
+        Debug.Log("INProgress");
         var taskObserver = ServiceLocator.Get<TaskObserver>();
         Task currentTask = taskObserver.GetFirstInProgressTask;
         UpdateTask(currentTask);
 
         taskObserver.HaveNewTask += UpdateTask;
+        taskObserver.HaveNewSubTask += UpdateDescription;
     }
 
     private void UpdateTask(Task task)
@@ -29,6 +31,18 @@ public class TaskController : MonoBehaviour
         Debug.Log(task.Name);
         
         _taskNameField.text = task.Name;
-        _taskDescriptionField.text = task.Description;
+        _taskDescriptionField.text = task.Description;//task.Description;
+    }
+
+    private void UpdateDescription(Task task)
+    {
+        if (task == null)
+        {
+            Debug.LogWarning("Задания в прогрессе исчерпаны");
+            return;
+        }
+        Debug.Log(task.Name);
+
+        _taskDescriptionField.text = task.Description;//task.Description;
     }
 }

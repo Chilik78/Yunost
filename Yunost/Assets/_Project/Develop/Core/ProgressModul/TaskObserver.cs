@@ -2,6 +2,7 @@
 using Global;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 
 namespace ProgressModul
 {
@@ -12,11 +13,11 @@ namespace ProgressModul
         public delegate void TaskHandler(Task task);
         public event TaskHandler HaveDoneTask;
         public event TaskHandler HaveNewTask;
+        public event TaskHandler HaveNewSubTask;
 
         static public List<Task> ParseJsonWithTasks(string json)
         {
             TaskModel[] taskModels = JsonHelper.FromJson<TaskModel>(json);
-
             List<Task> tasks = new();
             foreach (var model in taskModels)
             {
@@ -62,6 +63,25 @@ namespace ProgressModul
             get => _doneTasks;
         }
 
+        public void SetDoneNextFirstTaskSubTask(Task task)
+        {
+            bool isAllDone = task.SetDoneFirstSubTask();
+
+            if (isAllDone)
+            {
+                SetDoneTask(task);
+            }
+            else
+            {
+                if (HaveNewSubTask != null) HaveNewSubTask(task);
+            }
+        }
+
+        public void SetDoneNextFirstTaskSubTask()
+        {
+            Task task = GetFirstInProgressTask;
+            SetDoneNextFirstTaskSubTask(task);
+        }
         public void SetDoneTask(Task task)
         {
             if (task == null) return;
@@ -89,6 +109,22 @@ namespace ProgressModul
             if(task != null)
             {
                 SetDoneTask(task);
+            }
+        }
+
+        public void SetDoneSubTaskByIds(string taskId, string subTaskId)
+        {
+            Task task = _inProgressTasks.Where(t => t.Id == taskId).First();
+            if(task == null) return;
+
+            bool isAllDone = task.SetDoneSubTaskById(subTaskId);
+            if (isAllDone)
+            {
+                SetDoneTask(task);
+            }
+            else
+            {
+                if (HaveNewSubTask != null) HaveNewSubTask(task);
             }
         }
 

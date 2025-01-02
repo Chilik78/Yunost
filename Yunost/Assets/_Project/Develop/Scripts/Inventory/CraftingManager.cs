@@ -31,6 +31,12 @@ public class CraftingManager : MonoBehaviour
         Debug.Log("Оюъект существует? - " + exist);
     }
 
+    private void Update()
+    {
+        bool exist = IsExistInInventory("tool");
+        Debug.Log("Оюъект существует? - " + exist);
+    }
+
     public void AddItemToCraftSlot(Transform slot, Item item)
     {
         if (item != null) //&& slot.childCount == 0
@@ -131,28 +137,20 @@ public class CraftingManager : MonoBehaviour
 
     public bool IsExistInInventory(string objectName)
     {
-        Transform child = inventorySlotParent.Find("SlotPrefab(Clone)");
-        if (child != null)
+        Debug.Log("Зашёл искать");
+        Transform child = inventoryManager.itemParent;
+        if (child == null) return false;
+        TMP_Text[] textComponents = child.GetComponentsInChildren<TMP_Text>();
+        if (textComponents == null) return false;
+
+        foreach (TMP_Text textComponent in textComponents)
         {
-            //Debug.Log("SlotPrefab(Clone) существует");
-            TMP_Text textComponent = child.GetComponentInChildren<TMP_Text>();
-            if (textComponent != null)
-            {
-                string textValue = textComponent.text; // Получаем значение текста
-                //Debug.Log("Текст: " + textValue);
-                if (textValue == objectName)
-                {
-                    return true;
-                }
-                else return false;
-            }
-            else return false;
+            Debug.Log(textComponent.text);
+            string textValue = textComponent.text;
+            if (textValue == objectName) return true;
         }
-        else
-        {
-            return false;
-        }
-        
+        return false;
     }
+    
 
 }

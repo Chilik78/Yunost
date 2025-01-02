@@ -3,28 +3,66 @@
         {
             "id": "1",
             "name": "Долгая дорога",
-            "description": "Поинтересоваться у Макара о дальнейших действиях",
+            "subTasks": [
+                {
+                    "id": "1",
+                    "description": "Поговорить с Макаром",
+                    "isDone": false
+                },
+                {
+                    "id": "2",
+                    "description": "Взять Чемодан и вернуться к Макару",
+                    "isDone": false
+                },
+                {
+                    "id": "3",
+                    "description": "Найти Олега у Домиков",
+                    "isDone": false
+                } 
+            ],
             "isDone": false
+
         },
         {
             "id": "2",
-            "name": "Долгая дорога",
-            "description": "Найти Дом и поговорить с Олегом",
+            "name": "Помощь другу",
+            "subTasks": [
+                {
+                    "id": "1",
+                    "description": "Поговорить с Олегом",
+                    "isDone": false
+                },
+                {
+                    "id": "2",
+                    "description": "Найти Инструменты ИЛИ взломать Дверь",
+                    "isDone": false
+                }    
+            ],
             "isDone": false
+
         },
         {
             "id": "3",
-            "name": "Сложности с дверью",
-            "description": "Найти способ попасть в Дом",
+            "name": "Дом, милый дом",
+            "subTasks": [
+                {
+                    "id": "1",
+                    "description": "Поговорить с Директором рядом с Администрацией",
+                    "isDone": false
+                },
+                {
+                    "id": "2",
+                    "description": "Найти Ключ и открыть Дверь в Дом",
+                    "isDone": false
+                },
+                {
+                    "id": "3",
+                    "description": "Зайти в Дом",
+                    "isDone": false
+                }       
+            ],
             "isDone": false
-        },
-        {
-            "id": "4",
-            "name": "Долгожданный отдых",
-            "description": "Зайти в Дом и лечь на Кровать",
-            "isDone": false
-        }
 
-        
+        }
     ]
 }

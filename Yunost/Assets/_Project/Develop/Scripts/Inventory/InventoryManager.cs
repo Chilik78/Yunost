@@ -22,6 +22,15 @@ public class InventoryManager : MonoBehaviour
 
     void Start()
     {
+        inventoryUI = GameObject.Find("InventoryPanel");
+        craftingZoneUI = GameObject.Find("CraftPanel");
+        var inventoryButtonObject = GameObject.Find("InventoryButton");
+        HUDButtons[0] = inventoryButtonObject;
+        HUDButtons[1] = GameObject.Find("DiaryButton");
+        inventoryButton = inventoryButtonObject.GetComponent<Button>();
+        itemParent = GameObject.Find("SlotParent").transform;
+        slotPrefab = Resources.Load<GameObject>("SlotPrefab");
+
         if (inventoryUI == null || inventoryButton == null || itemParent == null || slotPrefab == null)
         {
             Debug.LogError("Не все элементы UI настроены в инспекторе!");

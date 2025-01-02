@@ -37,7 +37,8 @@ public class PickupItem : MonoBehaviour
     {
         if (other.CompareTag("Player") )
         {
-            InventoryManager inventory = other.GetComponent<InventoryManager>();
+            //InventoryManager inventory = other.GetComponent<InventoryManager>();
+            InventoryManager inventory = GameObject.Find("GameSystems").GetComponent<InventoryManager>();
             if (inventory != null)
             {
                 inventory.ShowPickupUI(this);
@@ -50,8 +51,9 @@ public class PickupItem : MonoBehaviour
     {
         if (other.CompareTag("Player") )
         {
-            ;
-            InventoryManager inventory = other.GetComponent<InventoryManager>();
+
+            //InventoryManager inventory = other.GetComponent<InventoryManager>();
+            InventoryManager inventory = GameObject.Find("GameSystems").GetComponent<InventoryManager>();
             if (inventory != null)
             {
                 inventory.HidePickupUI();

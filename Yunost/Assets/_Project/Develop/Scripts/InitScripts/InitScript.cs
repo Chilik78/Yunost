@@ -1,11 +1,10 @@
 using UnityEngine;
 using ProgressModul;
 using Global;
-using System.Collections.Generic;
 
 public class InitScript : MonoBehaviour
 {
-    private Object _gameSystems;
+
     void Awake()
     {
         PlayerStats playerStats = new(50, 100);
@@ -17,11 +16,12 @@ public class InitScript : MonoBehaviour
 
         TaskObserver taskObserver = new(initTasksJson.text);
         ServiceLocator.Register(taskObserver);
+        DontDestroyOnLoad(GameObject.Find("GameSystems"));
     }
 
-    void OnDestroy()
+    private void OnDestroy()
     {
-        ServiceLocator.Unregister<PlayerStats>();
-        Destroy(_gameSystems);
+        foreach(var player in GameObject.FindGameObjectsWithTag("Player"))
+            Destroy(player);
     }
 }
