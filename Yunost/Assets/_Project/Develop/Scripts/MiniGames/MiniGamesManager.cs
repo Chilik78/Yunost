@@ -36,7 +36,7 @@ namespace MiniGames
 
         private void ChooseDifficultMiniGame(ref MiniGameContext context)
         {
-            context.ÑurrentDifficult = TypeDifficultMiniGames.Easy;
+            context.CurrentDifficult = TypeDifficultMiniGames.Easy;
         }
 
         private void ChooseMiniGame(MiniGameContext context)
