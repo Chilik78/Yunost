@@ -9,7 +9,7 @@ namespace MiniGames
 
         public TypesMiniGames TypeMiniGame { get => _typeMiniGame; set => _typeMiniGame = value; }
         public float MaxTimeInSeconds { get => _maxTimeInSeconds; set => _maxTimeInSeconds = value; }
-        public TypeDifficultMiniGames ÑurrentDifficult 
+        public TypeDifficultMiniGames CurrentDifficult 
         {
             get => this._ñurrentDifficult;
             set 

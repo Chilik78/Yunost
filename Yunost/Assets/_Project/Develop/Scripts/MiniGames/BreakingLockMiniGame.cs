@@ -26,7 +26,7 @@ namespace MiniGames
         public override void Init(MiniGameContext context)
         {
             _currentContext = context;
-            TypeDifficultMiniGames difficult = _currentContext.ÑurrentDifficult;
+            TypeDifficultMiniGames difficult = _currentContext.CurrentDifficult;
             _countPicks = context.getCountItems;
 
             ChooseLockRangeByDifficult(difficult);

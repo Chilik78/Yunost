@@ -11,8 +11,6 @@ namespace MiniGames
 
         public event MiniGameEndHandler MiniGameEnd;
 
-<<<<<<< HEAD
-=======
         private UniversalTutorialManager universalTutorialManager;
 
         private void Start()
@@ -20,7 +18,6 @@ namespace MiniGames
             universalTutorialManager = FindObjectOfType<UniversalTutorialManager>();
         }
 
->>>>>>> main
         private void Update()
         {
             if (_currGame != null)
@@ -29,15 +26,9 @@ namespace MiniGames
 
         public void RunMiniGame(MiniGameContext context)
         {
-<<<<<<< HEAD
-            //SystemManager.GetInstance().DisableSystemsToMiniGame();   
-
-            //_screen = Instantiate(GetScreen(context));
-=======
             SystemManager.GetInstance().DisableSystemsToMiniGame();   
 
             _screen = Instantiate(GetScreen(context));
->>>>>>> main
             ChooseDifficultMiniGame(ref(context));
             ChooseMiniGame(context);
             Run(context);
@@ -45,7 +36,7 @@ namespace MiniGames
 
         private void ChooseDifficultMiniGame(ref MiniGameContext context)
         {
-            context.ÑurrentDifficult = TypeDifficultMiniGames.Easy;
+            context.CurrentDifficult = TypeDifficultMiniGames.Easy;
         }
 
         private void ChooseMiniGame(MiniGameContext context)
@@ -84,12 +75,6 @@ namespace MiniGames
 
         private void Run(MiniGameContext context)
         {
-<<<<<<< HEAD
-            if (_currGame != null)
-            {
-                _currGame.Init(context);
-                _currGame.OnMiniGameEnd += OnMiniGameEnd;
-=======
             universalTutorialManager.TriggerTutorial("MiniGame1"); //Òðèããåð íà ïîÿâëåíèå îêíà òóòîðèàëà
             if (_currGame != null)
             {
@@ -97,18 +82,13 @@ namespace MiniGames
                 _currGame.Init(context);
                 _currGame.OnMiniGameEnd += OnMiniGameEnd;
                
->>>>>>> main
             }
         }
 
         private void OnMiniGameEnd(MiniGameResultInfo resultInfo)
         {
             _currGame.OnMiniGameEnd -= OnMiniGameEnd;
-<<<<<<< HEAD
-            //SystemManager.GetInstance().EnableSystemsToMiniGame();
-=======
             SystemManager.GetInstance().EnableSystemsToMiniGame();
->>>>>>> main
 
             MiniGameEnd?.Invoke(resultInfo);
 
