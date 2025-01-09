@@ -27,9 +27,13 @@ namespace CameraModule
 
         void Update()
         {
-            FollowPlayer();
             //ShowPlayerBehindObj();
             Zoom();
+        }
+
+        private void FixedUpdate()
+        {
+            FollowPlayer();
         }
 
         private void OnTriggerEnter(Collider collider)
