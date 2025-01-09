@@ -40,6 +40,7 @@ namespace ProgressModul
 
                 var saveFile = new SaveFile(serializedData);
                 var serializedSaveFile = JsonConvert.SerializeObject(saveFile);
+                Debug.Log(serializedSaveFile.ToString());
 
                 //todo: make async
                 File.WriteAllText(SaveFilePath, serializedSaveFile);

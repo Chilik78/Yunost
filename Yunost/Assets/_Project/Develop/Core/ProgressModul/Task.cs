@@ -1,7 +1,5 @@
 ﻿
 
-using Global;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -18,6 +16,10 @@ namespace ProgressModul
             _id = model.id;
             _isDone = model.isDone;
             _description = model.description;
+        }
+
+        public SubTaskModel GetModel {
+            get => new SubTaskModel(_id, _description, _isDone);
         }
 
         public void SetDone()
@@ -58,6 +60,12 @@ namespace ProgressModul
             _doneSubTasks = _subTasks.Where(m => m.isDone).ToList();
             _id = model.id;
             _isDone = model.isDone;
+        }
+
+        public TaskModel GetModel { get {
+                SubTaskModel[] subTaskModels = _subTasks.Select(s => s.GetModel).ToArray();
+                return new TaskModel(_id, _name, _isDone, subTaskModels);
+            }
         }
 
         public Task(string name, string id) {
@@ -123,7 +131,7 @@ namespace ProgressModul
 
         public SubTask GetLastDoneSubTask
         {
-            get => _doneSubTasks.Last();
+            get => _doneSubTasks.Last();    
         }
 
         public string Id
