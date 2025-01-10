@@ -101,9 +101,9 @@ public class DialogManager : MonoBehaviour
             ContinueStory();
         }
 
-        
 
-        if (currentStory.currentChoices.Count > 0)
+
+        if (!isTyping && currentStory.currentChoices.Count > 0)
         {
             if (Input.GetKeyDown(KeyCode.Alpha1) && currentStory.currentChoices.Count > 0)
             {
@@ -186,29 +186,122 @@ public class DialogManager : MonoBehaviour
         dialogueText.text = "";
     }
 
+    /*    private IEnumerator TypeText(string text)
+        {
+            //dialogueText.text = ""; 
+            foreach (char letter in text)
+            {
+                dialogueText.text += letter; 
+                yield return new WaitForSeconds(0.05f); // Задержка между буквами
+            }
+
+            //SetChoicesInteractable(true);
+        }*/
+
+
+
+
     // Продолжение истории
+    /*    private void ContinueStory()
+        {
+            if (currentStory.canContinue)
+            {
+                //SetChoicesInteractable(false);
+                // Обновление истории диалога
+                //dialogueText.text += "\n" + currentStory.Continue();
+
+                string nextLine =  currentStory.Continue();
+                StartCoroutine(TypeText(nextLine));
+
+
+
+
+                // Включение кнопок выбора и получения вариантов выбора
+                DisplayChoices();
+            }
+            else
+            {
+                SystemManager.GetInstance().UnfreezePlayer();
+                StartCoroutine(ExitDialogMode());
+            }
+        }*/
+
+    private void SetChoicesInteractable(bool interactable)
+    {
+        foreach (GameObject choice in choices)
+        {
+            choice.GetComponent<Button>().interactable = interactable;
+        }
+    }
+
+
+    //создаем очередь для диалогов
+    private Queue<string> dialogueQueue = new Queue<string>();
+    //создаем флаг для проверки вывода в данный момент
+    private bool isTyping = false;
+
     private void ContinueStory()
     {
         if (currentStory.canContinue)
         {
-            // Обновление истории диалога
-            dialogueText.text += "\n" + currentStory.Continue();
+            
+            string nextLine = currentStory.Continue();
 
-            // Прокрутка ScrollView вниз
-            //Canvas.ForceUpdateCanvases(); // Обновляем макет
-            //scrollRect.verticalNormalizedPosition = 0f;
+            
+            string[] lines = nextLine.Split('\n');
+            foreach (string line in lines)
+            {
+                Debug.Log($"Добавлено в очередь: {line}");
+                dialogueQueue.Enqueue(line.Trim()); 
+            }
 
-            // Включение кнопок выбора и получения вариантов выбора
+           
+            if (!isTyping && dialogueQueue.Count > 0)
+            {
+                StopAllCoroutines(); 
+                StartCoroutine(TypeText(dialogueQueue.Dequeue())); 
+            }
+
+
             DisplayChoices();
+
         }
         else
         {
             SystemManager.GetInstance().UnfreezePlayer();
-            //SystemManager.GetInstance().MiniGamesManager.MiniGameEnd += (MiniGameResultInfo info) => ServiceLocator.Get<SceneControl>().GoToScene(2);
-            // Закрытие диалогового окна
             StartCoroutine(ExitDialogMode());
         }
     }
+
+    
+
+    private IEnumerator TypeText(string newLine)
+    {
+        isTyping = true;
+        SetChoicesInteractable(false);
+
+        dialogueText.text += "\n"; 
+        int startLength = dialogueText.text.Length;
+
+        
+
+        foreach (char letter in newLine)
+        {
+            dialogueText.text += letter;
+            yield return new WaitForSeconds(0.05f); 
+        }
+
+        isTyping = false;
+        SetChoicesInteractable(true);
+
+        if (dialogueQueue.Count > 0)
+        {
+            yield return new WaitForSeconds(0.5f); 
+            StartCoroutine(TypeText(dialogueQueue.Dequeue()));
+        }
+
+    }
+
 
     // Включение кнопок выбора диалоговых вариантов
     private void DisplayChoices()
@@ -227,6 +320,7 @@ public class DialogManager : MonoBehaviour
         // Включение кнопок выбора на UI и изменение их текста
         foreach(Choice choice in currentChoices)
         {
+
             choices[index].gameObject.SetActive(true);
             choicesText[index].text = $"{index + 1}. {choice.text}"; // choice.text
             index++;
