@@ -11,7 +11,7 @@ namespace ProgressModul
         Menu,
         CampStation,
         MainCamp,
-        MyHome,
+        HubHome,
     }
 
     public class SceneControl

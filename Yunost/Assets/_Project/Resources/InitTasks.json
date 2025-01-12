@@ -1,21 +1,21 @@
 {
     "Items": [
         {
-            "id": "1",
+            "id": "long_road",
             "name": "Долгая дорога",
             "subTasks": [
                 {
-                    "id": "1",
+                    "id": "talk_makar",
                     "description": "Поговорить с Макаром",
                     "isDone": false
                 },
                 {
-                    "id": "2",
+                    "id": "take_case",
                     "description": "Взять Чемодан и вернуться к Макару",
                     "isDone": false
                 },
                 {
-                    "id": "3",
+                    "id": "search_oleg",
                     "description": "Найти Олега у Домиков",
                     "isDone": false
                 } 
@@ -24,16 +24,16 @@
 
         },
         {
-            "id": "2",
+            "id": "help_for_friend",
             "name": "Помощь другу",
             "subTasks": [
                 {
-                    "id": "1",
+                    "id": "help_for_friend_1",
                     "description": "Поговорить с Олегом",
                     "isDone": false
                 },
                 {
-                    "id": "2",
+                    "id": "help_for_friend_2",
                     "description": "Найти Инструменты ИЛИ взломать Дверь",
                     "isDone": false
                 }    
@@ -42,21 +42,21 @@
 
         },
         {
-            "id": "3",
+            "id": "sweet_home",
             "name": "Дом, милый дом",
             "subTasks": [
                 {
-                    "id": "1",
+                    "id": "sweet_home_1",
                     "description": "Поговорить с Директором рядом с Администрацией",
                     "isDone": false
                 },
                 {
-                    "id": "2",
+                    "id": "sweet_home_2",
                     "description": "Найти Ключ и открыть Дверь в Дом",
                     "isDone": false
                 },
                 {
-                    "id": "3",
+                    "id": "sweet_home_3",
                     "description": "Зайти в Дом",
                     "isDone": false
                 }       

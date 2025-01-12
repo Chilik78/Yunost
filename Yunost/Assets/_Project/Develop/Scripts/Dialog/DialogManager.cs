@@ -98,6 +98,7 @@ public class DialogManager : MonoBehaviour
         // Если отсутствуют варианты выбора -> продолжать историю
         if (currentStory.currentChoices.Count == 0)
         {
+            StartCoroutine(ServiceLocator.Get<SceneControl>().LoadNewSceneAsync(Scenes.HubHome));
             ContinueStory();
         }
 
