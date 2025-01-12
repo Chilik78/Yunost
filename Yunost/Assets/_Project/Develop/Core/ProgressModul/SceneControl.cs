@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -62,16 +61,19 @@ namespace ProgressModul
 
         public AsyncOperation GoToSceneAsync(int index)
         {
+            Debug.Log($"Переход на сцену: {index}");
             return SceneManager.LoadSceneAsync(index);
         }
 
         public AsyncOperation GoToSceneAsync(string name)
         {
+            Debug.Log($"Переход на сцену: {name}");
             return SceneManager.LoadSceneAsync(name);
         }
 
         public AsyncOperation GoToSceneAsync(Scenes scene)
         {
+            Debug.Log($"Переход на сцену: {scene}");
             return SceneManager.LoadSceneAsync((int)scene);
         }
 
@@ -102,25 +104,31 @@ namespace ProgressModul
 
         private IEnumerator _loadNewSceneAsync(AsyncOperation loadSceneOp)
         {
+            yield return null;
             if (StartLoading != null)
                 StartLoading();
 
             loadSceneOp.allowSceneActivation = false;
+            Debug.Log(loadSceneOp.isDone);
             while (!loadSceneOp.isDone)
             {
                 if (ProgressLoading != null)
                     ProgressLoading(loadSceneOp.progress / 0.9f);
-
+                Debug.Log(loadSceneOp.progress / 0.9f);
                 if (loadSceneOp.progress >= 0.9f)
                 {
+                    Debug.Log(loadSceneOp.progress / 0.9f);
+
+                    loadSceneOp.allowSceneActivation = true;
+
+                    if (StoptLoading != null)
+                        StoptLoading();
+
                     break;
                 }
+                Debug.Log(loadSceneOp.isDone);
                 yield return null;
             }
-            loadSceneOp.allowSceneActivation = true;
-            
-            if (StoptLoading != null)
-                StoptLoading();
         }
 
         public IEnumerator LoadNewSceneAsync(int index)
