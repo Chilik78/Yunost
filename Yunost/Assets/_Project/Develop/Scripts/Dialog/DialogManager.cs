@@ -89,6 +89,12 @@ public class DialogManager : MonoBehaviour
 
     private void Update()
     {
+
+        if (isTyping && Input.GetKeyDown(KeyCode.Backspace))
+        {
+            CompleteTypingCurrentLine();
+        }
+
         if (!dialogIsPlaying)
         {
             return;
@@ -107,22 +113,22 @@ public class DialogManager : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.Alpha1) && currentStory.currentChoices.Count > 0)
             {
-                MakeChoice(0); 
+                MakeChoice(0);
             }
             else if (Input.GetKeyDown(KeyCode.Alpha2) && currentStory.currentChoices.Count > 1)
             {
-                MakeChoice(1); 
+                MakeChoice(1);
             }
             else if (Input.GetKeyDown(KeyCode.Alpha3) && currentStory.currentChoices.Count > 2)
             {
-                MakeChoice(2); 
+                MakeChoice(2);
             }
             else if (Input.GetKeyDown(KeyCode.Alpha4) && currentStory.currentChoices.Count > 3)
             {
-                MakeChoice(3); 
+                MakeChoice(3);
             }
         }
-        
+
 
     }
 
@@ -136,7 +142,7 @@ public class DialogManager : MonoBehaviour
         // Начало прослушивания изменения Ink переменных
         dialogVariables.StartListening(currentStory);
 
-        
+
         // Старт Мини игры   
         currentStory.BindExternalFunction("startMiniGame", () => {
             MiniGameContext testContext = new MiniGameContext(TypesMiniGames.BreakingLock, 0f, 5);
@@ -144,9 +150,9 @@ public class DialogManager : MonoBehaviour
         });
 
         // Проверка на наличие предмета в инвентаре
-        currentStory.BindExternalFunction("itemInInventory", (string item) =>{
+        currentStory.BindExternalFunction("itemInInventory", (string item) => {
             craftManager = FindAnyObjectByType<CraftingManager>();
-            bool inInventory = craftManager.IsExistInInventory(item);
+            bool inInventory = ListOfItems.ItemExists(item);
             return inInventory;
         });
 
@@ -186,46 +192,6 @@ public class DialogManager : MonoBehaviour
         dialogueText.text = "";
     }
 
-    /*    private IEnumerator TypeText(string text)
-        {
-            //dialogueText.text = ""; 
-            foreach (char letter in text)
-            {
-                dialogueText.text += letter; 
-                yield return new WaitForSeconds(0.05f); // Задержка между буквами
-            }
-
-            //SetChoicesInteractable(true);
-        }*/
-
-
-
-
-    // Продолжение истории
-    /*    private void ContinueStory()
-        {
-            if (currentStory.canContinue)
-            {
-                //SetChoicesInteractable(false);
-                // Обновление истории диалога
-                //dialogueText.text += "\n" + currentStory.Continue();
-
-                string nextLine =  currentStory.Continue();
-                StartCoroutine(TypeText(nextLine));
-
-
-
-
-                // Включение кнопок выбора и получения вариантов выбора
-                DisplayChoices();
-            }
-            else
-            {
-                SystemManager.GetInstance().UnfreezePlayer();
-                StartCoroutine(ExitDialogMode());
-            }
-        }*/
-
     private void SetChoicesInteractable(bool interactable)
     {
         foreach (GameObject choice in choices)
@@ -244,22 +210,25 @@ public class DialogManager : MonoBehaviour
     {
         if (currentStory.canContinue)
         {
-            
+
             string nextLine = currentStory.Continue();
 
-            
+
             string[] lines = nextLine.Split('\n');
+
             foreach (string line in lines)
             {
-                Debug.Log($"Добавлено в очередь: {line}");
-                dialogueQueue.Enqueue(line.Trim()); 
+                //Debug.Log($"Добавлено в очередь: {line}");
+                dialogueQueue.Enqueue(line.Trim());
+
             }
 
-           
+
+
             if (!isTyping && dialogueQueue.Count > 0)
             {
-                StopAllCoroutines(); 
-                StartCoroutine(TypeText(dialogueQueue.Dequeue())); 
+                StopAllCoroutines();
+                StartCoroutine(TypeText(dialogueQueue.Dequeue()));
             }
 
 
@@ -273,35 +242,77 @@ public class DialogManager : MonoBehaviour
         }
     }
 
-    
+
 
     private IEnumerator TypeText(string newLine)
     {
         isTyping = true;
         SetChoicesInteractable(false);
 
-        dialogueText.text += "\n"; 
-        int startLength = dialogueText.text.Length;
-
-        
+        dialogueText.text += "\n";
 
         foreach (char letter in newLine)
         {
             dialogueText.text += letter;
-            yield return new WaitForSeconds(0.05f); 
+
+
+            if (Input.GetKeyDown(KeyCode.Backspace))
+            {
+                dialogueText.text += newLine.Substring(dialogueText.text.Length - dialogueText.text.LastIndexOf('\n') - 1);
+                //Debug.Log("Строчка под скип в TypeText" + newLine.Substring(dialogueText.text.Length - dialogueText.text.LastIndexOf('\n') - 1));
+                break;
+            }
+
+            yield return new WaitForSeconds(0.05f);
         }
 
         isTyping = false;
         SetChoicesInteractable(true);
 
+
         if (dialogueQueue.Count > 0)
         {
-            yield return new WaitForSeconds(0.5f); 
+            yield return new WaitForSeconds(0.1f);
             StartCoroutine(TypeText(dialogueQueue.Dequeue()));
         }
-
     }
 
+
+
+    private void CompleteTypingCurrentLine()
+    {
+        StopAllCoroutines();
+
+
+        if (dialogueQueue.Count > 0)
+        {
+
+            string currentLine = dialogueQueue.Dequeue();
+
+            if (string.IsNullOrEmpty(currentLine))
+            {
+                //Debug.LogWarning("Извлеченная строка из очереди пуста.");
+            }
+            else
+            {
+                dialogueText.text += currentLine;
+                //Debug.Log("Строчка под скип в CompleteTypingCurrentLine: " + currentLine);
+            }
+
+            isTyping = false;
+            SetChoicesInteractable(true);
+
+            // Если в очереди еще есть строки, продолжаем печатать
+            if (dialogueQueue.Count > 0)
+            {
+                StartCoroutine(TypeText(dialogueQueue.Dequeue()));
+            }
+        }
+        else
+        {
+            Debug.LogWarning("Очередь пуста при попытке завершить печать.");
+        }
+    }
 
     // Включение кнопок выбора диалоговых вариантов
     private void DisplayChoices()
@@ -310,7 +321,7 @@ public class DialogManager : MonoBehaviour
         List<Choice> currentChoices = currentStory.currentChoices;
 
 
-        if(currentChoices.Count > choices.Length)
+        if (currentChoices.Count > choices.Length)
         {
             Debug.LogError("Количество выборов в Ink превышает доступное число кнопок выбора в UI");
         }
@@ -318,7 +329,7 @@ public class DialogManager : MonoBehaviour
         int index = 0;
 
         // Включение кнопок выбора на UI и изменение их текста
-        foreach(Choice choice in currentChoices)
+        foreach (Choice choice in currentChoices)
         {
 
             choices[index].gameObject.SetActive(true);
@@ -326,11 +337,11 @@ public class DialogManager : MonoBehaviour
             index++;
         }
 
-        for(int i = index; i < choices.Length; i++)
+        for (int i = index; i < choices.Length; i++)
         {
             choices[i].gameObject.SetActive(false);
         }
-        
+
     }
 
     // Получение индекса нажатой кнопки пользователем
@@ -352,3 +363,4 @@ public class DialogManager : MonoBehaviour
         return variableValue;
     }
 }
+

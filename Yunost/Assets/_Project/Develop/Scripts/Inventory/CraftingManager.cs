@@ -27,13 +27,13 @@ public class CraftingManager : MonoBehaviour
             Debug.LogError("InventoryManager not found!");
         }
         EnsureSlotsCreated();
-        bool exist = IsExistInInventory("tool");
+     
         //Debug.Log("Объект существует? - " + exist);
     }
 
     private void Update()
     {
-        bool exist = IsExistInInventory("tool");
+        
         //Debug.Log("Объект существует? - " + exist);
     }
 
@@ -59,6 +59,8 @@ public class CraftingManager : MonoBehaviour
                 CreateOutputItem(craftedItem);
             }
             ClearInputSlots();
+            inventoryManager.RemoveItemFromInventory(itemInInput1.name);
+            inventoryManager.RemoveItemFromInventory(itemInInput2.name);
         }
     }
 
@@ -97,8 +99,7 @@ public class CraftingManager : MonoBehaviour
         itemInInput1 = null;
         itemInInput2 = null;
         //EnsureSlotsCreated();
-        bool exist = IsExistInInventory("tool");
-        Debug.Log("Объект существует? - " + exist);
+
     }
 
     private void ClearSlot(Transform slot)
@@ -135,22 +136,7 @@ public class CraftingManager : MonoBehaviour
         }
     }
 
-    public bool IsExistInInventory(string objectName)
-    {
-        //Debug.Log("Зашёл искать");
-        Transform child = inventoryManager.itemParent;
-        if (child == null) return false;
-        TMP_Text[] textComponents = child.GetComponentsInChildren<TMP_Text>();
-        if (textComponents == null) return false;
-
-        foreach (TMP_Text textComponent in textComponents)
-        {
-            //Debug.Log(textComponent.text);
-            string textValue = textComponent.text;
-            if (textValue == objectName) return true;
-        }
-        return false;
-    }
+    
     
 
 }

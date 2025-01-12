@@ -17682,6 +17682,30 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2635761995202878696, guid: 6ed0c74fbe5dc17428e7d6dc0a4374ac, type: 3}
+      propertyPath: autoInventoryItems.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2635761995202878696, guid: 6ed0c74fbe5dc17428e7d6dc0a4374ac, type: 3}
+      propertyPath: 'autoInventoryItems.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: f68384d3c295e1443bf91a4b5819ef60, type: 2}
+    - target: {fileID: 2635761995202878696, guid: 6ed0c74fbe5dc17428e7d6dc0a4374ac, type: 3}
+      propertyPath: 'autoInventoryItems.Array.data[1]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 4ef52e4f4c5d7a447887ede6f7c3d136, type: 2}
+    - target: {fileID: 2635761995202878696, guid: 6ed0c74fbe5dc17428e7d6dc0a4374ac, type: 3}
+      propertyPath: 'autoInventoryItems.Array.data[2]'
+      value: 
+      objectReference: {fileID: 11400000, guid: b12cc971c33d68447bc9b0faf37db4f5, type: 2}
+    - target: {fileID: 2635761995202878696, guid: 6ed0c74fbe5dc17428e7d6dc0a4374ac, type: 3}
+      propertyPath: 'autoInventoryItems.Array.data[3]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 8dba76421a2e8724ebe694d2386a000a, type: 2}
+    - target: {fileID: 2635761995202878696, guid: 6ed0c74fbe5dc17428e7d6dc0a4374ac, type: 3}
+      propertyPath: 'autoInventoryItems.Array.data[4]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 6f695922bfd24f14bb4a16a144df8084, type: 2}
     - target: {fileID: 2641046720305111320, guid: 6ed0c74fbe5dc17428e7d6dc0a4374ac, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
