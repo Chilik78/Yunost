@@ -117,7 +117,8 @@ public class InventoryManager : MonoBehaviour
         {
             if (nearbyItem != null)
             {
-                PickupNearbyItem();
+                //PickupNearbyItem();
+                Debug.LogWarning("В зоне пика предмета");
             }
             else
             {
@@ -192,13 +193,15 @@ public class InventoryManager : MonoBehaviour
         nearbyItem = null;
     }
 
-    private void PickupNearbyItem()
+    public void PickupNearbyItem()
     {
         if (nearbyItem != null && nearbyItem.item != null)
         {
+            
             AddItem(nearbyItem.item);
             Destroy(nearbyItem.gameObject);
             HidePickupUI();
+            Debug.LogWarning("Добавили в инвентарь");
         }
         else
         {

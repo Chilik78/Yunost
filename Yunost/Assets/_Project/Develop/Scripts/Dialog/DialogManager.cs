@@ -26,6 +26,8 @@ public class DialogManager : MonoBehaviour
 
     private CraftingManager craftManager;
 
+    private InventoryManager inventoryManager;
+
     private TextMeshProUGUI[] choicesText;
 
     private static DialogManager instance;
@@ -150,10 +152,10 @@ public class DialogManager : MonoBehaviour
         });
 
         // Проверка на наличие предмета в инвентаре
-        currentStory.BindExternalFunction("itemInInventory", (string item) => {
+        currentStory.BindExternalFunction("pickupItem", (string item) => {
             craftManager = FindAnyObjectByType<CraftingManager>();
-            bool inInventory = ListOfItems.ItemExists(item);
-            return inInventory;
+            inventoryManager = FindAnyObjectByType<InventoryManager>();
+            inventoryManager.PickupNearbyItem();
         });
 
         // Смена выполнение задания
