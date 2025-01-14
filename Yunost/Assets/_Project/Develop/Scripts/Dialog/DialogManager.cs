@@ -175,6 +175,7 @@ public class DialogManager : MonoBehaviour
 
         // Смена сцены
         currentStory.BindExternalFunction("changeScene", (string sceneName) => {
+            ServiceLocator.Get<TaskObserver>().SaveTasks();
             StartCoroutine(ServiceLocator.Get<SceneControl>().LoadNewSceneAsync(sceneName));
         });
 

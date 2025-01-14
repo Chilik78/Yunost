@@ -1,8 +1,10 @@
 
 using Global;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using ProgressModul.Test;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using UnityEngine;
 
@@ -39,6 +41,11 @@ namespace ProgressModul
         {
             _inProgressTasks = initInProgressTasks;
             _doneTasks = initDoneTasks;
+        }
+
+        public TaskObserver()
+        {
+
         }
 
         public TaskObserver(List<Task> initInProgressTasks)
@@ -155,6 +162,35 @@ namespace ProgressModul
 
             var items2 = ((JArray)loadData.Data[1]).ToObject<List<TaskModel>>();
             _doneTasks.AddRange(items2.Select(x => new Task(x)));
+        }
+
+        private const string SaveFileName = "Tasks.json";
+        private static string SaveDataFolder = Application.streamingAssetsPath;
+        public static string SaveFilePath => Path.Combine(SaveDataFolder, SaveFileName);
+
+        public void SaveTasks()
+        {
+            var saveLoadData = GetSaveLoadData();
+            var serializedSaveFile = JsonConvert.SerializeObject(saveLoadData);
+            Debug.Log(serializedSaveFile.ToString());
+
+            //todo: make async
+            File.WriteAllText(SaveFilePath, serializedSaveFile);
+        }
+
+        public void LoadTasks()
+        {
+            var serializedFile = File.ReadAllText(SaveFilePath);
+            if (string.IsNullOrEmpty(serializedFile))
+            {
+                Debug.LogError($"Loaded file {SaveFilePath} is empty.");
+            }
+            else
+            {
+                Debug.Log($"Save to {SaveFilePath}");
+                var saveLoadData = JsonConvert.DeserializeObject<SaveLoadData>(serializedFile);
+                RestoreValues(saveLoadData);
+            }
         }
 
         public Task GetLastDoneTask
