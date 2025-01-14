@@ -15,8 +15,8 @@
                     "isDone": false
                 },
                 {
-                    "id": "search_oleg",
-                    "description": "Найти Олега у Домиков",
+                    "id": "go_to_camp",
+                    "description": "Пройти на территорию лагеря",
                     "isDone": false
                 } 
             ],
@@ -28,15 +28,25 @@
             "name": "Помощь другу",
             "subTasks": [
                 {
-                    "id": "help_for_friend_1",
+                    "id": "talk_oleg",
                     "description": "Поговорить с Олегом",
                     "isDone": false
                 },
                 {
-                    "id": "help_for_friend_2",
-                    "description": "Найти Инструменты ИЛИ взломать Дверь",
+                    "id": "check_door",
+                    "description": "Осмотреть дверь",
                     "isDone": false
-                }    
+                },
+                {
+                    "id": "search_tools",
+                    "description": "Найти Отвёртку с Отмычками и объединить их в Инструменты для взлома",
+                    "isDone": false
+                },
+                {
+                    "id": "open_door",
+                    "description": "Взломать дверь самостоятельно ИЛИ отдать Инструменты для взлома Олегу",
+                    "isDone": false
+                }
             ],
             "isDone": false
 

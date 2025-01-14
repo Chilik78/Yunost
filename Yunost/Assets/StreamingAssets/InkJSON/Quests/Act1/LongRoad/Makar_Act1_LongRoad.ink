@@ -26,7 +26,6 @@ EXTERNAL setDoneSubTask(idTask, idSubTask)
     ~setDoneSubTask("long_road", "talk_makar")
     }
     ~setDoneSubTask("long_road", "take_case")
-    ~CurrentSubquest = "search_oleg"
     -> Act1_LongRoad_hasCaseTired
 + [Да я полон сил! Пошли к Директору.]
     // Cмена текущего подзадания
@@ -34,7 +33,6 @@ EXTERNAL setDoneSubTask(idTask, idSubTask)
     ~setDoneSubTask("long_road", "talk_makar")
     }
     ~setDoneSubTask("long_road", "take_case")
-    ~CurrentSubquest = "search_oleg"
     ->Act1_LongRoad_hasCaseEnergetic
 -> DONE
 
@@ -44,12 +42,10 @@ EXTERNAL setDoneSubTask(idTask, idSubTask)
 + [Чемодан...точно! Я мигом!]
     // Cмена текущего подзадания
     ~setDoneSubTask("long_road", "talk_makar")
-    ~CurrentSubquest = "take_case"
     -> Act1_LongRoad_pickUpCase1
 + [Что ещё за чемодан? Где я?]
     // Cмена текущего подзадания
     ~setDoneSubTask("long_road", "talk_makar")
-    ~CurrentSubquest = "take_case"
     -> Act1_LongRoad_pickUpCase2
 -> DONE
 
@@ -59,7 +55,7 @@ EXTERNAL setDoneSubTask(idTask, idSubTask)
 Макар: Давай, пошевеливайся! Дел полно!
 + [Иду, иду...не шелести особо...]
     // Cмена текущего подзадания
-    ~CurrentSubquest = "take_case"
+    //~setDoneSubTask("long_road", "talk_makar")
     ~longRoadRepeat1 = true
 -> END
 
@@ -69,8 +65,7 @@ EXTERNAL setDoneSubTask(idTask, idSubTask)
 Макар: Да...тяжёлый случай. Сань, время моё не трать, чуть позже директор приведёт тебя в чувство. Бери тот чемодан у автобуса в руки и сюда. Я же понятно изъясняюсь?
 + [Чемодан. Автобус. Руки.]
     // Cмена текущего подзадания
-    ~setDoneSubTask("long_road", "talk_makar")
-    ~CurrentSubquest = "take_case"
+    //~setDoneSubTask("long_road", "talk_makar")
     ~longRoadRepeat1 = true
 -> END
 

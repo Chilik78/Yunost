@@ -7,6 +7,7 @@ public class DialogVariables
     // Словарь Ink переменных
     public Dictionary<string, Object> variables { get; private set; }
     private Story _globalVariablesStory;
+    private Story _currentStory;
     // Ink переменные
     public DialogVariables(string inkFileContents)
     {
@@ -25,6 +26,7 @@ public class DialogVariables
     // Включение прослушивания изменения Ink переменных 
     public void StartListening(Story story)
     {
+        _currentStory = story;
         VariablesToStory(story);
         story.variablesState.variableChangedEvent += VariableChanged;
     }
@@ -52,6 +54,10 @@ public class DialogVariables
         Object objectValue = _globalVariablesStory.variablesState.GetVariableWithName(name);
         variables.Remove(name);
         variables.Add(name, objectValue);
+        if (_currentStory != null)
+        {
+            _currentStory.variablesState[name] = value;
+        }
         UnityEngine.Debug.Log($"After: {_globalVariablesStory.variablesState[name]}");
     }
     

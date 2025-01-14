@@ -1,10 +1,18 @@
-INCLUDE globals.ink
+INCLUDE Quests\Act1\HelpForFriend\Oleg_Act1_HelpForFriend.ink
 //EXTERNAL startMiniGame()
 //EXTERNAL itemInInventory(item)
 //EXTERNAL setDoneTask(idTask)
 //EXTERNAL setDoneSubTask(idTask, idSubTask)
 
+-> NameQuest
 
+== NameQuest
+{CurrentQuest == "help_for_friend": -> Act1_HelpForFriend} 
+//{CurrentQuest == "help_friend" && CurrentSubquest == "talk_oleg"} -> Act1_HelpFriend
+-> END
+
+
+/*
 // Условия
 {Повторение_Инструменты_Акт1_ПомощьДругу == "Да" && Повторение_Ключ_Акт1_ДомМилыйДом == "Нет": -> Повтор_Инструменты_Акт1_ПомощьДругу}
 {Повторение_Ключ_Акт1_ДомМилыйДом == "Да": -> Повтор_Ключ_Акт1_ДомМилыйДом}
@@ -64,3 +72,4 @@ INCLUDE globals.ink
 Олег: Ты ещё не забрал ключ? Рекомендую немедлить, пока директор у себя. Если ты забыл дорогу, то спустись на развилку ниже театральной сцены и поверни направо.
     + [Да, да, уже бегу.] -> END
 
+*/
