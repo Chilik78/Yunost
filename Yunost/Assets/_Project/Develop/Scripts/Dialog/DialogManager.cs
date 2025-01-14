@@ -144,6 +144,10 @@ public class DialogManager : MonoBehaviour
         // Начало прослушивания изменения Ink переменных
         dialogVariables.StartListening(currentStory);
 
+        currentStory.BindExternalFunction("itemIsExist", (string item) => {
+            bool isExist = ListOfItems.ItemExists(item);
+            return isExist;
+        });
 
         // Старт Мини игры   
         currentStory.BindExternalFunction("startMiniGame", () => {
