@@ -12,8 +12,8 @@ namespace ProgressModul
 {
     public class TaskObserver : ISaveLoadObject
     {
-        private List<Task> _inProgressTasks;
-        private List<Task> _doneTasks;
+        private List<Task> _inProgressTasks = new(1);
+        private List<Task> _doneTasks = new(1);
         public delegate void TaskHandler(Task task);
         public event TaskHandler HaveDoneTask;
         public event TaskHandler HaveNewTask;
