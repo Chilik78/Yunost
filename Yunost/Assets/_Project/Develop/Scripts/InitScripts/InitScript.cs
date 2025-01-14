@@ -39,4 +39,12 @@ public class InitScript : MonoBehaviour
         ServiceLocator.Unregister<TimeControl>();
         ServiceLocator.Unregister<TaskObserver>();
     }
+
+    private void OnApplicationQuit()
+    {
+        if (File.Exists(TaskObserver.SaveFilePath))
+        {
+            File.Delete(TaskObserver.SaveFilePath);
+        }
+    }
 }

@@ -56,6 +56,7 @@ public class DialogManager : MonoBehaviour
         }
 
         dialogVariables = new DialogVariables(globalsInkFile);
+       
 
     }
 
@@ -67,6 +68,9 @@ public class DialogManager : MonoBehaviour
 
     private void Start()
     {
+        var taskObserver = ServiceLocator.Get<TaskObserver>();
+        taskObserver.HaveNewTask += (Task task) => dialogVariables.ChangeVariable("CurrentQuest", task.Id);
+        taskObserver.HaveNewSubTask += (Task task) => dialogVariables.ChangeVariable("CurrentQuest", task.GetFirstInProgressSubTask.Id);
         // Добавление прослушки на кнопки выбора
         foreach (GameObject choice in choices)
         {

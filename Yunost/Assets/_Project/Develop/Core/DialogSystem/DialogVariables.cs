@@ -1,25 +1,24 @@
 using Ink.Runtime;
 using System.Collections.Generic;
-using System.IO;
 
 // Класс Ink переменных
 public class DialogVariables
 {
     // Словарь Ink переменных
     public Dictionary<string, Object> variables { get; private set; }
-
+    private Story _globalVariablesStory;
     // Ink переменные
     public DialogVariables(string inkFileContents)
     {
         // Чтение файла global.ink и компиляция
         Ink.Compiler compiler = new Ink.Compiler(inkFileContents);
-        Story globalVariablesStory = compiler.Compile();
+        _globalVariablesStory = compiler.Compile();
 
         // Получение Ink переменных и их значений
         variables = new Dictionary<string, Object>();
-        foreach(string name in globalVariablesStory.variablesState)
+        foreach(string name in _globalVariablesStory.variablesState)
         {
-            Object value = globalVariablesStory.variablesState.GetVariableWithName(name);
+            Object value = _globalVariablesStory.variablesState.GetVariableWithName(name);
             variables.Add(name, value);
         }
     }
@@ -37,13 +36,23 @@ public class DialogVariables
     }
 
     // Изменение Ink переменных
-    private void VariableChanged(string name, Object value)
+    public void VariableChanged(string name, Object value)
     {
         if (variables.ContainsKey(name))
         {
             variables.Remove(name);
             variables.Add(name, value);
         }
+    }
+
+    public void ChangeVariable(string name, string value)
+    {
+        UnityEngine.Debug.Log($"Before: {name} : {value}");
+        _globalVariablesStory.variablesState[name] = value;
+        Object objectValue = _globalVariablesStory.variablesState.GetVariableWithName(name);
+        variables.Remove(name);
+        variables.Add(name, objectValue);
+        UnityEngine.Debug.Log($"After: {_globalVariablesStory.variablesState[name]}");
     }
     
     // Установка состояния Ink переменных в Story

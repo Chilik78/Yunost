@@ -165,11 +165,14 @@ namespace ProgressModul
         }
 
         private const string SaveFileName = "Tasks.json";
-        private static string SaveDataFolder = Application.streamingAssetsPath;
+        private const string SaveFolderName = "Saves/Temp";
+        private static string SaveDataFolder => Path.Combine(Application.persistentDataPath, SaveFolderName);
         public static string SaveFilePath => Path.Combine(SaveDataFolder, SaveFileName);
 
         public void SaveTasks()
         {
+            if (!Directory.Exists(SaveDataFolder))
+                Directory.CreateDirectory(SaveDataFolder);
             var saveLoadData = GetSaveLoadData();
             var serializedSaveFile = JsonConvert.SerializeObject(saveLoadData);
             Debug.Log(serializedSaveFile.ToString());

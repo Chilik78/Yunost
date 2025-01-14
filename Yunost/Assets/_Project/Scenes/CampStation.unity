@@ -11914,10 +11914,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: Emerald Carryall
       objectReference: {fileID: 0}
+    - target: {fileID: 4360249672817162017, guid: c3d7fa30307b63b409fdcc09be418236, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5106192023192633506, guid: c3d7fa30307b63b409fdcc09be418236, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5206387731538871960, guid: c3d7fa30307b63b409fdcc09be418236, type: 3}
       propertyPath: player
       value: 
       objectReference: {fileID: 3752722824731541169}
+    - target: {fileID: 5206387731538871960, guid: c3d7fa30307b63b409fdcc09be418236, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7312952790565396070, guid: c3d7fa30307b63b409fdcc09be418236, type: 3}
       propertyPath: m_LocalScale.x
       value: 4.5
@@ -17753,6 +17765,10 @@ PrefabInstance:
     - target: {fileID: 3677399024917099811, guid: 6ed0c74fbe5dc17428e7d6dc0a4374ac, type: 3}
       propertyPath: m_LocalPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3922196833766560264, guid: 6ed0c74fbe5dc17428e7d6dc0a4374ac, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3934170032074121190, guid: 6ed0c74fbe5dc17428e7d6dc0a4374ac, type: 3}
       propertyPath: m_AnchorMax.y
