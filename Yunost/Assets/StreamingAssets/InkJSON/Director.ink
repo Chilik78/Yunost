@@ -1,6 +1,6 @@
 INCLUDE globals.ink
-EXTERNAL setDoneTask(idTask)
-EXTERNAL setDoneSubTask(idTask, idSubTask)
+//EXTERNAL setDoneTask(idTask)
+//EXTERNAL setDoneSubTask(idTask, idSubTask)
 
 {Повторение_Директор_Акт1_ДомМилыйДом == "Да": -> Повтор_Акт1_ДомМилыйДом}
 
@@ -12,7 +12,7 @@ EXTERNAL setDoneSubTask(idTask, idSubTask)
     +[Где ключ? (-Лояльность)] -> Грубо_Акт1_ДомМилыйДом
 
 == Грубо_Акт1_ДомМилыйДом ==
-~setDoneSubTask("sweet_home","sweet_home_1")
+//~setDoneSubTask("long_road","long_road_1")
 Вы: Где ключ?
 Анатолий Степанович: Вижу вы слишком переутомились, Александр, раз уж позабыли о обыкновенных манерах. Ключ на скамье. Как отнесёте свои вещи - жду вас у себя.
     +[До свидания.] -> END
@@ -24,7 +24,7 @@ EXTERNAL setDoneSubTask(idTask, idSubTask)
     
 
 == Конец_Акт1_ДомМилыйДом ==
-~setDoneSubTask("sweet_home","sweet_home_1")
+//~setDoneSubTask("3","1")
 Вы: Не подскажете, где я могу взять ключ от своего домика?
 Анатолий Степанович: Верный вопрос, я поэтому тебя и ждал. Ключ лежит на скамье, сходи передохни после дороги. А потом я вас жду вашей компанией у себя - будем решать организационные вопросы!
     +[Понял, пойду отдыхать. До свидания!] -> END

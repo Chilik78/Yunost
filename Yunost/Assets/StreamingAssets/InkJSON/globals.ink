@@ -1,13 +1,66 @@
-//// Акт 1
+// Текущее задание
+VAR CurrentQuest = "long_road"
+VAR CurrentSubquest = "talk_makar"
+
+/*
+// Управляющие переменные для Макара
+VAR CurrentQuestMakar = "LongRoad"
+
+// Управляющие переменные для Олега
+VAR CurrentQuestOleg = "LongRoad"
+
+// Управляющие переменные для Директора
+VAR CurrentQuestDirector = "LongRoad"
+
+// Управляющие переменные для Софии
+VAR CurrentQuestSofia = "LongRoad"
+
+// Управляющие переменные для Елизаветы
+VAR CurrentQuestLisa = "LongRoad"
+
+// Функция для изменения текущего квеста игровым персонажам
+== function changeCurrentQuests(Makar, Oleg, Director, Sofia, Lisa)
+~CurrentQuestMakar = Makar
+~CurrentQuestOleg = Oleg
+~CurrentQuestDirector = Director
+~CurrentQuestSofia = Sofia
+~CurrentQuestLisa = Lisa
+
+== function changeCurrentQuestMakar(Makar)
+~CurrentQuestMakar = Makar
+
+== function changeCurrentQuestOleg(Oleg)
+~CurrentQuestOleg = Oleg
+
+== function changeCurrentQuestDirector(Director)
+~CurrentQuestDirector = Director
+
+== function changeCurrentQuestSofia(Sofia)
+~CurrentQuestSofia = Sofia
+
+== function changeCurrentQuestLisa(Lisa)
+~CurrentQuestLisa = Lisa
+*/
 
 // Главные Ворота
 VAR Удар_По_Воротам = "Нет"
 
-// Акт 1. Долгая дорога.
+//// Act1 ////
 
-VAR Чемодан_Подобран = false
-VAR Повторение_Чемодан_Акт1_ДолгаяДорога = "Нет"
-VAR Повторение_ЧемоданПодобран_Акт1_ДолгаяДорога = "Нет"
+/// LongRoad
+
+// Поговорить с Макаром - talk_makar
+// Взять Чемодан и вернуться к Макару - take_case
+// Найти Олега у Домиков - search_oleg
+
+// Makar
+VAR itemExist = false
+VAR longRoadRepeat1 = false
+VAR longRoadRepeat2 = false
+
+// MainGait
+VAR hitGait = false
+
 
 // Акт 1. Друг в беде
 
