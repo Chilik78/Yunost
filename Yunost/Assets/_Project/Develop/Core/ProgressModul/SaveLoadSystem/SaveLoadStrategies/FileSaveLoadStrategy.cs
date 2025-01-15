@@ -40,7 +40,7 @@ namespace ProgressModul
 
                 var saveFile = new SaveFile(serializedData);
                 var serializedSaveFile = JsonConvert.SerializeObject(saveFile);
-                Debug.Log(serializedSaveFile.ToString());
+                Debug.Log(SaveDataFolder);
 
                 //todo: make async
                 File.WriteAllText(SaveFilePath, serializedSaveFile);
@@ -69,7 +69,7 @@ namespace ProgressModul
                     return null;
                 }
 
-                Debug.Log($"Save to {SaveFilePath}");
+                Debug.Log($"Load from {SaveFilePath}");
                 return JsonConvert.DeserializeObject<SaveFile>(serializedFile).Data.ToArray();
             }
             catch (Exception e)

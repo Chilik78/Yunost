@@ -1,10 +1,9 @@
 
 using Global;
+using Ink.Runtime;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using ProgressModul.Test;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using UnityEngine;
 
@@ -164,36 +163,37 @@ namespace ProgressModul
             _doneTasks.AddRange(items2.Select(x => new Task(x)));
         }
 
-        private const string SaveFileName = "Tasks.json";
-        private const string SaveFolderName = "Saves/Temp";
-        private static string SaveDataFolder => Path.Combine(Application.persistentDataPath, SaveFolderName);
-        public static string SaveFilePath => Path.Combine(SaveDataFolder, SaveFileName);
+        static public string PrefsKey => "CurrentTasks";
 
-        public void SaveTasks()
+        public void SaveTasksToPrefs()
         {
-            if (!Directory.Exists(SaveDataFolder))
-                Directory.CreateDirectory(SaveDataFolder);
             var saveLoadData = GetSaveLoadData();
             var serializedSaveFile = JsonConvert.SerializeObject(saveLoadData);
-            Debug.Log(serializedSaveFile.ToString());
-
-            //todo: make async
-            File.WriteAllText(SaveFilePath, serializedSaveFile);
+            PlayerPrefs.SetString(PrefsKey, serializedSaveFile);
         }
 
-        public void LoadTasks()
+        static public TaskObserver CreateFromPrefs()
         {
-            var serializedFile = File.ReadAllText(SaveFilePath);
+            string serializedFile = PlayerPrefs.GetString(PrefsKey);
+            PlayerPrefs.DeleteKey(PrefsKey);
             if (string.IsNullOrEmpty(serializedFile))
             {
-                Debug.LogError($"Loaded file {SaveFilePath} is empty.");
+                Debug.LogError($"Загруженный json {PrefsKey} пустой.");
+                return null;
             }
-            else
-            {
-                Debug.Log($"Save to {SaveFilePath}");
-                var saveLoadData = JsonConvert.DeserializeObject<SaveLoadData>(serializedFile);
-                RestoreValues(saveLoadData);
-            }
+            Debug.Log($"Загрузка json {PrefsKey}");
+            SaveLoadData saveLoadData = JsonConvert.DeserializeObject<SaveLoadData>(serializedFile);
+            TaskObserver taskObserver = new();
+            taskObserver.RestoreValues(saveLoadData);
+            
+            return taskObserver;
+        }
+
+        public void SetDefault()
+        {
+            string json = Resources.Load<TextAsset>("InitTasks").text;
+            _inProgressTasks = ParseJsonWithTasks(json);
+            _doneTasks = new();
         }
 
         public Task GetLastDoneTask

@@ -14,6 +14,9 @@ namespace Player
 
         private bool _isFrezed = false;
 
+        public delegate void MovementDelegate(Vector3 position, Quaternion rotation);
+        public event MovementDelegate OnMove;
+
         void Start()
         {
             _rb = GetComponent<Rigidbody>();
@@ -55,6 +58,8 @@ namespace Player
             }
 
             _rb.MovePosition(transform.position + (transform.forward * _input.magnitude) * _speed * Time.deltaTime);
+            
+            if(OnMove != null) OnMove(transform.position, transform.rotation);
         }
         private void Rotate()
         {

@@ -1,3 +1,4 @@
+using Global;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -23,6 +24,7 @@ public class InventoryManager : MonoBehaviour
     private UniversalTutorialManager universalTutorialManager;
 
     private CraftingManager craftingManager;
+    private ListOfItems listOfItems;
 
     void Start()
     {
@@ -46,18 +48,21 @@ public class InventoryManager : MonoBehaviour
         inventoryButton.onClick.AddListener(ToggleInventory);
 
         universalTutorialManager = FindObjectOfType<UniversalTutorialManager>();
+
+        listOfItems = ServiceLocator.Get<ListOfItems>();
+
         if (autoInventoryItems.Count > 0)
         {
-            ListOfItems.autoInventoryItems = autoInventoryItems;
+            listOfItems.AutoInventoryItems = autoInventoryItems;
         }
         AutoFillInventory();
     }
 
     private void AutoFillInventory()
     {
-        foreach (string itemName in ListOfItems.ItemNames)
+        foreach (string itemName in listOfItems.ItemNames)
         {
-            Item existingItem = ListOfItems.autoInventoryItems.Find(item => item.name == itemName);
+            Item existingItem = listOfItems.AutoInventoryItems.Find(item => item.name == itemName);
 
             if (existingItem != null ) 
             {
@@ -79,7 +84,7 @@ public class InventoryManager : MonoBehaviour
             if (item.name == itemName)
             {
                 RemoveItem(item);
-                ListOfItems.RemoveItemFromList(itemName);
+                listOfItems.RemoveItemFromList(itemName);
 
                 break;
             }
@@ -106,8 +111,8 @@ public class InventoryManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.L))
         {   
-            Debug.LogWarning(ListOfItems.ItemExists("bag"));
-            Debug.LogWarning(" оличество итемов в целом: " + ListOfItems.autoInventoryItems.Count);
+            Debug.LogWarning(listOfItems.ItemExists("bag"));
+            Debug.LogWarning(" оличество итемов в целом: " + listOfItems.AutoInventoryItems.Count);
         }
 
 
@@ -167,16 +172,16 @@ public class InventoryManager : MonoBehaviour
         inventoryItems.Add(item);
         UpdateInventoryUI();
 
-        if (!ListOfItems.ItemNames.Contains(item.name))
+        if (!listOfItems.ItemNames.Contains(item.name))
         {
-            ListOfItems.ItemNames.Add(item.name);
+            listOfItems.ItemNames.Add(item.name);
             Debug.Log($"Ќазвание {item.name} добавлено в глобальный список.");
         }
         else
         {
             Debug.Log($"Ќазвание {item.name} уже есть в глобальном списке.");
         }
-        Debug.Log("bag существует: " + ListOfItems.ItemExists("bag"));
+        Debug.Log("bag существует: " + listOfItems.ItemExists("bag"));
     }
 
 

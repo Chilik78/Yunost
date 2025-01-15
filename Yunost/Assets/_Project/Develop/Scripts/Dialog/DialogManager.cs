@@ -151,7 +151,7 @@ public class DialogManager : MonoBehaviour
         dialogVariables.StartListening(currentStory);
 
         currentStory.BindExternalFunction("itemIsExist", (string item) => {
-            bool isExist = ListOfItems.ItemExists(item);
+            bool isExist = ServiceLocator.Get<ListOfItems>().ItemExists(item);
             return isExist;
         });
 
@@ -180,12 +180,11 @@ public class DialogManager : MonoBehaviour
 
         // Уменьшение здоровья
         currentStory.BindExternalFunction("hitHealth", (int value) => {
-            ServiceLocator.Get<PlayerStats>().hitHealth(value);
+            ServiceLocator.Get<PlayerStats>().HitHealth(value);
         });
 
         // Смена сцены
         currentStory.BindExternalFunction("changeScene", (string sceneName) => {
-            ServiceLocator.Get<TaskObserver>().SaveTasks();
             StartCoroutine(ServiceLocator.Get<SceneControl>().LoadNewSceneAsync(sceneName));
         });
 

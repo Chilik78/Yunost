@@ -5,15 +5,18 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: Assets/Scenes/OutdoorsScene.unity
-    guid: 8124e5870f4fd4c779e7a5f994e84ad1
   - enabled: 1
     path: Assets/_Project/Scenes/Menu.unity
     guid: 4b415b3590e39014a95ad56bb56a9e4e
   - enabled: 1
-    path: Assets/_Project/Scenes/game.unity
-    guid: 29824d9a0ef66374ea791606c12b3a30
+    path: Assets/_Project/Scenes/CampStation.unity
+    guid: b687634a8dd964340b01feb81accb988
+  - enabled: 1
+    path: Assets/_Project/Scenes/MainCamp.unity
+    guid: 00aabd69b9dbb664eb487bd46888a471
+  - enabled: 1
+    path: Assets/_Project/Scenes/HubHome.unity
+    guid: ed3a8724b1f0242439bcdd48f7ed8073
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 35845fe01580c41289b024647b1d1c53, type: 3}
   m_UseUCBPForAssetBundles: 0

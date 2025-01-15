@@ -87,6 +87,8 @@ GameObject:
   - component: {fileID: 904339902049827618}
   - component: {fileID: 8723207647240892524}
   - component: {fileID: 5892904419735032168}
+  - component: {fileID: 394435854418174220}
+  - component: {fileID: 2650339155110619942}
   m_Layer: 5
   m_Name: PauseMenu
   m_TagString: Untagged
@@ -179,6 +181,31 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &394435854418174220
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 671130882589160209}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0513fca626a2ac4b8290aecbdf3bde0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pauseMenuUI: {fileID: 671130882589160209}
+--- !u!114 &2650339155110619942
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 671130882589160209}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d22fd0574c41d149a3eb753d8560a2f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4028582325826527684
 GameObject:
   m_ObjectHideFlags: 0
@@ -435,7 +462,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1848356685840693185}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2650339155110619942}
+        m_TargetAssemblyTypeName: MenuControls, Assembly-CSharp
+        m_MethodName: SaveGame
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &5881902491173024282
 GameObject:
   m_ObjectHideFlags: 0
@@ -584,7 +623,6 @@ GameObject:
   - component: {fileID: 6168109105254774948}
   - component: {fileID: 8786504378580212856}
   - component: {fileID: 8576053040481178001}
-  - component: {fileID: 7663452705434079053}
   m_Layer: 5
   m_Name: BackToMenuButton
   m_TagString: Untagged
@@ -694,7 +732,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7663452705434079053}
+      - m_Target: {fileID: 394435854418174220}
         m_TargetAssemblyTypeName: PauseMenuControls, Assembly-CSharp
         m_MethodName: BackToMenu
         m_Mode: 1
@@ -706,16 +744,3 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &7663452705434079053
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9064942655910290168}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c0513fca626a2ac4b8290aecbdf3bde0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pauseMenuUI: {fileID: 671130882589160209}

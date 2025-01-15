@@ -44,6 +44,14 @@ namespace ProgressModul
             Load(strategy);
         }
 
+        public void LoadDefault()
+        {
+            foreach (var obj in _componentsIdToSaveObject.Values)
+            {
+                obj.SetDefault();
+            }
+        }
+
         /// <summary>
         /// Save all registered ISaveLoadObjects.
         /// </summary>

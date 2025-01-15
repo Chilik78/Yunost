@@ -6,20 +6,25 @@ namespace ProgressModul
     public interface ISaveLoadObject
     {
         /// <summary>
-        /// Id to identify object.
+        /// ИД для определения объекта
         /// </summary>
         public string ComponentSaveId { get; }
 
         /// <summary>
-        /// Get data to save for this object.
+        /// Возвращает данные для сохранения
         /// </summary>
-        /// <returns>Data to save.</returns>
+        /// <returns>Данные для сохранения</returns>
         public SaveLoadData GetSaveLoadData();
 
         /// <summary>
-        /// Restore object values from saved data.
+        /// Восстанавливает данные
         /// </summary>
-        /// <param name="loadData">Data for restoring values.</param>
+        /// <param name="loadData">Данные для восстановления</param>
         public void RestoreValues(SaveLoadData loadData);
+
+        /// <summary>
+        /// Устанавливает начальные значения
+        /// </summary>
+        public void SetDefault();
     }
 }

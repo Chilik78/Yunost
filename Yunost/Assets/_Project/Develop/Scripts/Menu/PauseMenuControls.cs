@@ -45,6 +45,7 @@ public class PauseMenuControls : MonoBehaviour
 
     public void BackToMenu()
     {
+        GlobalInitScript.UnregisterServices();
         ServiceLocator.Get<SceneControl>().OpenMenu();
         Resume();
         Debug.Log("Переход к меню отработал");

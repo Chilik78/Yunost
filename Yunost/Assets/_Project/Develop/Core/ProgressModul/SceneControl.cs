@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -13,10 +15,22 @@ namespace ProgressModul
         HubHome,
     }
 
-    public class SceneControl
+    public class SceneControl : ISaveLoadObject
     {
+        private Dictionary<int, string> _sceneDictionary = new Dictionary<int, string>()
+        {
+            {0, "Menu" },
+            {1, "CampStation" },
+            {2,  "MainCamp"},
+            {3,  "HubHome"}
+        };
+
+
         private string _initSceneName;
-        private int _initSceneIndex;
+        private string _lastSceneName;
+
+        public string ComponentSaveId => "SceneControl";
+
         public delegate void ProgressLoadingHandler(float progress);
         public delegate void LoadingHandler();
         public event ProgressLoadingHandler ProgressLoading;
@@ -30,15 +44,22 @@ namespace ProgressModul
 
         public SceneControl(int initSceneIndex)
         {
-            _initSceneIndex = initSceneIndex;
+            _initSceneName = _sceneDictionary[initSceneIndex];
+        }
+
+        public SceneControl(Scenes initScene)
+        {
+            _initSceneName = _sceneDictionary[(int)initScene];
         }
 
         public void Init ()
         {
-            if (_initSceneName == null)
-                SceneManager.LoadScene(_initSceneIndex);
-            else
-                SceneManager.LoadScene(_initSceneName);
+         SceneManager.LoadScene(_initSceneName);
+        }
+
+        public void InitLast()
+        {
+            SceneManager.LoadScene(_lastSceneName);
         }
 
         public void OpenMenu()
@@ -104,9 +125,9 @@ namespace ProgressModul
 
         private IEnumerator _loadNewSceneAsync(AsyncOperation loadSceneOp)
         {
-            yield return null;
             if (StartLoading != null)
                 StartLoading();
+            yield return null;
 
             loadSceneOp.allowSceneActivation = false;
             Debug.Log(loadSceneOp.isDone);
@@ -134,19 +155,45 @@ namespace ProgressModul
         public IEnumerator LoadNewSceneAsync(int index)
         {
             var loadSceneOp = GoToSceneAsync(index);
+            _lastSceneName = _sceneDictionary[index];
             return _loadNewSceneAsync(loadSceneOp);
         }
 
         public IEnumerator LoadNewSceneAsync(string name)
         {
             var loadSceneOp = GoToSceneAsync(name);
+            _lastSceneName = name;
             return _loadNewSceneAsync(loadSceneOp);
         }
 
         public IEnumerator LoadNewSceneAsync(Scenes scene)
         {
             var loadSceneOp = GoToSceneAsync(scene);
+            _lastSceneName = _sceneDictionary[(int)scene];
             return _loadNewSceneAsync(loadSceneOp);
+        }
+
+        SaveLoadData ISaveLoadObject.GetSaveLoadData()
+        {
+            return new SceneSaveLoadData(ComponentSaveId, _lastSceneName);
+        }
+
+        void ISaveLoadObject.RestoreValues(SaveLoadData loadData)
+        {
+            if (loadData?.Data == null || loadData.Data.Length < 1)
+            {
+                Debug.LogError($"Can't restore values.");
+                return;
+            }
+
+            // [0] - (field)
+
+            _lastSceneName = loadData.Data[0].ToString();
+        }
+
+        void ISaveLoadObject.SetDefault()
+        {
+            _initSceneName = _sceneDictionary[(int)Scenes.CampStation];
         }
     }
 }

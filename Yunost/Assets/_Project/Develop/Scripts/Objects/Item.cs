@@ -1,6 +1,5 @@
 using UnityEngine;
-using UnityEngine.UI;
-using TMPro;
+using System;
 
 [CreateAssetMenu(fileName = "New Item", menuName = "Inventory/Item")]
 public class Item : ScriptableObject
