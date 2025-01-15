@@ -11,7 +11,7 @@ namespace ProgressModul
         private Dictionary<string, ISaveLoadObject> _componentsIdToSaveObject = new();
 
         public void AddToSaveLoad(ISaveLoadObject saveLoadObject) => _componentsIdToSaveObject[saveLoadObject.ComponentSaveId] = saveLoadObject;
-
+        public void RemoveFromSaveLoad(ISaveLoadObject saveLoadObject) => _componentsIdToSaveObject.Remove(saveLoadObject.ComponentSaveId);
         /// <summary>
         /// Save game.
         /// </summary>

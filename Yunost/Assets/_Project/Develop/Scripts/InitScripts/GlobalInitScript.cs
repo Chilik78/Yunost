@@ -17,15 +17,19 @@ public static class GlobalInitScript
         ListOfItems listOfItems = new();
         PlayerStats playerStats = new(100, 100);
         TimeControl timeControl = new(14, 0);
+        DialogVariables dialogVariables = new DialogVariables();
 
         SaveLoadSystem saveLoadSystem = ServiceLocator.Get<SaveLoadSystem>();
         saveLoadSystem.AddToSaveLoad(taskObserver);
         saveLoadSystem.AddToSaveLoad(listOfItems);
         saveLoadSystem.AddToSaveLoad(playerStats);
+        saveLoadSystem.AddToSaveLoad(dialogVariables);
+
         ServiceLocator.Register(taskObserver);
         ServiceLocator.Register(listOfItems);
         ServiceLocator.Register(playerStats);
         ServiceLocator.Register(timeControl);
+        ServiceLocator.Register(dialogVariables);
 
         ServiceLocator.Get<SceneControl>().StartLoading += () => SetSceneIndicator();
     }
@@ -42,6 +46,7 @@ public static class GlobalInitScript
         ServiceLocator.Unregister<ListOfItems>();
         ServiceLocator.Unregister<PlayerStats>();
         ServiceLocator.Unregister<TimeControl>();
+        ServiceLocator.Unregister<DialogVariables>();
     }
 
     private static void InitGlobalServices()

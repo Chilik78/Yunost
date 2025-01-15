@@ -7,7 +7,6 @@ using UnityEngine.UI;
 using MiniGames;
 using Global;
 using ProgressModul;
-using System.IO;
 
 public class DialogManager : MonoBehaviour
 {
@@ -48,16 +47,8 @@ public class DialogManager : MonoBehaviour
         }
 
         instance = this;
-
-        // Инициализация Ink переменных
-        using (StreamReader sr = new StreamReader(Application.streamingAssetsPath + "/" + "InkJSON/globals.ink"))
-        {
-            globalsInkFile = sr.ReadToEnd();
-        }
-
-        dialogVariables = new DialogVariables(globalsInkFile);
-       
-
+   
+        dialogVariables = ServiceLocator.Get<DialogVariables>();    
     }
 
     // Получение объекта 

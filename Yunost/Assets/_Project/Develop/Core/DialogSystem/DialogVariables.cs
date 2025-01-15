@@ -1,28 +1,20 @@
 using Ink.Runtime;
+using ProgressModul;
 using System.Collections.Generic;
+using System.IO;
 
 // Класс Ink переменных
-public class DialogVariables
+public class DialogVariables : ISaveLoadObject
 {
     // Словарь Ink переменных
     public Dictionary<string, Object> variables { get; private set; }
+
+    public string ComponentSaveId => "DialogVariables";
+
     private Story _globalVariablesStory;
     private Story _currentStory;
     // Ink переменные
-    public DialogVariables(string inkFileContents)
-    {
-        // Чтение файла global.ink и компиляция
-        Ink.Compiler compiler = new Ink.Compiler(inkFileContents);
-        _globalVariablesStory = compiler.Compile();
-
-        // Получение Ink переменных и их значений
-        variables = new Dictionary<string, Object>();
-        foreach(string name in _globalVariablesStory.variablesState)
-        {
-            Object value = _globalVariablesStory.variablesState.GetVariableWithName(name);
-            variables.Add(name, value);
-        }
-    }
+    
     // Включение прослушивания изменения Ink переменных 
     public void StartListening(Story story)
     {
@@ -67,6 +59,54 @@ public class DialogVariables
         foreach(KeyValuePair<string, Object> variable in variables)
         {
             story.variablesState.SetGlobal(variable.Key, variable.Value);
+        }
+    }
+
+    public SaveLoadData GetSaveLoadData()
+    {
+        return new DialogVariablesSaveLoadData(ComponentSaveId, _globalVariablesStory.ToJson());
+    }
+
+    public void RestoreValues(SaveLoadData loadData)
+    {
+        if (loadData?.Data == null || loadData.Data.Length < 1)
+        {
+            UnityEngine.Debug.LogError($"Can't restore values.");
+            return;
+        }
+
+        // [0] - (field)
+
+        string globalJsonStory = loadData.Data[0].ToString();
+        _globalVariablesStory = new Story(globalJsonStory);
+
+        // Получение Ink переменных и их значений
+        variables = new Dictionary<string, Object>();
+        foreach (string name in _globalVariablesStory.variablesState)
+        {
+            Object value = _globalVariablesStory.variablesState.GetVariableWithName(name);
+            variables.Add(name, value);
+        }
+    }
+
+    public void SetDefault()
+    {
+        string ink;
+        using (StreamReader sr = new StreamReader(UnityEngine.Application.streamingAssetsPath + "/" + "InkJSON/globals.ink"))
+        {
+            ink = sr.ReadToEnd();
+        }
+
+        // Чтение файла global.ink и компиляция
+        Ink.Compiler compiler = new Ink.Compiler(ink);
+        _globalVariablesStory = compiler.Compile();
+
+        // Получение Ink переменных и их значений
+        variables = new Dictionary<string, Object>();
+        foreach (string name in _globalVariablesStory.variablesState)
+        {
+            Object value = _globalVariablesStory.variablesState.GetVariableWithName(name);
+            variables.Add(name, value);
         }
     }
 }

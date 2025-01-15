@@ -54,7 +54,8 @@ namespace ProgressModul
 
         public void Init ()
         {
-         SceneManager.LoadScene(_initSceneName);
+            _lastSceneName = _initSceneName;
+            SceneManager.LoadScene(_initSceneName);
         }
 
         public void InitLast()
