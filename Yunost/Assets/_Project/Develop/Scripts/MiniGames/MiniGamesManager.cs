@@ -29,14 +29,8 @@ namespace MiniGames
             SystemManager.GetInstance().DisableSystemsToMiniGame();   
 
             _screen = Instantiate(GetScreen(context));
-            ChooseDifficultMiniGame(ref(context));
             ChooseMiniGame(context);
             Run(context);
-        }
-
-        private void ChooseDifficultMiniGame(ref MiniGameContext context)
-        {
-            context.CurrentDifficult = TypeDifficultMiniGames.Easy;
         }
 
         private void ChooseMiniGame(MiniGameContext context)
@@ -47,7 +41,7 @@ namespace MiniGames
                 case TypesMiniGames.AdvancePathEachStage: break;
                 case TypesMiniGames.QuickPressKeyCertainTime: break;
                 case TypesMiniGames.GameWolfConsole: break;
-                case TypesMiniGames.QuickTempPressKeyCertainRange: break;
+                case TypesMiniGames.QuickTempPressKeyCertainRange: _currGame = new QuickTempPressKeyCertainRangeMiniGame(); break;
                 case TypesMiniGames.ConnectElements: break;
                 case TypesMiniGames.ReachEndPointWithObstacles: break;
                 case TypesMiniGames.BreakingLock: _currGame = new BreakingLockMiniGame(); break;
@@ -81,7 +75,6 @@ namespace MiniGames
                 
                 _currGame.Init(context);
                 _currGame.OnMiniGameEnd += OnMiniGameEnd;
-               
             }
         }
 

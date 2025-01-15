@@ -139,7 +139,7 @@ public class DialogManager : MonoBehaviour
         
         // Старт Мини игры   
         currentStory.BindExternalFunction("startMiniGame", () => {
-            MiniGameContext testContext = new MiniGameContext(TypesMiniGames.BreakingLock, 0f, 5);
+            MiniGameContext testContext = new MiniGameContext(TypesMiniGames.BreakingLock, TypeDifficultMiniGames.Easy, 0f, 5);
             GameObject.Find("GameSystems").GetComponent<MiniGamesManager>().RunMiniGame(testContext);
         });
 
