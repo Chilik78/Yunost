@@ -122,7 +122,7 @@ public class InventoryManager : MonoBehaviour
         {
             if (nearbyItem != null)
             {
-                //PickupNearbyItem();
+                PickupNearbyItem(); //временная штука для тестов
                 Debug.LogWarning("В зоне пика предмета");
             }
             else

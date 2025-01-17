@@ -37,6 +37,7 @@ public class DialogManager : MonoBehaviour
 
     private DialogVariables dialogVariables;
 
+    private string tmpText;
 
 
     private void Awake()
@@ -223,7 +224,7 @@ public class DialogManager : MonoBehaviour
             {
                 //Debug.Log($"Добавлено в очередь: {line}");
                 dialogueQueue.Enqueue(line.Trim());
-
+                Debug.LogWarning("Добавлены строка" + line);
             }
 
 
@@ -231,6 +232,7 @@ public class DialogManager : MonoBehaviour
             if (!isTyping && dialogueQueue.Count > 0)
             {
                 StopAllCoroutines();
+                
                 StartCoroutine(TypeText(dialogueQueue.Dequeue()));
             }
 
@@ -249,6 +251,7 @@ public class DialogManager : MonoBehaviour
 
     private IEnumerator TypeText(string newLine)
     {
+        tmpText = newLine;
         isTyping = true;
         SetChoicesInteractable(false);
 
@@ -281,31 +284,37 @@ public class DialogManager : MonoBehaviour
     }
 
 
-
     private void CompleteTypingCurrentLine()
     {
         StopAllCoroutines();
 
-
         if (dialogueQueue.Count > 0)
         {
+            string currentText = dialogueText.text;
 
-            string currentLine = dialogueQueue.Dequeue();
-
-            if (string.IsNullOrEmpty(currentLine))
+            // Находим индекс первого \n
+            int newLineIndex = currentText.LastIndexOf('\n');
+            if (newLineIndex >= 0)
             {
-                //Debug.LogWarning("Извлеченная строка из очереди пуста.");
+                // Оставляем текст до первого \n
+                dialogueText.text = currentText.Substring(0, newLineIndex + 1);
             }
             else
             {
-                dialogueText.text += currentLine;
-                //Debug.Log("Строчка под скип в CompleteTypingCurrentLine: " + currentLine);
+                // Если \n не найден, оставляем текст без изменений
+                Debug.LogWarning("Символ новой строки \n не найден.");
             }
+
+            //dialogueText.text = "";
+
+            string remainingText = tmpText;//dialogueQueue.Dequeue()
+            Debug.LogWarning("Оставшийся текст" + remainingText);
+
+            dialogueText.text += remainingText;//+"\n"
 
             isTyping = false;
             SetChoicesInteractable(true);
 
-            // Если в очереди еще есть строки, продолжаем печатать
             if (dialogueQueue.Count > 0)
             {
                 StartCoroutine(TypeText(dialogueQueue.Dequeue()));
@@ -313,9 +322,12 @@ public class DialogManager : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning("Очередь пуста при попытке завершить печать.");
+            Debug.LogWarning("Очередь пуста при завершении строки.");
         }
     }
+
+
+
 
     // Включение кнопок выбора диалоговых вариантов
     private void DisplayChoices()

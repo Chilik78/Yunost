@@ -57,12 +57,13 @@ public class CraftingManager : MonoBehaviour
             if (craftedItem != null)
             {
                 CreateOutputItem(craftedItem);
+                inventoryManager.RemoveItemFromInventory(itemInInput1.name);
+                inventoryManager.RemoveItemFromInventory(itemInInput2.name);
+                ClearInputSlots();
             }
-            ClearInputSlots();
-            inventoryManager.RemoveItemFromInventory(itemInInput1.name);
-            inventoryManager.RemoveItemFromInventory(itemInInput2.name);
         }
     }
+
 
     private Item CraftItem(Item item1, Item item2)
     {
@@ -76,7 +77,7 @@ public class CraftingManager : MonoBehaviour
     }
 
 
-    private void CreateOutputItem(Item outputItem)
+    public void CreateOutputItem(Item outputItem)
     {
         if (outputSlot.childCount > 0) ClearSlot(outputSlot);
         
@@ -102,7 +103,7 @@ public class CraftingManager : MonoBehaviour
 
     }
 
-    private void ClearSlot(Transform slot)
+    public void ClearSlot(Transform slot)
     {
         Debug.Log(slot.gameObject.name);
         Transform child = slot.Find("SlotPrefab(Clone)");
