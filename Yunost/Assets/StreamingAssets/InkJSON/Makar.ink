@@ -1,9 +1,15 @@
+INCLUDE globals.ink
+EXTERNAL itemIsExist(item)
+EXTERNAL setDoneTask(idTask)
+EXTERNAL setDoneSubTask(idTask, idSubTask)
+-> NameQuest
 INCLUDE Quests\Act1\LongRoad\Makar_Act1_LongRoad.ink
 
--> NameQuest
 
 == NameQuest
-{CurrentQuest == "long_road": -> Act1_LongRoad} 
+{ 
+- CurrentQuest == "long_road": -> Act1_LongRoad
+} 
 -> END
 
 /*

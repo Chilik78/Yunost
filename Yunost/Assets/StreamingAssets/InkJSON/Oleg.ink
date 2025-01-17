@@ -1,14 +1,16 @@
-INCLUDE Quests\Act1\HelpForFriend\Oleg_Act1_HelpForFriend.ink
-//EXTERNAL startMiniGame()
-//EXTERNAL itemInInventory(item)
-//EXTERNAL setDoneTask(idTask)
-//EXTERNAL setDoneSubTask(idTask, idSubTask)
-
+INCLUDE globals.ink
+EXTERNAL itemIsExist(item)
+EXTERNAL setDoneTask(idTask)
+EXTERNAL setDoneSubTask(idTask, idSubTask)
 -> NameQuest
+INCLUDE Quests\Act1\HelpForFriend\Oleg_Act1_HelpForFriend.ink
+INCLUDE Quests\Act1\SweetHome\Oleg_Act1_SweetHome.ink
 
 == NameQuest
-{CurrentQuest == "help_for_friend": -> Act1_HelpForFriend} 
-//{CurrentQuest == "help_friend" && CurrentSubquest == "talk_oleg"} -> Act1_HelpFriend
+{ 
+- CurrentQuest == "help_for_friend": -> Act1_HelpForFriend
+- CurrentQuest == "sweet_home": -> Act1_SweetHome
+}
 -> END
 
 

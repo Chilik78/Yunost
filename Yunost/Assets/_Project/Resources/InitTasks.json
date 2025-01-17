@@ -44,7 +44,12 @@
                 },
                 {
                     "id": "open_door",
-                    "description": "Взломать дверь самостоятельно ИЛИ отдать Инструменты для взлома Олегу",
+                    "description": "Взломать дверной замок ИЛИ найти другой способ открыть дверь",
+                    "isDone": false
+                },
+                {
+                    "id": "talk_result",
+                    "description": "Подвести итоги с Олегом",
                     "isDone": false
                 }
             ],
@@ -56,20 +61,35 @@
             "name": "Дом, милый дом",
             "subTasks": [
                 {
-                    "id": "sweet_home_1",
-                    "description": "Поговорить с Директором рядом с Администрацией",
+                    "id": "director",
+                    "description": "Поговорить с Анатолием Степановичем у Администрации",
                     "isDone": false
                 },
                 {
-                    "id": "sweet_home_2",
-                    "description": "Найти Ключ и открыть Дверь в Дом",
+                    "id": "search_key",
+                    "description": "Найти Ключ",
                     "isDone": false
                 },
                 {
-                    "id": "sweet_home_3",
-                    "description": "Зайти в Дом",
+                    "id": "open_door",
+                    "description": "Открыть дверь Дома №1",
                     "isDone": false
-                }       
+                },    
+                {
+                    "id": "go_to_home",
+                    "description": "Зайти в Дом №1",
+                    "isDone": false
+                }, 
+                {
+                    "id": "drop_case",
+                    "description": "Поставить Чемодан у кровати",
+                    "isDone": false
+                },
+                {
+                    "id": "go_to_bed",
+                    "description": "Лечь спать",
+                    "isDone": false
+                }
             ],
             "isDone": false
 

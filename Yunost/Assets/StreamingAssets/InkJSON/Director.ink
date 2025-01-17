@@ -1,7 +1,19 @@
 INCLUDE globals.ink
-//EXTERNAL setDoneTask(idTask)
-//EXTERNAL setDoneSubTask(idTask, idSubTask)
+EXTERNAL itemIsExist(item)
+EXTERNAL setDoneTask(idTask)
+EXTERNAL setDoneSubTask(idTask, idSubTask)
+-> NameQuest
+INCLUDE Quests\Act1\HelpForFriend\Director_Act1_HelpForFriend.ink
+INCLUDE Quests\Act1\SweetHome\Director_Act1_SweetHome.ink
 
+== NameQuest
+{ 
+- CurrentQuest == "help_for_friend": -> Act1_HelpForFriend
+- CurrentQuest == "sweet_home": -> Act1_SweetHome
+} 
+-> END
+
+/*
 {Повторение_Директор_Акт1_ДомМилыйДом == "Да": -> Повтор_Акт1_ДомМилыйДом}
 
 -> Начало_Акт1_ДомМилыйДом
@@ -32,3 +44,5 @@ INCLUDE globals.ink
 == Повтор_Акт1_ДомМилыйДом ==
 Анатолий Степанович: Александр, вы ещё здесь? Успеете осмотреть лагерь, идите-ка скорей отдыхать!
     +[Уже бегу, Анатолий Степанович] -> END
+
+*/

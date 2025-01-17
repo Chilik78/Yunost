@@ -2,6 +2,7 @@ using UnityEngine;
 using Global;
 using ProgressModul;
 using Player;
+using System;
 
 public class InitScript : MonoBehaviour
 {
@@ -20,13 +21,13 @@ public class InitScript : MonoBehaviour
     {
         PickupItem[] objects = FindObjectsByType<PickupItem>(FindObjectsSortMode.None);
         ListOfItems listOfItems = ServiceLocator.Get<ListOfItems>();
+
         foreach (PickupItem obj in objects)
         {
-            if (listOfItems.AutoInventoryItems.Contains(obj.item))
+            if (listOfItems.ItemExists(obj.item.name))
             {
                 Destroy(obj.gameObject);
             }
-
         }
 
         PlayerStats playerStats = ServiceLocator.Get<PlayerStats>();

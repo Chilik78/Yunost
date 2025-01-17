@@ -1,16 +1,4 @@
-INCLUDE globals.ink
 
-EXTERNAL itemIsExist(item)
-EXTERNAL setDoneTask(idTask)
-EXTERNAL setDoneSubTask(idTask, idSubTask)
-
--> Act1_LongRoad
-
-// Переменные
-
-//TODO: Встроить диалог подбора предмета (поднятие чемодана через диалоговое окно) и добавить смену подзадания при подборе чемодана
-
-// Квест "Долгая дорога"
 == Act1_LongRoad
 ~itemExist = itemIsExist("bag")
 {itemExist == true && longRoadRepeat2 == false: -> Act1_LongRoad_hasCase}

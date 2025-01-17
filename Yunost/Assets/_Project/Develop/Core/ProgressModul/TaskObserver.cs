@@ -1,4 +1,4 @@
-
+п»ї
 using Global;
 using Ink.Runtime;
 using Newtonsoft.Json;
@@ -58,7 +58,7 @@ namespace ProgressModul
             get => _inProgressTasks;
         }
 
-        public Task GetFirstInProgressTask 
+        public Task GetFirstInProgressTask
         {
             get
             {
@@ -79,6 +79,10 @@ namespace ProgressModul
             if (isAllDone)
             {
                 SetDoneTask(task);
+                if (HaveNewSubTask != null)
+                {
+                    HaveNewSubTask(GetFirstInProgressTask);
+                }
             }
             else
             {
@@ -94,16 +98,16 @@ namespace ProgressModul
         public void SetDoneTask(Task task)
         {
             if (task == null) return;
-            
+
 
             task.SetDone();
             _inProgressTasks.Remove(task);
             _doneTasks.Add(task);
 
-            if(HaveDoneTask != null)
+            if (HaveDoneTask != null)
                 HaveDoneTask(task);
-            
-            if(HaveNewTask != null) 
+
+            if (HaveNewTask != null)
                 HaveNewTask(GetFirstInProgressTask);
         }
 
@@ -115,7 +119,7 @@ namespace ProgressModul
         public void SetDoneTaskById(string id)
         {
             Task task = _inProgressTasks.Where(t => t.Id == id).First();
-            if(task != null)
+            if (task != null)
             {
                 SetDoneTask(task);
             }
@@ -124,12 +128,16 @@ namespace ProgressModul
         public void SetDoneSubTaskByIds(string taskId, string subTaskId)
         {
             Task task = _inProgressTasks.Where(t => t.Id == taskId).First();
-            if(task == null) return;
+            if (task == null) return;
 
             bool isAllDone = task.SetDoneSubTaskById(subTaskId);
             if (isAllDone)
             {
                 SetDoneTask(task);
+                if (HaveNewSubTask != null)
+                {
+                    HaveNewSubTask(GetFirstInProgressTask);
+                }
             }
             else
             {
@@ -178,14 +186,14 @@ namespace ProgressModul
             PlayerPrefs.DeleteKey(PrefsKey);
             if (string.IsNullOrEmpty(serializedFile))
             {
-                Debug.LogError($"Загруженный json {PrefsKey} пустой.");
+                Debug.LogError($"Г‡Г ГЈГ°ГіГ¦ГҐГ­Г­Г»Г© json {PrefsKey} ГЇГіГ±ГІГ®Г©.");
                 return null;
             }
-            Debug.Log($"Загрузка json {PrefsKey}");
+            Debug.Log($"Г‡Г ГЈГ°ГіГ§ГЄГ  json {PrefsKey}");
             SaveLoadData saveLoadData = JsonConvert.DeserializeObject<SaveLoadData>(serializedFile);
             TaskObserver taskObserver = new();
             taskObserver.RestoreValues(saveLoadData);
-            
+
             return taskObserver;
         }
 
@@ -202,5 +210,3 @@ namespace ProgressModul
         }
     }
 }
-
-

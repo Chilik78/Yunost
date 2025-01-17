@@ -1,9 +1,16 @@
+INCLUDE globals.ink
+EXTERNAL hitHealth(value)
+EXTERNAL changeScene(sceneName)
+EXTERNAL setDoneSubTask(idTask, idSubTask)
+EXTERNAL setDoneTask(idTask)
+-> NameQuest
 INCLUDE Quests\Act1\LongRoad\MainGait_Act1_LongRoad.ink
 
--> NameQuest
 
 == NameQuest
-{CurrentQuest == "long_road": -> Act1_LongRoad} 
+{ 
+- CurrentQuest == "long_road": -> Act1_LongRoad
+} 
 -> END
 
 /*

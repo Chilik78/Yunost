@@ -1,10 +1,20 @@
 INCLUDE globals.ink
-//EXTERNAL itemInInventory(item)
-//EXTERNAL changeScene(sceneName)
-//EXTERNAL setDoneTask(idTask)
-//EXTERNAL setDoneSubTask(idTask, idSubTask)
+EXTERNAL itemIsExist(item)
+EXTERNAL setDoneTask(idTask)
+EXTERNAL setDoneSubTask(idTask, idSubTask)
+EXTERNAL changeScene(nameScene)
+-> NameQuest
+INCLUDE Quests\Act1\HelpForFriend\HomeDoor_Act1_HelpForFriend.ink
+INCLUDE Quests\Act1\SweetHome\HomeDoor_Act1_SweetHome.ink
 
+== NameQuest
+{ 
+- CurrentQuest == "help_for_friend": -> Act1_HelpForFriend
+- CurrentQuest == "sweet_home": -> Act1_SweetHome
+} 
+-> END
 
+/*
 -> ДверьГлавногоДома
 
 == ДверьГлавногоДома ==
@@ -26,3 +36,4 @@ INCLUDE globals.ink
     //~setDoneSubTask("3", "2")
     //~Дверь_Открыта = "Да"
     + [Наконец-то я смогу отдохнуть] -> ДверьГлавногоДома
+*/

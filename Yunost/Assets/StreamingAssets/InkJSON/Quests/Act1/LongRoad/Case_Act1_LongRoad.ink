@@ -1,8 +1,3 @@
-INCLUDE globals.ink
-
-EXTERNAL pickupItem(item)
-
--> Act1_LongRoad
 
 == Act1_LongRoad
 {checkCase == 0: 
@@ -12,10 +7,10 @@ EXTERNAL pickupItem(item)
 + [Поднять Чемодан] 
 ~pickupItem("bag")
 -> END
-* (checkCase) [Осмотреть Чемодан] <- Act1_LongRoad_CheckCase
--> Act1_LongRoad
-+ [Оставить Чемодан] -> END
++ (checkCase) [Осмотреть Чемодан] -> Act1_LongRoad_CheckCase
++ [Уйти] -> END
 
 == Act1_LongRoad_CheckCase
 Чемодан: Классический слегка потрёпанный советский чемодан. На чемодане заметны различные пятна, то ли от грязи, то ли от пролитого сока. Судя по всему подвергался использованию в самых различных погодных условиях. Сегодня его занесло на месячную экскурсию в пионерский лагерь "Юность".
++ [Закончить осмотр] -> Act1_LongRoad
 -> DONE
