@@ -118,18 +118,18 @@ public class InventoryManager : MonoBehaviour
 
 
         // Подбор предмета по кнопке F
-        if (Input.GetKeyDown(KeyCode.F))
-        {
-            if (nearbyItem != null)
-            {
-                PickupNearbyItem(); //временная штука для тестов
-                Debug.LogWarning("В зоне пика предмета");
-            }
-            else
-            {
-                Debug.LogWarning("Рядом нет предметов для подбора!");
-            }
-        }
+        //if (Input.GetKeyDown(KeyCode.F))
+        //{
+        //    if (nearbyItem != null)
+        //    {
+        //        PickupNearbyItem(); //временная штука для тестов
+        //        Debug.LogWarning("В зоне пика предмета");
+        //    }
+        //    else
+        //    {
+        //        Debug.LogWarning("Рядом нет предметов для подбора!");
+        //    }
+        //}
     }
 
     private void ToggleInventory()
