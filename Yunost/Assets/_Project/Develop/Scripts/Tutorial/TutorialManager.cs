@@ -12,7 +12,7 @@ public class TutorialManager : MonoBehaviour
 
     private void Update()
     {
-        if (isTutorialActive && Input.GetKeyDown(KeyCode.Space))
+        if (isTutorialActive && Input.GetKeyDown(KeyCode.Return))
         {
             EndTutorial();
         }

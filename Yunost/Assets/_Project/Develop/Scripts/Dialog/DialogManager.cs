@@ -90,7 +90,7 @@ public class DialogManager : MonoBehaviour
     private void Update()
     {
 
-        if (isTyping && Input.GetKeyDown(KeyCode.Backspace))
+        if (isTyping && Input.GetKeyDown(KeyCode.Space))
         {
             CompleteTypingCurrentLine();
         }

@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: bag
   m_EditorClassIdentifier: 
   itemName: Bag
-  icon: {fileID: 2800000, guid: c75d7927f97ba84488bf3f00a0e42cf8, type: 3}
+  icon: {fileID: 2800000, guid: cd207ece0dfbf244c8fd820e7d423dca, type: 3}
