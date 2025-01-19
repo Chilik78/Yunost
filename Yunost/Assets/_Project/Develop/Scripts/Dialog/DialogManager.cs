@@ -187,7 +187,7 @@ public class DialogManager : MonoBehaviour
     private IEnumerator ExitDialogMode()
     {
         yield return new WaitForSeconds(0.2f);
-
+        
         // Окончание прослушивания изменения Ink переменных
         dialogVariables.StopListening(currentStory);
 
@@ -257,12 +257,32 @@ public class DialogManager : MonoBehaviour
 
         dialogueText.text += "\n";
 
+        if (newLine.Contains(":"))
+        {
+            string[] parts = newLine.Split(new char[] { ':' }, 2);
+            string prefix = parts[0];
+            string restOfLine = parts[1];
+
+            if (prefix.Trim() == "Вы")
+            {
+                dialogueText.text += $"<color=#00FF00>{prefix}:</color>";
+            }
+            else
+            {
+                dialogueText.text += $"<color=#0000FF>{prefix}:</color>";
+            }
+
+            newLine = restOfLine;
+        }
+
+        // Проверка на текст перед ":"
+
         foreach (char letter in newLine)
         {
             dialogueText.text += letter;
 
 
-            if (Input.GetKeyDown(KeyCode.Backspace))
+            if (Input.GetKeyDown(KeyCode.Space))
             {
                 dialogueText.text += newLine.Substring(dialogueText.text.Length - dialogueText.text.LastIndexOf('\n') - 1);
                 //Debug.Log("Строчка под скип в TypeText" + newLine.Substring(dialogueText.text.Length - dialogueText.text.LastIndexOf('\n') - 1));
@@ -290,27 +310,51 @@ public class DialogManager : MonoBehaviour
 
         if (dialogueQueue.Count > 0)
         {
+
             string currentText = dialogueText.text;
 
-            // Находим индекс первого \n
+
             int newLineIndex = currentText.LastIndexOf('\n');
             if (newLineIndex >= 0)
             {
-                // Оставляем текст до первого \n
                 dialogueText.text = currentText.Substring(0, newLineIndex + 1);
             }
             else
             {
-                // Если \n не найден, оставляем текст без изменений
                 Debug.LogWarning("Символ новой строки \n не найден.");
             }
-
-            //dialogueText.text = "";
 
             string remainingText = tmpText;//dialogueQueue.Dequeue()
             Debug.LogWarning("Оставшийся текст" + remainingText);
 
-            dialogueText.text += remainingText;//+"\n"
+            //dialogueText.text += remainingText;//+"\n"
+
+            
+            // Проверяем на наличие ":" и меняем цвет
+            if (remainingText.Contains(":"))
+            {
+                string[] parts = remainingText.Split(new char[] { ':' }, 2); 
+                string prefix = parts[0]; 
+                string restOfLine = parts[1]; 
+
+                if (prefix.Trim() == "Вы") 
+                {
+                    dialogueText.text += $"<color=#00FF00>{prefix}:</color>"; 
+                }
+                else 
+                {
+                    dialogueText.text += $"<color=#0000FF>{prefix}:</color>"; 
+                }
+
+                dialogueText.text += restOfLine; 
+            }
+            else
+            {
+                dialogueText.text += remainingText; 
+            }
+
+
+
 
             isTyping = false;
             SetChoicesInteractable(true);
