@@ -21,6 +21,8 @@ public class DialogManager : MonoBehaviour
     // Кнопки выбора варинтов действия/ответа
     [SerializeField] private GameObject[] choices;
 
+    [SerializeField] private ScrollRect scrollRect;
+
     //[SerializeField] private ScrollRect scrollRect;
 
     private CraftingManager craftManager;
@@ -60,6 +62,11 @@ public class DialogManager : MonoBehaviour
 
     private void Start()
     {
+        if (scrollRect == null)
+        {
+            Debug.LogWarning("ScrollRect не привязан!!!!!!!!!!!!!!!!");
+        }
+
         var taskObserver = ServiceLocator.Get<TaskObserver>();
         dialogVariables.ChangeVariable("CurrentQuest", taskObserver.GetFirstInProgressTask.Id);
         dialogVariables.ChangeVariable("CurrentSubquest", taskObserver.GetFirstInProgressTask.GetFirstInProgressSubTask.Id);
@@ -138,6 +145,15 @@ public class DialogManager : MonoBehaviour
         currentStory = new Story(json);
         dialogIsPlaying = true;
         dialoguePanel.SetActive(true);
+
+
+        if (scrollRect != null)
+        {
+            Canvas.ForceUpdateCanvases(); // Обновляем канвас перед изменением прокрутки
+            scrollRect.verticalNormalizedPosition = 1f; // Устанавливаем прокрутку наверх
+            //Debug.LogWarning("Прокрутка вверх");
+        }
+
 
         // Начало прослушивания изменения Ink переменных
         dialogVariables.StartListening(currentStory);
@@ -280,6 +296,7 @@ public class DialogManager : MonoBehaviour
         foreach (char letter in newLine)
         {
             dialogueText.text += letter;
+
 
 
             if (Input.GetKeyDown(KeyCode.Space))
