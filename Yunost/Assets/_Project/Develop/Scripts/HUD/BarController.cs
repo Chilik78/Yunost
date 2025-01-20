@@ -36,6 +36,7 @@ public class BarController : MonoBehaviour
 
     void setFill(PlayerStats playerStats)
     {
+        Debug.LogWarning(playerStats.Health.ToString());
         switch (type)
         {
             case BarType.Health:
