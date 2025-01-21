@@ -31,7 +31,7 @@ public static class GlobalInitScript
         ServiceLocator.Register(timeControl);
         ServiceLocator.Register(dialogVariables);
 
-        ServiceLocator.Get<SceneControl>().StartLoading += () => SetSceneIndicator();
+        ServiceLocator.Get<SceneControl>().StartLoading += SetPlayerStatsToDefault;
     }
 
     static public void SetSceneIndicator()
@@ -39,11 +39,17 @@ public static class GlobalInitScript
         PlayerPrefs.SetInt("IsFirstInScene", 1);
     }
 
+    static private void SetPlayerStatsToDefault() { 
+        SetSceneIndicator();
+        ServiceLocator.Get<PlayerStats>().SetDefault();
+    }
+
     public static void UnregisterServices()
     {
-        ServiceLocator.Get<SceneControl>().StartLoading -= () => ServiceLocator.Get<PlayerStats>().SetDefault();
+        ServiceLocator.Get<SceneControl>().StartLoading -= SetPlayerStatsToDefault;
         ServiceLocator.Unregister<TaskObserver>();
         ServiceLocator.Unregister<ListOfItems>();
+        ServiceLocator.Get<PlayerStats>().ClearAllListeners();
         ServiceLocator.Unregister<PlayerStats>();
         ServiceLocator.Unregister<TimeControl>();
         ServiceLocator.Unregister<DialogVariables>();
@@ -51,7 +57,7 @@ public static class GlobalInitScript
 
     private static void InitGlobalServices()
     {
-        SceneControl sceneControl = new SceneControl(1);
+        SceneControl sceneControl = new SceneControl();
         SaveLoadSystem saveLoadSystem = new SaveLoadSystem();
        
         ServiceLocator.Register(sceneControl);

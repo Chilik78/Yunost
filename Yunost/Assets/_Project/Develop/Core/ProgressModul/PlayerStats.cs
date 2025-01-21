@@ -149,6 +149,21 @@ namespace ProgressModul
         }
 
         public string ComponentSaveId => "PlayerStats";
+
+        public void ClearAllListeners()
+        {
+            foreach (Delegate d in HealthChanged.GetInvocationList())
+            {
+                HealthChanged -= (Action)d;
+            }
+
+            foreach (Delegate d in StaminaChanged.GetInvocationList())
+            {
+                StaminaChanged -= (Action)d;
+            }
+
+            Debug.Log("Удалены все слушателе с PlayerStats");
+        }
     }
 }
 

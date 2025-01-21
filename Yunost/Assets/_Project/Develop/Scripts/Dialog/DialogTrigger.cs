@@ -7,9 +7,15 @@ public class DialogTrigger : MonoBehaviour
         [Header("Visual Cue")]
         [SerializeField] private GameObject visualCue;*/
 
-    private GameObject _visualCue;
-
     private UniversalTutorialManager universalTutorialManager;
+
+    [SerializeField]
+    private float yStepVisualClue = 1;
+
+    [SerializeField]
+    private string targetName;
+
+    private GameObject target;
 
     // Ink JSON файл с диалогами данного NPC
     [Header("Ink JSON")]
@@ -22,13 +28,24 @@ public class DialogTrigger : MonoBehaviour
     private void Start()
     {
         universalTutorialManager = FindObjectOfType<UniversalTutorialManager>();
+
+        if(targetName != null)
+        {
+            target = GameObject.Find(targetName);
+        }
+        else
+        {
+            target = transform.GetChild(0).gameObject;
+        }
+
+        Debug.Log(target.name);
     }
 
     private void Awake()
     {
         playerInRange = false;
-        var prefab = Resources.Load("VisualCue");
-        _visualCue = Instantiate(prefab, this.transform) as GameObject;
+       /* var prefab = Resources.Load("VisualCue");
+        _visualCue = Instantiate(prefab, this.transform) as GameObject;*/
     }
 
     private void Update()
@@ -36,7 +53,7 @@ public class DialogTrigger : MonoBehaviour
         // Отображение знака над NPC
         if (playerInRange && !DialogManager.GetInstance().dialogIsPlaying)
         {
-            _visualCue.SetActive(true);
+            //SetClue(true);
             if (Input.GetKeyDown(KeyCode.E))
             {
                 string json = "";
@@ -52,17 +69,28 @@ public class DialogTrigger : MonoBehaviour
         }
         else
         {
-            _visualCue.SetActive(false);
+            //SetClue(false);
+        }
+    }
+
+    private Color _prevColor;
+
+    private void SetClue(bool state)
+    {
+        if (state)
+        {
+            _prevColor = target.GetComponentInChildren<Renderer>().material.GetColor("_Color");
+            target.GetComponentInChildren<Renderer>().material.SetColor("_Color", Color.red);
+        }
+        else
+        {
+            target.GetComponentInChildren<Renderer>().material.SetColor("_Color", _prevColor);
         }
     }
 
     // Игрок вошёл в область NPC
     private void OnTriggerEnter(Collider other)
     {
-        var npcTransform = this.GetComponentInParent<Transform>();
-        var newPos = new Vector3(npcTransform.position.x, npcTransform.position.y, npcTransform.position.z);
-        _visualCue.transform.position = newPos;
-
         if (other.gameObject.tag == "Player")
         {
             playerInRange = true;

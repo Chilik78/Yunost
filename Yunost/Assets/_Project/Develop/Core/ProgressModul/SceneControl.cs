@@ -37,7 +37,7 @@ namespace ProgressModul
         public event LoadingHandler StartLoading;
         public event LoadingHandler StoptLoading;
 
-        public SceneControl(string initSceneName)
+        /*public SceneControl(string initSceneName)
         {
             _initSceneName = initSceneName; 
         }
@@ -50,11 +50,12 @@ namespace ProgressModul
         public SceneControl(Scenes initScene)
         {
             _initSceneName = _sceneDictionary[(int)initScene];
-        }
+        }*/
 
         public void Init ()
         {
             _lastSceneName = _initSceneName;
+            Debug.LogWarning(_lastSceneName);
             SceneManager.LoadScene(_initSceneName);
         }
 

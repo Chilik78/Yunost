@@ -8,6 +8,7 @@ using MiniGames;
 using Global;
 using ProgressModul;
 
+
 public class DialogManager : MonoBehaviour
 {
     private string globalsInkFile;
