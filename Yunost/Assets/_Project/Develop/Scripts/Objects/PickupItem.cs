@@ -5,22 +5,22 @@ public class PickupItem : MonoBehaviour
     public Item item;
     
 
-    public GameObject textObject;
-    public GameObject cylinderObject;
+    //public GameObject textObject;
+    //public GameObject cylinderObject;
     public float activationDistance = 1f;
     public Transform objectFind;
-    private bool isTextActive = false;
+    //private bool isTextActive = false;
     public Transform player;
 
     private void Start()
     {
         
 
-        if (textObject != null && cylinderObject != null)
+        /*if (textObject != null && cylinderObject != null)
         {
             textObject.SetActive(false);
             cylinderObject.SetActive(false);
-        }
+        }*/
 
         if (objectFind.name == "Plane")
         {
@@ -62,7 +62,7 @@ public class PickupItem : MonoBehaviour
         }
     }
 
-    private void Update()
+    /*private void Update()
     {
         if (objectFind != null && textObject != null && cylinderObject != null)
         {
@@ -92,8 +92,5 @@ public class PickupItem : MonoBehaviour
             }
         }
 
-    }
-
-
-
+    }*/
 }
