@@ -82,12 +82,12 @@
                 }, 
                 {
                     "id": "drop_case",
-                    "description": "Поставить Чемодан у кровати",
+                    "description": "Поставить Чемодан в угол у Стола",
                     "isDone": false
                 },
                 {
                     "id": "go_to_bed",
-                    "description": "Лечь спать",
+                    "description": "Отдохнуть на Кровати",
                     "isDone": false
                 }
             ],
