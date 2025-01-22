@@ -1,5 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
+using static UnityEngine.UI.Image;
+using System.Linq;
+using UnityEngine.Rendering.HighDefinition;
+using static UnityEditor.Rendering.BuiltIn.ShaderGraph.BuiltInBaseShaderGUI;
 
 namespace CameraModule
 {
@@ -16,6 +20,7 @@ namespace CameraModule
         private float _scrollSpeed = 10;
         private Camera _camera;
         private Dictionary<GameObject, Color> _hiddenGameObjects;
+        private float _lastMouseScrollWheelVal;
 
 
         void Start()
@@ -23,11 +28,12 @@ namespace CameraModule
             _camera = Camera.main;
             _player = GameObject.FindWithTag("Player");
             _hiddenGameObjects = new Dictionary<GameObject, Color>();
+            _lastMouseScrollWheelVal = Input.GetAxis("Mouse ScrollWheel");
         }
 
         void Update()
         {
-            //ShowPlayerBehindObj();
+            ShowPlayerBehindObj();
             Zoom();
         }
 
@@ -38,17 +44,17 @@ namespace CameraModule
 
         private void OnTriggerEnter(Collider collider)
         {
-            //ShowPlayerBehindObj(collider);
+            ShowPlayerBehindObj(collider);
         }
 
         private void OnTriggerStay(Collider collider)
         {
-            //ShowPlayerBehindObj(collider);
+            ShowPlayerBehindObj(collider);
         }
 
         private void OnTriggerExit(Collider collider)
         {
-            //ShowObjects();
+            ShowObjects();
         }
 
         private void FollowPlayer()
@@ -59,13 +65,18 @@ namespace CameraModule
 
         private void ShowPlayerBehindObj()
         {
-            Ray ray = new Ray(_camera.transform.position, _player.transform.position - _camera.transform.position + new Vector3(0, 1, 0));
-            Debug.DrawRay(ray.origin, ray.direction * 10, Color.green);
+            float xOriginCoord = _camera.transform.position.x + _camera.nearClipPlane;
+            float zOriginCoord = _camera.transform.position.z + _camera.nearClipPlane;
+            float medianXZLen = 0.5f * Mathf.Sqrt(Mathf.Pow(xOriginCoord, 2) + Mathf.Pow(zOriginCoord, 2));
+            float yOriginCoord = medianXZLen * Mathf.Sin(Mathf.Deg2Rad * 30);
+
+            Vector3 originCoords = new Vector3(xOriginCoord, _camera.transform.position.y + yOriginCoord, zOriginCoord);
+            Ray ray = new Ray(originCoords, _player.transform.position - originCoords + new Vector3(0, 1, 0));
+            Debug.DrawRay(ray.origin, ray.direction * 10000, Color.green);
             RaycastHit hit;
             Physics.Raycast(ray, out hit);
 
             GameObject hitGameObj = hit.transform.gameObject;
-
             if (hitGameObj.tag != "Player" && hitGameObj.tag != "NPC")
             {
                 ShowPlayerBehindObj(hitGameObj.GetComponent<Collider>());
@@ -74,6 +85,47 @@ namespace CameraModule
             {
                 ShowObjects();
             }
+
+            //RaycastHit[] hits = Physics.RaycastAll(originCoords, _player.transform.position - originCoords + new Vector3(0, 1, 0));
+            //RaycastHit[] clearedHits = ClearHits(hits);
+
+            //Debug.Log(clearedHits.Length);
+
+            //foreach (RaycastHit hit in clearedHits)
+            //{
+            //    GameObject hitGameObj = hit.transform.gameObject;
+
+            //    Debug.Log(hitGameObj);
+
+            //    if (hitGameObj.tag != "Player" && hitGameObj.tag != "NPC")
+            //    {
+            //        ShowPlayerBehindObj(hitGameObj.GetComponent<Collider>());
+            //    }
+            //   /* else if (_hiddenGameObjects.Count != 0)
+            //    {
+            //        ShowObjects();
+            //    }*/
+            //   else if(hitGameObj.tag == "Player" && clearedHits.Length == 1)
+            //    {
+            //        ShowObjects();
+            //    }
+            //}  
+        }
+
+        private RaycastHit[] ClearHits(RaycastHit[] hits)
+        {
+            List<RaycastHit> clearedHits = new List<RaycastHit>();
+
+            foreach (RaycastHit hit in hits)
+            {
+                GameObject hitGameObj = hit.transform.gameObject;
+                if (hitGameObj.tag != "NPC" && hitGameObj.tag != "DontSwitchTransparent" && hitGameObj.tag != "Item")
+                {
+                    clearedHits.Add(hit);
+                }
+            }
+
+            return clearedHits.ToArray();
         }
 
         private void ShowPlayerBehindObj(Collider collider)
@@ -116,7 +168,9 @@ namespace CameraModule
 
         private void Zoom()
         {
-            if (_camera.orthographic)
+            float curMouseScrollWheelVal = Input.GetAxis("Mouse ScrollWheel");
+
+            if (_camera.orthographic && _lastMouseScrollWheelVal != curMouseScrollWheelVal)
             {
                 float currentOrthographicSize = _camera.orthographicSize;
                 float newOrthographicSize = currentOrthographicSize - Input.GetAxis("Mouse ScrollWheel") * _scrollSpeed;
@@ -126,6 +180,7 @@ namespace CameraModule
                     _camera.orthographicSize = newOrthographicSize;
                 }
 
+                _lastMouseScrollWheelVal = curMouseScrollWheelVal;
             }
         }
     }

@@ -6,6 +6,7 @@ TagManager:
   tags:
   - NPC
   - Iteract
+  - Item
   layers:
   - Default
   - TransparentFX
