@@ -29,23 +29,29 @@ public class DialogTrigger : MonoBehaviour
     {
         universalTutorialManager = FindObjectOfType<UniversalTutorialManager>();
 
-        if(targetName != null)
+        if (!string.IsNullOrEmpty(targetName) && targetName != "self")
         {
             target = GameObject.Find(targetName);
+        }
+        else if (targetName == "self")
+        {
+            target = this.gameObject;
         }
         else
         {
             target = transform.GetChild(0).gameObject;
         }
 
-        Debug.Log(target.name);
+        _visualClue = GameObject.Find("VisualCue") ?? GameObject.Find("VisualCue(Clone)");
+        _prevMaterials = GetMaterials(target);
+        _cueMaterial = Resources.Load<Material>("CueMaterial");
     }
 
     private void Awake()
     {
         playerInRange = false;
-       /* var prefab = Resources.Load("VisualCue");
-        _visualCue = Instantiate(prefab, this.transform) as GameObject;*/
+        /* var prefab = Resources.Load("VisualCue");
+         _visualCue = Instantiate(prefab, this.transform) as GameObject;*/
     }
 
     private void Update()
@@ -53,7 +59,6 @@ public class DialogTrigger : MonoBehaviour
         // Отображение знака над NPC
         if (playerInRange && !DialogManager.GetInstance().dialogIsPlaying)
         {
-            //SetClue(true);
             if (Input.GetKeyDown(KeyCode.E))
             {
                 string json = "";
@@ -67,25 +72,78 @@ public class DialogTrigger : MonoBehaviour
 
             }
         }
+    }
+
+    private Material[] GetMaterials(GameObject target)
+    {
+        var renderer = target.GetComponentInChildren<Renderer>();
+        return renderer.materials;
+    }
+
+    private void SetMaterials(GameObject target, Material[] materials)
+    {
+        var renderer = target.GetComponentInChildren<Renderer>();
+        var materials_r = renderer.materials;
+        for (int i = 0; i < materials_r.Length; i++)
+        {
+            materials_r[i] = materials[i];
+        }
+        renderer.materials = materials_r;
+    }
+
+    private void SetMaterial(GameObject target, Material material)
+    {
+        var renderer = target.GetComponentInChildren<Renderer>();
+        var materials_r = renderer.materials;
+        for (int i = 0; i < materials_r.Length; i++)
+        {
+            materials_r[i] = material;
+        }
+        renderer.materials = materials_r;
+    }
+
+    private Material[] _prevMaterials;
+    private GameObject _visualClue;
+    private Material _cueMaterial;
+
+    private void SetCueNPC(bool state)
+    {
+         _visualClue.SetActive(state);
+    }
+
+    private void SetCueIteract(bool state)
+    {
+        Debug.Log($"Iteract: {state}");
+        if (state)
+        {
+            _prevMaterials = GetMaterials(target);
+            SetMaterial(target, _cueMaterial);
+        }
         else
         {
-            //SetClue(false);
+            SetMaterials(target, _prevMaterials);
         }
     }
 
-    private Color _prevColor;
-
-    private void SetClue(bool state)
+    private void SetCue(bool state)
     {
-        if (state)
+        if (target.tag == "NPC")
         {
-            _prevColor = target.GetComponentInChildren<Renderer>().material.GetColor("_Color");
-            target.GetComponentInChildren<Renderer>().material.SetColor("_Color", Color.red);
+            SetCueNPC(state);
         }
-        else
+        else if(target.tag == "Iteract")
         {
-            target.GetComponentInChildren<Renderer>().material.SetColor("_Color", _prevColor);
+            SetCueIteract(state);
         }
+    }
+
+    [SerializeField]
+    private float _heightY = 7;
+
+    private void SetCoordToCue()
+    {
+        _visualClue.transform.position = new Vector3(target.transform.position.x, target.transform.position.y + _heightY, target.transform.position.z);
+        _visualClue.SetActive(false);
     }
 
     // Игрок вошёл в область NPC
@@ -94,6 +152,8 @@ public class DialogTrigger : MonoBehaviour
         if (other.gameObject.tag == "Player")
         {
             playerInRange = true;
+            SetCoordToCue();
+            SetCue(true);
         }
     }
 
@@ -103,6 +163,7 @@ public class DialogTrigger : MonoBehaviour
         if (other.gameObject.tag == "Player")
         {
             playerInRange = false;
+            SetCue(false);
         }
     }
 
