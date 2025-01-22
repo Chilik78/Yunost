@@ -18,7 +18,7 @@ public class MinimapCamera : MonoBehaviour
 
             float playerRotationY = target.eulerAngles.y;
             arrow.rotation = Quaternion.Euler(0, 0, -playerRotationY + 90f); 
-            Debug.LogWarning(playerRotationY);
+            //Debug.LogWarning(playerRotationY);
         }
     }
 }

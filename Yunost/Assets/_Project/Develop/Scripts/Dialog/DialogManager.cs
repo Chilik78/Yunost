@@ -42,9 +42,6 @@ public class DialogManager : MonoBehaviour
 
     private string tmpText;
 
-    private bool isUserScrolling = false;
-    private float lastScrollPosition = 0f;
-
     private void Awake()
     {
         if (instance != null)
@@ -185,6 +182,7 @@ public class DialogManager : MonoBehaviour
             craftManager = FindAnyObjectByType<CraftingManager>();
             inventoryManager = FindAnyObjectByType<InventoryManager>();
             inventoryManager.PickupNearbyItem();
+            ClearText();
         });
 
         // Смена выполнение задания
@@ -220,6 +218,13 @@ public class DialogManager : MonoBehaviour
 
         dialogIsPlaying = false;
         dialoguePanel.SetActive(false);
+        dialogueText.text = "";
+
+    }
+
+    public void ClearText()
+    {
+        Debug.Log("Почистил");
         dialogueText.text = "";
     }
 
@@ -411,6 +416,8 @@ public class DialogManager : MonoBehaviour
             scrollRect.verticalNormalizedPosition = 0f;
         }
     }
+
+    private bool isUserScrolling;
 
     public void OnUserScrollStart()
     {

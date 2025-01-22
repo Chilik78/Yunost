@@ -4873,7 +4873,7 @@ GameObject:
   - component: {fileID: 3100101836889746917}
   - component: {fileID: 5456751013429956487}
   m_Layer: 5
-  m_Name: Palyer
+  m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
