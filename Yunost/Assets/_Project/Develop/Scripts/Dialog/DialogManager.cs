@@ -42,6 +42,8 @@ public class DialogManager : MonoBehaviour
 
     private string tmpText;
 
+    private bool isUserScrolling = false;
+    private float lastScrollPosition = 0f;
 
     private void Awake()
     {
@@ -51,8 +53,8 @@ public class DialogManager : MonoBehaviour
         }
 
         instance = this;
-   
-        dialogVariables = ServiceLocator.Get<DialogVariables>();    
+
+        dialogVariables = ServiceLocator.Get<DialogVariables>();
     }
 
     // Получение объекта 
@@ -95,8 +97,13 @@ public class DialogManager : MonoBehaviour
         }
     }
 
+
+
+
+
     private void Update()
     {
+
 
         if (isTyping && Input.GetKeyDown(KeyCode.Space))
         {
@@ -143,6 +150,9 @@ public class DialogManager : MonoBehaviour
     // Открытие диалогового окна
     public void EnterDialogMode(string json)
     {
+
+
+
         currentStory = new Story(json);
         dialogIsPlaying = true;
         dialoguePanel.SetActive(true);
@@ -152,7 +162,7 @@ public class DialogManager : MonoBehaviour
         {
             Canvas.ForceUpdateCanvases(); // Обновляем канвас перед изменением прокрутки
             scrollRect.verticalNormalizedPosition = 1f; // Устанавливаем прокрутку наверх
-            //Debug.LogWarning("Прокрутка вверх");
+            Debug.LogWarning("Прокрутка вверх");
         }
 
 
@@ -204,7 +214,7 @@ public class DialogManager : MonoBehaviour
     private IEnumerator ExitDialogMode()
     {
         yield return new WaitForSeconds(0.2f);
-        
+
         // Окончание прослушивания изменения Ink переменных
         dialogVariables.StopListening(currentStory);
 
@@ -249,7 +259,7 @@ public class DialogManager : MonoBehaviour
             if (!isTyping && dialogueQueue.Count > 0)
             {
                 StopAllCoroutines();
-                
+
                 StartCoroutine(TypeText(dialogueQueue.Dequeue()));
             }
 
@@ -297,6 +307,9 @@ public class DialogManager : MonoBehaviour
         foreach (char letter in newLine)
         {
             dialogueText.text += letter;
+
+
+            UpdateScrollRect();
 
 
 
@@ -347,35 +360,36 @@ public class DialogManager : MonoBehaviour
 
             //dialogueText.text += remainingText;//+"\n"
 
-            
+
             // Проверяем на наличие ":" и меняем цвет
             if (remainingText.Contains(":"))
             {
-                string[] parts = remainingText.Split(new char[] { ':' }, 2); 
-                string prefix = parts[0]; 
-                string restOfLine = parts[1]; 
+                string[] parts = remainingText.Split(new char[] { ':' }, 2);
+                string prefix = parts[0];
+                string restOfLine = parts[1];
 
-                if (prefix.Trim() == "Вы") 
+                if (prefix.Trim() == "Вы")
                 {
-                    dialogueText.text += $"<color=#00FF00>{prefix}:</color>"; 
+                    dialogueText.text += $"<color=#00FF00>{prefix}:</color>";
                 }
-                else 
+                else
                 {
-                    dialogueText.text += $"<color=#0000FF>{prefix}:</color>"; 
+                    dialogueText.text += $"<color=#0000FF>{prefix}:</color>";
                 }
 
-                dialogueText.text += restOfLine; 
+                dialogueText.text += restOfLine;
             }
             else
             {
-                dialogueText.text += remainingText; 
+                dialogueText.text += remainingText;
             }
-
-
-
 
             isTyping = false;
             SetChoicesInteractable(true);
+
+
+            UpdateScrollRect();
+
 
             if (dialogueQueue.Count > 0)
             {
@@ -388,6 +402,28 @@ public class DialogManager : MonoBehaviour
         }
     }
 
+
+    private void UpdateScrollRect()
+    {
+        if (scrollRect != null)//&& !isUserScrolling
+        {
+            Canvas.ForceUpdateCanvases();
+            scrollRect.verticalNormalizedPosition = 0f;
+        }
+    }
+
+    public void OnUserScrollStart()
+    {
+        isUserScrolling = true;
+        StopAllCoroutines();
+    }
+
+
+    private IEnumerator ResetUserScrollFlag()
+    {
+        yield return new WaitForSeconds(0.5f);
+        isUserScrolling = false;
+    }
 
 
 
@@ -439,5 +475,9 @@ public class DialogManager : MonoBehaviour
         }
         return variableValue;
     }
+
+
 }
+
+
 
