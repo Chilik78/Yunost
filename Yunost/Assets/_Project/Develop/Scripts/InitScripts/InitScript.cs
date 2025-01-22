@@ -9,8 +9,10 @@ public class InitScript : MonoBehaviour
     static public string isInitedKey => "isInited";
     void Awake()
     {
+        Instantiate(Resources.Load("VisualCue"));
         if (PlayerPrefs.HasKey(isInitedKey) && PlayerPrefs.GetInt(isInitedKey) == 1) return;
 
+        
         
         PlayerPrefs.SetInt(isInitedKey, 1);
 

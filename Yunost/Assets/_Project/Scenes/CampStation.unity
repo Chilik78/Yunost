@@ -5444,7 +5444,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4652c102b204c8b4c8d98cd9dae3f388, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  YStepVisualClue: 1
+  yStepVisualClue: 1
+  targetName: 
   jsonPath: Makar
 --- !u!4 &548589358
 Transform:
@@ -5460,37 +5461,6 @@ Transform:
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 2728694246558335703}
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &555834833
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 555834834}
-  m_Layer: 0
-  m_Name: GameObject
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &555834834
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 555834833}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &557119139
@@ -12611,7 +12581,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4652c102b204c8b4c8d98cd9dae3f388, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  YStepVisualClue: 1
+  yStepVisualClue: 1
+  targetName: 
   jsonPath: MainGait
 --- !u!1001 &1610948547
 PrefabInstance:
@@ -14353,7 +14324,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4652c102b204c8b4c8d98cd9dae3f388, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  YStepVisualClue: 1
+  yStepVisualClue: 1
+  targetName: self
   jsonPath: Case
 --- !u!1 &1851952930
 GameObject:
@@ -23177,7 +23149,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3607435987575356789, guid: 393176f51fd370a479b032c584594206, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.428
+      value: -0.007
       objectReference: {fileID: 0}
     - target: {fileID: 3607435987575356789, guid: 393176f51fd370a479b032c584594206, type: 3}
       propertyPath: m_LocalPosition.z
@@ -26044,5 +26016,4 @@ SceneRoots:
   - {fileID: 1695990749}
   - {fileID: 1607557960}
   - {fileID: 548589358}
-  - {fileID: 555834834}
   - {fileID: 815818653}
