@@ -1,18 +1,18 @@
-using MiniGames;
+Ôªøusing MiniGames;
 using Player;
 using UnityEngine;
 
 public class SystemManager : MonoBehaviour
 {
     private static SystemManager _instance;
-    private GameObject _gameSystems, _player, _mainCamera, _canvases, _sun;
-    public MiniGamesManager MiniGamesManager {get ; set; }
+    private GameObject _gameSystems, _player, _mainCamera, _canvases, _sun, _hubCamera;
+    public MiniGamesManager MiniGamesManager { get; set; }
 
     void Awake()
     {
         if (_instance != null)
         {
-            Debug.LogWarning("Õ‡ ÒˆÂÌÂ ·ÓÎ¸¯Â Ó‰ÌÓ„Ó ‰Ë‡ÎÓ„‡");
+            Debug.LogWarning("√ç√† √±√∂√•√≠√• √°√Æ√´√º√∏√• √Æ√§√≠√Æ√£√Æ √§√®√†√´√Æ√£√†");
         }
         _instance = this;
     }
@@ -23,8 +23,9 @@ public class SystemManager : MonoBehaviour
     {
         _gameSystems = this.gameObject;
         _player = GameObject.FindGameObjectWithTag("Player");
-        _mainCamera = GameObject.Find("Canvases");
-        _canvases = GameObject.Find("Main Camera");
+        _mainCamera = GameObject.Find("Main Camera");
+        _hubCamera = GameObject.Find("Hub Camera");
+        _canvases = GameObject.Find("Canvases");
         _sun = GameObject.Find("Sun");
         MiniGamesManager = _gameSystems.GetComponent<MiniGamesManager>();
     }
@@ -43,51 +44,34 @@ public class SystemManager : MonoBehaviour
         _player.GetComponent<Movement>().SetFreezed(true);
     }
 
-    public void DisableCanvases()
+    public void SetCanvases(bool state)
     {
         if (_canvases == null) return;
-        _canvases.SetActive(false);
+        _canvases.SetActive(state);
     }
 
-    public void EnableCanvases()
-    {
-        if (_canvases == null) return;
-        _canvases.SetActive(true);
-    }
-
-    public void DisableMainCamera()
+    public void SetMainCamera(bool state)
     {
         if (_mainCamera == null) return;
-        _mainCamera.SetActive(false);
+        _mainCamera.SetActive(state);
     }
 
-    public void EnableMainCamera()
+    public void SetHubCamera(bool state)
     {
-        if (_mainCamera == null) return;
-        _mainCamera.SetActive(true);
+        if (_hubCamera == null) return;
+        _hubCamera.SetActive(state);
     }
 
-    public void DisableSun()
+    public void SetSun(bool state)
     {
-        _sun.SetActive(false);
+        if (_sun == null) return;
+        _sun.SetActive(state);
     }
 
-    public void EnableSun()
+    public void SetSystemsToMiniGame(bool state)
     {
-        _sun.SetActive(true);
-    }
-
-    public void DisableSystemsToMiniGame()
-    {
-        DisableCanvases();
-        DisableMainCamera();
-        DisableSun();
-    }
-
-    public void EnableSystemsToMiniGame()
-    {
-        EnableCanvases();
-        EnableMainCamera();
-        EnableSun();
+        SetCanvases(state);
+        SetMainCamera(state);
+        SetSun(state);
     }
 }

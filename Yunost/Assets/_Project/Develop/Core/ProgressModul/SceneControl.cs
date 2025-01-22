@@ -7,9 +7,8 @@ using UnityEngine.SceneManagement;
 
 namespace ProgressModul
 {
-    public enum Scenes
+    public enum Tiles
     {
-        Menu,
         CampStation,
         MainCamp,
         HubHome,
@@ -17,51 +16,34 @@ namespace ProgressModul
 
     public class SceneControl : ISaveLoadObject
     {
-        private Dictionary<int, string> _sceneDictionary = new Dictionary<int, string>()
+        private Dictionary<int, string> _tileDictionary = new Dictionary<int, string>()
         {
-            {0, "Menu" },
-            {1, "CampStation" },
-            {2,  "MainCamp"},
-            {3,  "HubHome"}
+            {0, "CampStation" },
+            {1,  "MainCamp"},
+            {2,  "HubHome"}
         };
 
 
-        private string _initSceneName;
-        private string _lastSceneName;
-
+        private string _initSceneName = "Main";
+        private string _currentTile;
+        public string CurrentTile => _currentTile;
+        public IEnumerable<string> GetTileNames => _tileDictionary.Values;
         public string ComponentSaveId => "SceneControl";
 
-        public delegate void ProgressLoadingHandler(float progress);
-        public delegate void LoadingHandler();
-        public event ProgressLoadingHandler ProgressLoading;
-        public event LoadingHandler StartLoading;
-        public event LoadingHandler StoptLoading;
+        public bool IsNewGame { get; private set; } = true;
 
-        /*public SceneControl(string initSceneName)
-        {
-            _initSceneName = initSceneName; 
-        }
-
-        public SceneControl(int initSceneIndex)
-        {
-            _initSceneName = _sceneDictionary[initSceneIndex];
-        }
-
-        public SceneControl(Scenes initScene)
-        {
-            _initSceneName = _sceneDictionary[(int)initScene];
-        }*/
-
+        public delegate void TileHandler(string newTile, string prevTile);
+        public event TileHandler TileChanged;
         public void Init ()
         {
-            _lastSceneName = _initSceneName;
-            Debug.LogWarning(_lastSceneName);
+            Debug.LogWarning(_currentTile);
             SceneManager.LoadScene(_initSceneName);
+            IsNewGame = true;
         }
 
-        public void InitLast()
+        public void Load()
         {
-            SceneManager.LoadScene(_lastSceneName);
+            SceneManager.LoadScene(_initSceneName);
         }
 
         public void OpenMenu()
@@ -70,36 +52,21 @@ namespace ProgressModul
             SceneManager.LoadScene("Menu");
         }
 
-        public void NextScene()
+        public void ChangeTile(string tile)
         {
-            int index = SceneManager.GetActiveScene().buildIndex;
-            SceneManager.LoadScene(index+1);
-        }
+            if (!_tileDictionary.ContainsValue(tile))
+            {
+                Debug.LogError($"Нет такого тайла: {tile}");
+            }
 
-        public void PreviousScene()
-        {
-            int index = SceneManager.GetActiveScene().buildIndex;
-            SceneManager.LoadScene(index - 1);
-        }
+            if(TileChanged != null)
+            {
+                TileChanged(tile, _currentTile);
+            }
 
-        public AsyncOperation GoToSceneAsync(int index)
-        {
-            Debug.Log($"Переход на сцену: {index}");
-            return SceneManager.LoadSceneAsync(index);
+            _currentTile = tile;
         }
-
-        public AsyncOperation GoToSceneAsync(string name)
-        {
-            Debug.Log($"Переход на сцену: {name}");
-            return SceneManager.LoadSceneAsync(name);
-        }
-
-        public AsyncOperation GoToSceneAsync(Scenes scene)
-        {
-            Debug.Log($"Переход на сцену: {scene}");
-            return SceneManager.LoadSceneAsync((int)scene);
-        }
-
+        
         public void GoToScene(int index)
         {
             SceneManager.LoadScene(index);
@@ -110,74 +77,17 @@ namespace ProgressModul
             SceneManager.LoadScene(name);
         }
 
-        public void GoToScene(Scenes scene)
+        public void GoToScene(Tiles scene)
         {
             SceneManager.LoadScene((int)scene);
         }
 
-        public AsyncOperation UnloadSceneAsync(int index)
-        {
-            return SceneManager.UnloadSceneAsync(index);
-        }
+       
 
-        public AsyncOperation UnloadSceneAsync(string name)
-        {
-            return SceneManager.UnloadSceneAsync(name);
-        }
-
-        private IEnumerator _loadNewSceneAsync(AsyncOperation loadSceneOp)
-        {
-            if (StartLoading != null)
-                StartLoading();
-            yield return null;
-
-            loadSceneOp.allowSceneActivation = false;
-            Debug.Log(loadSceneOp.isDone);
-            while (!loadSceneOp.isDone)
-            {
-                if (ProgressLoading != null)
-                    ProgressLoading(loadSceneOp.progress / 0.9f);
-                Debug.Log(loadSceneOp.progress / 0.9f);
-                if (loadSceneOp.progress >= 0.9f)
-                {
-                    Debug.Log(loadSceneOp.progress / 0.9f);
-
-                    loadSceneOp.allowSceneActivation = true;
-
-                    if (StoptLoading != null)
-                        StoptLoading();
-
-                    break;
-                }
-                Debug.Log(loadSceneOp.isDone);
-                yield return null;
-            }
-        }
-
-        public IEnumerator LoadNewSceneAsync(int index)
-        {
-            var loadSceneOp = GoToSceneAsync(index);
-            _lastSceneName = _sceneDictionary[index];
-            return _loadNewSceneAsync(loadSceneOp);
-        }
-
-        public IEnumerator LoadNewSceneAsync(string name)
-        {
-            var loadSceneOp = GoToSceneAsync(name);
-            _lastSceneName = name;
-            return _loadNewSceneAsync(loadSceneOp);
-        }
-
-        public IEnumerator LoadNewSceneAsync(Scenes scene)
-        {
-            var loadSceneOp = GoToSceneAsync(scene);
-            _lastSceneName = _sceneDictionary[(int)scene];
-            return _loadNewSceneAsync(loadSceneOp);
-        }
-
+       
         SaveLoadData ISaveLoadObject.GetSaveLoadData()
         {
-            return new SceneSaveLoadData(ComponentSaveId, _lastSceneName);
+            return new SceneSaveLoadData(ComponentSaveId, _currentTile);
         }
 
         void ISaveLoadObject.RestoreValues(SaveLoadData loadData)
@@ -190,12 +100,12 @@ namespace ProgressModul
 
             // [0] - (field)
 
-            _lastSceneName = loadData.Data[0].ToString();
+            _currentTile = loadData.Data[0].ToString();
         }
 
         void ISaveLoadObject.SetDefault()
         {
-            _initSceneName = _sceneDictionary[(int)Scenes.CampStation];
+            _currentTile = _tileDictionary[(int)Tiles.CampStation];
         }
     }
 }

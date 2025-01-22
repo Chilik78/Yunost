@@ -6,15 +6,21 @@ using System;
 
 public class InitScript : MonoBehaviour
 {
-    static public string isInitedKey => "isInited";
     void Awake()
     {
         Instantiate(Resources.Load("VisualCue"));
-        if (PlayerPrefs.HasKey(isInitedKey) && PlayerPrefs.GetInt(isInitedKey) == 1) return;
 
-        
-        
-        PlayerPrefs.SetInt(isInitedKey, 1);
+        GlobalInitScript.InitServices();
+
+        if (ServiceLocator.Get<SceneControl>().IsNewGame)
+        {
+            ServiceLocator.Get<SaveLoadSystem>().LoadDefault();
+        }
+        else
+        {
+            ServiceLocator.Get<SaveLoadSystem>().LoadGame(SaveType.File);
+        }
+       
 
         //DontDestroyOnLoad(GameObject.Find("GameSystems"));
     }
@@ -36,11 +42,14 @@ public class InitScript : MonoBehaviour
         var player = GameObject.FindGameObjectWithTag("Player");
         player.GetComponent<Movement>().OnMove += savePositions;
 
-        if (PlayerPrefs.GetInt("IsFirstInScene") == 1)
-        {
-            PlayerPrefs.SetInt("IsFirstInScene", 0);
-            return;
-        }
+        var gameSystems = GameObject.Find("GameSystems");
+        var systemManager = gameSystems.GetComponent<SystemManager>();
+
+        systemManager.SetHubCamera(false);
+        gameSystems.GetComponent<MarkController>().ObjectToMark(player.transform, "start_game");
+
+
+        if (ServiceLocator.Get<SceneControl>().IsNewGame) return;
 
         player.transform.position = new Vector3(playerStats.X, player.transform.position.y, playerStats.Z);
         player.transform.rotation = Quaternion.Euler(0, playerStats.RotY, 0);
@@ -65,10 +74,5 @@ public class InitScript : MonoBehaviour
         ServiceLocator.Unregister<TimeControl>();
         ServiceLocator.Unregister<TaskObserver>();
         ServiceLocator.Unregister<ListOfItems>();*/
-    }
-
-    private void OnApplicationQuit()
-    {
-        PlayerPrefs.SetInt(isInitedKey, 0);
     }
 }

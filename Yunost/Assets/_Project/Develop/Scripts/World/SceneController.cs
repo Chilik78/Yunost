@@ -73,6 +73,6 @@ public class SceneController : MonoBehaviour
 
     private void OnDestroy()
     {
-        
+        ServiceLocator.Get<SceneControl>().TileChanged -= changeTile;
     }
 }

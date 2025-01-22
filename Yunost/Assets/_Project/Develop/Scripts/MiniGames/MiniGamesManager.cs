@@ -26,7 +26,7 @@ namespace MiniGames
 
         public void RunMiniGame(MiniGameContext context)
         {
-            SystemManager.GetInstance().DisableSystemsToMiniGame();   
+            SystemManager.GetInstance().SetSystemsToMiniGame(false);   
 
             _screen = Instantiate(GetScreen(context));
             ChooseMiniGame(context);
@@ -81,7 +81,7 @@ namespace MiniGames
         private void OnMiniGameEnd(MiniGameResultInfo resultInfo)
         {
             _currGame.OnMiniGameEnd -= OnMiniGameEnd;
-            SystemManager.GetInstance().EnableSystemsToMiniGame();
+            SystemManager.GetInstance().SetSystemsToMiniGame(true);
 
             MiniGameEnd?.Invoke(resultInfo);
 
