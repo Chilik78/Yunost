@@ -8,7 +8,8 @@ public class InitScript : MonoBehaviour
 {
     void Awake()
     {
-        Instantiate(Resources.Load("VisualCue"));
+        var visualCue = Instantiate(Resources.Load("VisualCue"));
+        ServiceLocator.Register(visualCue);
 
         GlobalInitScript.InitServices();
 
@@ -20,7 +21,6 @@ public class InitScript : MonoBehaviour
         {
             ServiceLocator.Get<SaveLoadSystem>().LoadGame(SaveType.File);
         }
-       
 
         //DontDestroyOnLoad(GameObject.Find("GameSystems"));
     }

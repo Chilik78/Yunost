@@ -1,3 +1,4 @@
+using Global;
 using Ink.Runtime;
 using System.IO;
 using UnityEngine;
@@ -43,7 +44,7 @@ public class DialogTrigger : MonoBehaviour
             target = transform.GetChild(0).gameObject;
         }
 
-        _visualClue = GameObject.Find("VisualCue") ?? GameObject.Find("VisualCue(Clone)");
+        _visualClue = (GameObject) ServiceLocator.Get<UnityEngine.Object>();
         _prevMaterials = GetMaterials(target);
         _cueMaterial = Resources.Load<Material>("CueMaterial");
     }
@@ -114,7 +115,6 @@ public class DialogTrigger : MonoBehaviour
 
     private void SetCueIteract(bool state)
     {
-        Debug.Log($"Iteract: {state}");
         if (state)
         {
             _prevMaterials = GetMaterials(target);

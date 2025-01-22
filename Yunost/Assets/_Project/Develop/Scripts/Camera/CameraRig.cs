@@ -33,7 +33,7 @@ namespace CameraModule
 
         void Update()
         {
-            ShowPlayerBehindObj();
+            //ShowPlayerBehindObj();
             Zoom();
         }
 
@@ -42,20 +42,20 @@ namespace CameraModule
             FollowPlayer();
         }
 
-        private void OnTriggerEnter(Collider collider)
-        {
-            ShowPlayerBehindObj(collider);
-        }
+        //private void OnTriggerEnter(Collider collider)
+        //{
+        //    ShowPlayerBehindObj(collider);
+        //}
 
-        private void OnTriggerStay(Collider collider)
-        {
-            ShowPlayerBehindObj(collider);
-        }
+        //private void OnTriggerStay(Collider collider)
+        //{
+        //    ShowPlayerBehindObj(collider);
+        //}
 
-        private void OnTriggerExit(Collider collider)
-        {
-            ShowObjects();
-        }
+        //private void OnTriggerExit(Collider collider)
+        //{
+        //    ShowObjects();
+        //}
 
         private void FollowPlayer()
         {

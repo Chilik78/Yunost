@@ -3849,6 +3849,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4166691905185544345}
+  - component: {fileID: 2618886464591586204}
   - component: {fileID: 1206938604838214229}
   - component: {fileID: 1647025583257736776}
   - component: {fileID: 827872465899176153}
@@ -3862,7 +3863,6 @@ GameObject:
   - component: {fileID: 8077181696149728753}
   - component: {fileID: 710083444353513678}
   - component: {fileID: 662174534741574297}
-  - component: {fileID: 2618886464591586204}
   - component: {fileID: 4508108625130526545}
   m_Layer: 0
   m_Name: GameSystems
@@ -3889,6 +3889,18 @@ Transform:
   - {fileID: 1045060932168158159}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2618886464591586204
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3716190211488332877}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 879b6fc805b3d8b4b96f6b325233173f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1206938604838214229
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4087,18 +4099,6 @@ MonoBehaviour:
   diaryUI: {fileID: 6567134651473692052}
   diaryButton: {fileID: 4476009684679652322}
   diaryText: {fileID: 6558357145345192648}
---- !u!114 &2618886464591586204
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3716190211488332877}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 879b6fc805b3d8b4b96f6b325233173f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &4508108625130526545
 MonoBehaviour:
   m_ObjectHideFlags: 0
