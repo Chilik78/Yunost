@@ -17,6 +17,7 @@ public class TutorialTrigger : MonoBehaviour
         {
             //Debug.LogError("Туториал начался");
             hasTriggered = true;
+            GameObject.Find("GameSystems").GetComponent<SystemManager>().FreezePlayer();
             tutorialManager.StartTutorial(tutorialText);
         }
     }

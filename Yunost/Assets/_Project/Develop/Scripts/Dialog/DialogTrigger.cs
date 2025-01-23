@@ -71,7 +71,6 @@ public class DialogTrigger : MonoBehaviour
                 DialogManager.GetInstance().EnterDialogMode(json);
                 SystemManager.GetInstance().FreezePlayer();
                 universalTutorialManager.TriggerTutorial("StartDialog");
-
             }
         }
     }

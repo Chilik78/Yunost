@@ -25,7 +25,7 @@ public class UniversalTutorialManager : MonoBehaviour
         if (windowMessages.ContainsKey(windowName) && !triggeredWindows.Contains(windowName))
         {
             Debug.LogWarning($"ÎÊÍÎ ÒÓÒÎĞÈÀËÀ {windowName} çàïóùåíî");;
-            triggeredWindows.Add(windowName); 
+            triggeredWindows.Add(windowName);
             tutorialManager.StartTutorial(windowMessages[windowName]);
         }
     }

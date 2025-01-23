@@ -15,6 +15,9 @@ public class TutorialManager : MonoBehaviour
         if (isTutorialActive && Input.GetKeyDown(KeyCode.Return))
         {
             EndTutorial();
+
+            if(!DialogManager.GetInstance().dialogIsPlaying)
+            GameObject.Find("GameSystems").GetComponent<SystemManager>().UnfreezePlayer();
         }
     }
 

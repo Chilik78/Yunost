@@ -33,7 +33,7 @@ public class SystemManager : MonoBehaviour
     public void UnfreezePlayer()
     {
         if (_player == null) return;
-        _player.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
+        _player.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
         _player.GetComponent<Movement>().SetFreezed(false);
     }
 

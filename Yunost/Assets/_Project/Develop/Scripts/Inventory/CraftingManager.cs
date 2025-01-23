@@ -122,7 +122,7 @@ public class CraftingManager : MonoBehaviour
     }
     private void CreateSlotIfNeeded(Transform slotTransform)
     {
-        Debug.Log(slotTransform.childCount);
+        //Debug.Log(slotTransform.childCount);
 
         if (slotTransform.childCount == 0) 
         {
