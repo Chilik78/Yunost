@@ -16,7 +16,7 @@ public static class GlobalInitScript
         TaskObserver taskObserver = new();
         ListOfItems listOfItems = new();
         PlayerStats playerStats = new(100, 100);
-        TimeControl timeControl = new(14, 0);
+        TimeControl timeControl = new(18, 0);
         DialogVariables dialogVariables = new DialogVariables();
 
         SaveLoadSystem saveLoadSystem = ServiceLocator.Get<SaveLoadSystem>();
