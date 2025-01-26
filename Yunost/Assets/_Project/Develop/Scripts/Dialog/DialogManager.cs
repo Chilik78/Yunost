@@ -177,6 +177,12 @@ public class DialogManager : MonoBehaviour
             GameObject.Find("GameSystems").GetComponent<MiniGamesManager>().RunMiniGame(testContext);
         });
 
+        // Старт Мини игры   
+        currentStory.BindExternalFunction("startMiniGameDigging", () => {
+            MiniGameContext testContext = new MiniGameContext(TypesMiniGames.QuickTempPressKeyCertainRange, TypeDifficultMiniGames.Easy, 0f, 0);
+            GameObject.Find("GameSystems").GetComponent<MiniGamesManager>().RunMiniGame(testContext);
+        });
+
         // Проверка на наличие предмета в инвентаре
         currentStory.BindExternalFunction("pickupItem", (string item) => {
             craftManager = FindAnyObjectByType<CraftingManager>();
@@ -228,10 +234,20 @@ public class DialogManager : MonoBehaviour
             var oleg = GameObject.Find("Итеракт Олега");
             var lisa = GameObject.Find("Итеракт Елизаветы");
             var sofa = GameObject.Find("Итеракт Софии");
+            var shovel = GameObject.Find("Итеракт Софии");
+            var flag1 = GameObject.Find("Итеракт Софии");
+            var flag2 = GameObject.Find("Итеракт Софии");
+            var flag3 = GameObject.Find("Итеракт Софии");
             GameObject.Find("GameSystems").GetComponent<MarkController>().ObjectToMark(makar.transform, "MakarAdmin");
             GameObject.Find("GameSystems").GetComponent<MarkController>().ObjectToMark(oleg.transform, "OlegAdmin");
             GameObject.Find("GameSystems").GetComponent<MarkController>().ObjectToMark(lisa.transform, "LizaAdmin");
             GameObject.Find("GameSystems").GetComponent<MarkController>().ObjectToMark(sofa.transform, "SofaAdmin");
+        });
+
+        currentStory.BindExternalFunction("tpSofia", () =>
+        {
+            var sofa = GameObject.Find("Итеракт Софии");
+            GameObject.Find("GameSystems").GetComponent<MarkController>().ObjectToMark(sofa.transform, "SofiaFireMainCamp");
         });
 
         ContinueStory();

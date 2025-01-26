@@ -137,6 +137,16 @@
                     "id": "result_talk_sofia",
                     "description": "Обсудить результаты с Софией",
                     "isDone": false
+                },
+                {
+                    "id": "go_to_bed_night",
+                    "description": "Лечь спать",
+                    "isDone": false
+                },
+                {
+                    "id": "act1",
+                    "description": "Поздравляем, вы прошли Акт-1",
+                    "isDone": false
                 }
             ],
             "isDone": false

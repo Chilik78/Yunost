@@ -52,13 +52,14 @@ namespace MiniGames
         private Object GetScreen(MiniGameContext context)
         {
             string path = "MiniGameScreens/";
+            Debug.Log(context.TypeMiniGame);
             switch (context.TypeMiniGame)
             {
                 case TypesMiniGames.HoldingObjectInRange: break;
                 case TypesMiniGames.AdvancePathEachStage: break;
                 case TypesMiniGames.QuickPressKeyCertainTime: break;
                 case TypesMiniGames.GameWolfConsole: break;
-                case TypesMiniGames.QuickTempPressKeyCertainRange: break;
+                case TypesMiniGames.QuickTempPressKeyCertainRange: path += "QuickTempPressKeyCertainRange"; break;
                 case TypesMiniGames.ConnectElements: break;
                 case TypesMiniGames.ReachEndPointWithObstacles: break;
                 case TypesMiniGames.BreakingLock: path += "BreakingLock"; break;
@@ -95,6 +96,7 @@ namespace MiniGames
             }
 
             Destroy(_screen);
+            _currGame = null;
         }
     }
 }
