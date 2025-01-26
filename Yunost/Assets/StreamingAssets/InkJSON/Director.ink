@@ -2,6 +2,7 @@ INCLUDE globals.ink
 EXTERNAL itemIsExist(item)
 EXTERNAL setDoneTask(idTask)
 EXTERNAL setDoneSubTask(idTask, idSubTask)
+EXTERNAL tpSofia()
 -> NameQuest
 INCLUDE Quests\Act1\HelpForFriend\Director_Act1_HelpForFriend.ink
 INCLUDE Quests\Act1\SweetHome\Director_Act1_SweetHome.ink

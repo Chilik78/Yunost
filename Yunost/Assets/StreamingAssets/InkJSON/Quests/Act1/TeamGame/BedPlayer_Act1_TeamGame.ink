@@ -1,5 +1,8 @@
 
 == Act1_TeamGame
++ {CurrentSubquest == "go_to_bed_night"} [Лечь спать] 
+~setDoneSubTask("team_game", "go_to_bed_night")
+-> END
 + [Осмотреть кровать] -> Act1_TeamGame_CheckBed
 + [*Уйти*] -> END
 

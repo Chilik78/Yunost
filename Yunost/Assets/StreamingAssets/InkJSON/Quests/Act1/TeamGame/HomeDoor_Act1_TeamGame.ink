@@ -5,6 +5,9 @@
 ~changeSceneWithTp("MainCamp", "NearHubHome")
 ~tpNPC()
 -> END
++ {CurrentSubquest == "go_to_bed_night"} [Войти в Дом №1] 
+~changeScene("HubHome")
+-> END
 + {CurrentSubquest == "leave_house"} [Осмотреть дверь] -> Act1_TeamGame_CheckDoorIn
 + {CurrentSubquest != "leave_house"} [Осмотреть дверь] -> Act1_TeamGame_CheckDoorOutside
 + [*Уйти*] -> END
