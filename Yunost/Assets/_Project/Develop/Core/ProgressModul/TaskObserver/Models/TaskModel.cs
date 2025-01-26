@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 
 namespace ProgressModul
 {
@@ -33,6 +34,11 @@ namespace ProgressModul
             this.state = state;
             this.type = type;
             this.subTasks = subTasks;
+        }
+
+        public override string ToString()
+        {
+            return $"{id} : {name} : {flow} : {state} : {type} : \n[{(subTasks == null ? null : string.Join("\n", subTasks.Select(s => s.ToString())))}]";
         }
     }
 }

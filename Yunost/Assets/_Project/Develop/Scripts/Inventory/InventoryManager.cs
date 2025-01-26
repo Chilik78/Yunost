@@ -2,8 +2,6 @@ using Global;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using static UnityEditor.Progress;
-
 
 public class InventoryManager : MonoBehaviour
 {

@@ -1,9 +1,5 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
-using static UnityEngine.UI.Image;
-using System.Linq;
-using UnityEngine.Rendering.HighDefinition;
-using static UnityEditor.Rendering.BuiltIn.ShaderGraph.BuiltInBaseShaderGUI;
 
 namespace CameraModule
 {

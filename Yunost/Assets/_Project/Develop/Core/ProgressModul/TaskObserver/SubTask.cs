@@ -1,4 +1,6 @@
 ﻿
+using System.Collections.Generic;
+
 namespace ProgressModul
 {
     public class SubTask
@@ -51,6 +53,10 @@ namespace ProgressModul
         }
 
         public int StackIndex => _stackIndex;
+
+        public string Flow => _flow;
+
+        public IEnumerable<string> Friends => _friends;
 
         public override string ToString()
         {

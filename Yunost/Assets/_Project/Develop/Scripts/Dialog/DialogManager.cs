@@ -193,12 +193,12 @@ public class DialogManager : MonoBehaviour
 
         // Смена выполнение задания
         currentStory.BindExternalFunction("setDoneTask", (string taskId) => {
-            ServiceLocator.Get<TaskObserver>().SetDoneTaskById(taskId);
+            //ServiceLocator.Get<TaskObserver>().SetDoneTaskById(taskId);
         });
 
         // Смена выполнение подзадания
         currentStory.BindExternalFunction("setDoneSubTask", (string taskId, string subTaskId) => {
-            ServiceLocator.Get<TaskObserver>().SetDoneSubTaskByIds(taskId, subTaskId);
+            //ServiceLocator.Get<TaskObserver>().SetDoneSubTaskByIds(taskId, subTaskId);
         });
 
         // Уменьшение здоровья

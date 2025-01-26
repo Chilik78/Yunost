@@ -59,11 +59,11 @@ public class DiaryManager : MonoBehaviour
 
         var taskObserver = ServiceLocator.Get<TaskObserver>();
 
-        var task = taskObserver.GetFirstInProgressTask;
+        /*var task = taskObserver.GetFirstInProgressTask;
         UpdateTask(task);
 
         taskObserver.HaveNewTask += UpdateTask;
-        taskObserver.HaveNewSubTask += UpdateTask;
+        taskObserver.HaveNewSubTask += UpdateTask;*/
     }
 
     private void UpdateTask(Task task)

@@ -15,11 +15,11 @@ public class TaskController : MonoBehaviour
     {
         Debug.Log("INProgress");
         var taskObserver = ServiceLocator.Get<TaskObserver>();
-        Task currentTask = taskObserver.GetFirstInProgressTask;
+        /*Task currentTask = taskObserver.GetFirstInProgressTask;
         UpdateTask(currentTask);
 
         taskObserver.HaveNewTask += UpdateTask;
-        taskObserver.HaveNewSubTask += UpdateDescription;
+        taskObserver.HaveNewSubTask += UpdateDescription;*/
     }
 
     private void UpdateTask(Task task)

@@ -1,5 +1,4 @@
 ﻿
-using Global;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
@@ -10,12 +9,12 @@ namespace ProgressModul
 {
     public class TaskObserver : ISaveLoadObject
     {
-        private List<Task> _inProgressTasks = new(1);
-        private List<Task> _doneTasks = new(1);
+        private List<Task> _tasks;
         public delegate void TaskHandler(Task task);
-        public event TaskHandler HaveDoneTask;
-        public event TaskHandler HaveNewTask;
-        public event TaskHandler HaveNewSubTask;
+        public delegate void SubTaskListHandler(IEnumerable<SubTask> subTasks);
+        public event TaskHandler TaskStateChanged;
+        public event SubTaskListHandler HaveNewSubTasks;
+        
         public string ComponentSaveId => "TaskObserver";
 
         static public List<Task> ParseJsonWithTasks(string json)
@@ -27,128 +26,90 @@ namespace ProgressModul
 
         public TaskObserver(string json)
         {
-            _inProgressTasks = ParseJsonWithTasks(json);
-            _doneTasks = new();
-        }
-
-        public TaskObserver(List<Task> initInProgressTasks, List<Task> initDoneTasks)
-        {
-            _inProgressTasks = initInProgressTasks;
-            _doneTasks = initDoneTasks;
+            _tasks = ParseJsonWithTasks(json);
         }
 
         public TaskObserver()
         {
-
         }
 
-        public TaskObserver(List<Task> initInProgressTasks)
+        public IEnumerable<Task> Tasks => _tasks;
+
+        public IEnumerable<Task> GetTasks(TaskState state, TaskType taskType)
         {
-            _inProgressTasks = initInProgressTasks;
-            _doneTasks = new();
+            return _tasks.Where(t => t.State == state && t.Type == taskType);
         }
 
-        public List<Task> GetInProgressTasks
+        private void _setTaskState(Task task,  TaskState state)
         {
-            get => _inProgressTasks;
+            task.State = state;
+            if (TaskStateChanged != null)
+                TaskStateChanged(task);
         }
 
-        public Task GetFirstInProgressTask
+        public void SetTaskStateById(string id, TaskState state)
         {
-            get
+            var task = _getTaskById(id);
+            if (task == null)
             {
-                if (_inProgressTasks.Count() > 0) return _inProgressTasks.First();
-                return null;
+                Debug.LogError($"Id: {id} в Tasks нет");
+                return;
             }
+            _setTaskState(task, state);
         }
 
-        public List<Task> GetDoneTasks
+        private Task _getTaskById(string id)
         {
-            get => _doneTasks;
+            return _tasks.FirstOrDefault(t => t.Id == id);
         }
 
-        public void SetDoneNextFirstTaskSubTask(Task task)
+        public void SetDoneSubTaskById(string taskId, string id)
         {
-            bool isAllDone = false;
-
-            if (isAllDone)
+            var task = _getTaskById(taskId);
+            if(task == null)
             {
-                SetDoneTask(task);
-                if (HaveNewSubTask != null)
+                Debug.LogError($"Id: {id} в Tasks нет");
+                return;
+            }
+
+            var subTasks = task.SubTasks;
+
+            var finded = subTasks.FirstOrDefault(x => x.Id == id);
+            if (finded == null)
+            {
+                Debug.LogError($"Id: {id} в SubTasks нет");
+                return;
+            }
+
+            if (finded.SetDone())
+            {
+                foreach (var subTask in subTasks)
                 {
-                    HaveNewSubTask(GetFirstInProgressTask);
+                    subTask.DeacreaseStackIndex();
+                    if (finded.Friends != null && finded.Friends.Contains(subTask.Id))
+                    {
+                        subTask.SetDone();
+                    }
                 }
+
+                if (HaveNewSubTasks != null)
+                    HaveNewSubTasks(task.CurrentSubTasks);
             }
-            else
+
+            if (subTasks.Where(s => !s.IsDone && s.StackIndex == 0).Count() == 0)
             {
-                if (HaveNewSubTask != null) HaveNewSubTask(task);
-            }
-        }
-
-        public void SetDoneNextFirstTaskSubTask()
-        {
-            Task task = GetFirstInProgressTask;
-            SetDoneNextFirstTaskSubTask(task);
-        }
-        public void SetDoneTask(Task task)
-        {
-            if (task == null) return;
-
-
-            //task.SetDone();
-            _inProgressTasks.Remove(task);
-            _doneTasks.Add(task);
-
-            if (HaveDoneTask != null)
-                HaveDoneTask(task);
-
-            if (HaveNewTask != null)
-                HaveNewTask(GetFirstInProgressTask);
-        }
-
-        public void SetDoneFirstTask()
-        {
-            SetDoneTask(GetFirstInProgressTask);
-        }
-
-        public void SetDoneTaskById(string id)
-        {
-            Task task = _inProgressTasks.Where(t => t.Id == id).First();
-            if (task != null)
-            {
-                SetDoneTask(task);
-            }
-        }
-
-        public void SetDoneSubTaskByIds(string taskId, string subTaskId)
-        {
-            Task task = _inProgressTasks.Where(t => t.Id == taskId).First();
-            if (task == null) return;
-
-            bool isAllDone = false;
-            if (isAllDone)
-            {
-                SetDoneTask(task);
-                if (HaveNewSubTask != null)
-                {
-                    HaveNewSubTask(GetFirstInProgressTask);
-                }
-            }
-            else
-            {
-                if (HaveNewSubTask != null) HaveNewSubTask(task);
+                _setTaskState(task, TaskState.Done);
             }
         }
 
         public SaveLoadData GetSaveLoadData()
         {
-            return new TaskSaveLoadData(ComponentSaveId, _inProgressTasks.Select(x => x.GetModel).ToList(), _doneTasks.Select(x => x.GetModel).ToList());
+            return new TaskSaveLoadData(ComponentSaveId, _tasks.Select(x => x.GetModel).ToList());
         }
 
         public void RestoreValues(SaveLoadData loadData)
         {
-            _inProgressTasks.Clear();
-            _doneTasks.Clear();
+            _tasks.Clear();
 
             if (loadData?.Data == null || loadData.Data.Length < 2)
             {
@@ -157,51 +118,16 @@ namespace ProgressModul
             }
 
             // [0] - (JArray) with items
-            // [1] - (JArray) with items
 
             var items = ((JArray)loadData.Data[0]).ToObject<List<TaskModel>>();
-            _inProgressTasks.AddRange(items.Select(x => new Task(x)));
-
-            var items2 = ((JArray)loadData.Data[1]).ToObject<List<TaskModel>>();
-            _doneTasks.AddRange(items2.Select(x => new Task(x)));
+            _tasks.AddRange(items.Select(x => new Task(x)));
         }
 
-        static public string PrefsKey => "CurrentTasks";
-
-        public void SaveTasksToPrefs()
-        {
-            var saveLoadData = GetSaveLoadData();
-            var serializedSaveFile = JsonConvert.SerializeObject(saveLoadData);
-            PlayerPrefs.SetString(PrefsKey, serializedSaveFile);
-        }
-
-        static public TaskObserver CreateFromPrefs()
-        {
-            string serializedFile = PlayerPrefs.GetString(PrefsKey);
-            PlayerPrefs.DeleteKey(PrefsKey);
-            if (string.IsNullOrEmpty(serializedFile))
-            {
-                Debug.LogError($"Çàãðóæåííûé json {PrefsKey} ïóñòîé.");
-                return null;
-            }
-            Debug.Log($"Çàãðóçêà json {PrefsKey}");
-            SaveLoadData saveLoadData = JsonConvert.DeserializeObject<SaveLoadData>(serializedFile);
-            TaskObserver taskObserver = new();
-            taskObserver.RestoreValues(saveLoadData);
-
-            return taskObserver;
-        }
 
         public void SetDefault()
         {
             string json = Resources.Load<TextAsset>("InitTasks").text;
-            _inProgressTasks = ParseJsonWithTasks(json);
-            _doneTasks = new();
-        }
-
-        public Task GetLastDoneTask
-        {
-            get => _doneTasks.Last();
+            _tasks = ParseJsonWithTasks(json);
         }
     }
 }

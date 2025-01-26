@@ -1,7 +1,6 @@
 ﻿
 
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 
 namespace ProgressModul
@@ -28,24 +27,6 @@ namespace ProgressModul
         public TaskModel GetModel { get {
                 SubTaskModel[] subTaskModels = _subTasks.Select(s => s.GetModel).ToArray();
                 return new TaskModel(_id, _name, _flow, _state, _type, subTaskModels);
-            }
-        }
-
-        public void SetDoneSubTaskById(string id)
-        {
-            var finded = _subTasks.Where(x => x.Id == id);
-            if(finded.Count() < 1)
-            {
-                UnityEngine.Debug.LogError($"Id: {id} в SubTasks нет");
-                return;
-            }
-            bool res = finded.First().SetDone();
-            if (res)
-            {
-                foreach(var subTask in _subTasks)
-                {
-                    subTask.DeacreaseStackIndex();
-                }
             }
         }
 
@@ -78,11 +59,13 @@ namespace ProgressModul
 
         public IEnumerable<SubTask> SubTasks => _subTasks;
 
+        public IEnumerable<SubTask> CurrentSubTasks => _subTasks.Where(s => s.StackIndex == 0 && s.Flow == Flow && !s.IsDone);
+
         public List<SubTask> SubTasksTest => _subTasks;
 
-        /*public string Description
+        public override string ToString()
         {
-            get => GetFirstInProgressSubTask.Description;
-        }*/
+            return GetModel.ToString();
+        }
     }
 }
