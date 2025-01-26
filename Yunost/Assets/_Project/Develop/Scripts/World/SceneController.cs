@@ -40,14 +40,19 @@ public class SceneController : MonoBehaviour
         if (sceneControl.CurrentTile == "HubHome")
         {
             _systemManager.SetMainCamera(false);
+            _systemManager.SetHubCamera(true);
         }
         else
         {
             _systemManager.SetHubCamera(false);
+            _systemManager.SetMainCamera(true);
         }
 
         _markController = gameSystems.GetComponent<MarkController>();
         _playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
+
+  
+        _markController.ObjectToMark(_playerTransform, sceneControl.CurrentTile == "CampStation" ? "start_game" : sceneControl.CurrentTile);
     }
 
     void changeTile(string newTile, string prevTile)

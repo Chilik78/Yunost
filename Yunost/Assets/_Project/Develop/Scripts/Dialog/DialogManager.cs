@@ -205,6 +205,35 @@ public class DialogManager : MonoBehaviour
             ServiceLocator.Get<SceneControl>().ChangeTile(sceneName);
         });
 
+        currentStory.BindExternalFunction("changeSceneWithTp", (string sceneName, string id) => {
+            ServiceLocator.Get<SceneControl>().ChangeTile(sceneName);
+            var player = GameObject.FindWithTag("Player");
+            if (id != null)
+                GameObject.Find("GameSystems").GetComponent<MarkController>().ObjectToMark(player.transform, id);
+        });
+
+        // Смена времени
+        currentStory.BindExternalFunction("changeTime", (int h, int m) => {
+            ServiceLocator.Get<TimeControl>().SetTimeFormat(h, m);
+        });
+
+        currentStory.BindExternalFunction("putItem", () =>
+        {
+            GameObject.Find("HubHome").GetComponent<SeekItem>().Put();
+        });
+
+        currentStory.BindExternalFunction("tpNPC", () =>
+        {
+            var makar = GameObject.Find("Итеракт Макара");
+            var oleg = GameObject.Find("Итеракт Олега");
+            var lisa = GameObject.Find("Итеракт Елизаветы");
+            var sofa = GameObject.Find("Итеракт Софии");
+            GameObject.Find("GameSystems").GetComponent<MarkController>().ObjectToMark(makar.transform, "MakarAdmin");
+            GameObject.Find("GameSystems").GetComponent<MarkController>().ObjectToMark(oleg.transform, "OlegAdmin");
+            GameObject.Find("GameSystems").GetComponent<MarkController>().ObjectToMark(lisa.transform, "LizaAdmin");
+            GameObject.Find("GameSystems").GetComponent<MarkController>().ObjectToMark(sofa.transform, "SofaAdmin");
+        });
+
         ContinueStory();
     }
 

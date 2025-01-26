@@ -4,11 +4,13 @@ EXTERNAL setDoneTask(idTask)
 EXTERNAL setDoneSubTask(idTask, idSubTask)
 -> NameQuest
 INCLUDE Quests\Act1\LongRoad\Makar_Act1_LongRoad.ink
+INCLUDE Quests\Act1\TeamGame\Makar_Act1_TeamGame.ink
 
 
 == NameQuest
 { 
 - CurrentQuest == "long_road": -> Act1_LongRoad
+- CurrentQuest == "team_game": -> Act1_TeamGame
 } 
 -> END
 

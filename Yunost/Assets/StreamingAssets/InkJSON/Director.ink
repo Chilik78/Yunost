@@ -5,11 +5,13 @@ EXTERNAL setDoneSubTask(idTask, idSubTask)
 -> NameQuest
 INCLUDE Quests\Act1\HelpForFriend\Director_Act1_HelpForFriend.ink
 INCLUDE Quests\Act1\SweetHome\Director_Act1_SweetHome.ink
+INCLUDE Quests\Act1\TeamGame\Director_Act1_TeamGame.ink
 
 == NameQuest
 { 
 - CurrentQuest == "help_for_friend": -> Act1_HelpForFriend
 - CurrentQuest == "sweet_home": -> Act1_SweetHome
+- CurrentQuest == "team_game": -> Act1_TeamGame
 } 
 -> END
 
