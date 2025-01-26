@@ -12,9 +12,6 @@ public class DialogTrigger : MonoBehaviour
     private UniversalTutorialManager universalTutorialManager;
 
     [SerializeField]
-    private float yStepVisualClue = 1;
-
-    [SerializeField]
     private string targetName;
 
     private GameObject target;

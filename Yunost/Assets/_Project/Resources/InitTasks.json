@@ -93,6 +93,55 @@
             ],
             "isDone": false
 
+        },
+        {
+            "id": "team_game",
+            "name": "Командная игра",
+            "subTasks": [
+                {
+                    "id": "leave_house",
+                    "description": "Покинуть Дом №1",
+                    "isDone": false
+                },
+                {
+                    "id": "talk_counselors",
+                    "description": "Поговорить с вожатыми у Администрации",
+                    "isDone": false
+                },
+                {
+                    "id": "meet_sofia",
+                    "description": "Обсудить план действий с Софией на поляне у костра",
+                    "isDone": false
+                },    
+                {
+                    "id": "search_shovel",
+                    "description": "Взять лопату и поговорить с Софией",
+                    "isDone": false
+                }, 
+                {
+                    "id": "digging_0",
+                    "description": "Выкопать ямы в местах с Красными Флажками 0/3",
+                    "isDone": false
+                },
+                {
+                    "id": "digging_1",
+                    "description": "Выкопать ямы в местах с Красными Флажками 1/3",
+                    "isDone": false
+                },
+                {
+                    "id": "digging_2",
+                    "description": "Выкопать ямы в местах с Красными Флажками 2/3",
+                    "isDone": false
+                },
+                {
+                    "id": "result_talk_sofia",
+                    "description": "Обсудить результаты с Софией",
+                    "isDone": false
+                }
+            ],
+            "isDone": false
+
         }
+
     ]
 }

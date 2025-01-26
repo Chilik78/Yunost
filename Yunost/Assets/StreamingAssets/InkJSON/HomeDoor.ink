@@ -3,14 +3,18 @@ EXTERNAL itemIsExist(item)
 EXTERNAL setDoneTask(idTask)
 EXTERNAL setDoneSubTask(idTask, idSubTask)
 EXTERNAL changeScene(nameScene)
+EXTERNAL changeSceneWithTp(nameScene, id)
+EXTERNAL tpNPC()
 -> NameQuest
 INCLUDE Quests\Act1\HelpForFriend\HomeDoor_Act1_HelpForFriend.ink
 INCLUDE Quests\Act1\SweetHome\HomeDoor_Act1_SweetHome.ink
+INCLUDE Quests\Act1\TeamGame\HomeDoor_Act1_TeamGame.ink
 
 == NameQuest
 { 
 - CurrentQuest == "help_for_friend": -> Act1_HelpForFriend
 - CurrentQuest == "sweet_home": -> Act1_SweetHome
+- CurrentQuest == "team_game": -> Act1_TeamGame
 } 
 -> END
 
