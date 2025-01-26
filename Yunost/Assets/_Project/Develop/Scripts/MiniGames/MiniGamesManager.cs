@@ -70,12 +70,28 @@ namespace MiniGames
 
         private void Run(MiniGameContext context)
         {
-            universalTutorialManager.TriggerTutorial("MiniGame1"); //Триггер на появление окна туториала
+            ShowTutorial(context.TypeMiniGame);
+            
             if (_currGame != null)
             {
                 
                 _currGame.Init(context);
                 _currGame.OnMiniGameEnd += OnMiniGameEnd;
+            }
+        }
+
+        private void ShowTutorial(TypesMiniGames type)
+        {
+            switch (type) {
+                case TypesMiniGames.HoldingObjectInRange: break;
+                case TypesMiniGames.AdvancePathEachStage: break;
+                case TypesMiniGames.QuickPressKeyCertainTime: break;
+                case TypesMiniGames.GameWolfConsole: break;
+                case TypesMiniGames.QuickTempPressKeyCertainRange: universalTutorialManager.TriggerTutorial("MiniGameDigging"); break;
+                case TypesMiniGames.ConnectElements: break;
+                case TypesMiniGames.ReachEndPointWithObstacles: break;
+                case TypesMiniGames.BreakingLock: universalTutorialManager.TriggerTutorial("MiniGameBreakingLock"); break;
+                default: break;
             }
         }
 
