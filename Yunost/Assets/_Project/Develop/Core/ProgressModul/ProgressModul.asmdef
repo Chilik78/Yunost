@@ -1,0 +1,16 @@
+{
+    "name": "ProgressModul",
+    "rootNamespace": "ProgressModul",
+    "references": [
+        "GUID:dd9ff9bdc77db4a4b8261d286c231be9"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

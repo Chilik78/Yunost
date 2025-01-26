@@ -1,98 +1,24 @@
-{
-    "Items": [
-        {
-            "id": "long_road",
-            "name": "Долгая дорога",
-            "subTasks": [
-                {
-                    "id": "talk_makar",
-                    "description": "Поговорить с Макаром",
-                    "isDone": false
-                },
-                {
-                    "id": "take_case",
-                    "description": "Взять Чемодан и вернуться к Макару",
-                    "isDone": false
-                },
-                {
-                    "id": "go_to_camp",
-                    "description": "Пройти на территорию лагеря",
-                    "isDone": false
-                } 
-            ],
-            "isDone": false
-
-        },
-        {
-            "id": "help_for_friend",
-            "name": "Помощь другу",
-            "subTasks": [
-                {
-                    "id": "talk_oleg",
-                    "description": "Поговорить с Олегом",
-                    "isDone": false
-                },
-                {
-                    "id": "check_door",
-                    "description": "Осмотреть дверь",
-                    "isDone": false
-                },
-                {
-                    "id": "search_tools",
-                    "description": "Найти Отвёртку с Отмычками и объединить их в Инструменты для взлома",
-                    "isDone": false
-                },
-                {
-                    "id": "open_door",
-                    "description": "Взломать дверной замок ИЛИ найти другой способ открыть дверь",
-                    "isDone": false
-                },
-                {
-                    "id": "talk_result",
-                    "description": "Подвести итоги с Олегом",
-                    "isDone": false
-                }
-            ],
-            "isDone": false
-
-        },
-        {
-            "id": "sweet_home",
-            "name": "Дом, милый дом",
-            "subTasks": [
-                {
-                    "id": "director",
-                    "description": "Поговорить с Анатолием Степановичем у Администрации",
-                    "isDone": false
-                },
-                {
-                    "id": "search_key",
-                    "description": "Найти Ключ",
-                    "isDone": false
-                },
-                {
-                    "id": "open_door",
-                    "description": "Открыть дверь Дома №1",
-                    "isDone": false
-                },    
-                {
-                    "id": "go_to_home",
-                    "description": "Зайти в Дом №1",
-                    "isDone": false
-                }, 
-                {
-                    "id": "drop_case",
-                    "description": "Поставить Чемодан в угол у Стола",
-                    "isDone": false
-                },
-                {
-                    "id": "go_to_bed",
-                    "description": "Отдохнуть на Кровати",
-                    "isDone": false
-                }
-            ],
-            "isDone": false
-
-        }
-    ]
-}
+[
+    {
+        "id": "long_road",
+        "name": "Долгая дорога",
+        "subTasks": [
+            {
+                "id": "talk_makar",
+                "description": "Поговорить с Макаром",
+                "flow": "1"
+            },
+            {
+                "id": "take_case",
+                "description": "Взять Чемодан и вернуться к Макару",
+                "flow": "1",
+                "friends": ["talk_makar"]
+            },
+            {
+                "id": "go_to_camp",
+                "description": "Пройти на территорию лагеря",
+                "flow": "1"
+            }
+        ]
+    }
+]

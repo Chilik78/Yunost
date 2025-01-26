@@ -73,7 +73,7 @@ public class DiaryManager : MonoBehaviour
             Debug.LogWarning("Задания в прогрессе исчерпаны");
             return;
         }
-        UpdateDiary(task.Name, task.GetInProgressSubTasks.Select(x => x.Description).ToArray());
+        //UpdateDiary(task.Name, task.GetInProgressSubTasks.Select(x => x.Description).ToArray());
     }
 
     private void Update()
