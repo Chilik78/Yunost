@@ -342,7 +342,7 @@ public class DialogManager : MonoBehaviour
 
             if (prefix.Trim() == "Вы")
             {
-                dialogueText.text += $"<color=#00FF00>{prefix}:</color>";
+                dialogueText.text += $"<color=#228B22>{prefix}:</color>";
             }
             else
             {
@@ -496,10 +496,11 @@ public class DialogManager : MonoBehaviour
         // Включение кнопок выбора на UI и изменение их текста
         foreach (Choice choice in currentChoices)
         {
-
+            //Debug.LogWarning("до " + index);
             choices[index].gameObject.SetActive(true);
             choicesText[index].text = $"{index + 1}. {choice.text}"; // choice.text
             index++;
+            //Debug.LogWarning("после " + index);
         }
 
         for (int i = index; i < choices.Length; i++)
@@ -513,7 +514,8 @@ public class DialogManager : MonoBehaviour
     public void MakeChoice(int choiceIndex)
     {
         currentStory.ChooseChoiceIndex(choiceIndex);
-        ContinueStory();
+        Debug.LogWarning("Выбранный варинат " + choiceIndex);
+        //ContinueStory();
     }
 
     // Получение значения Ink переменной 
