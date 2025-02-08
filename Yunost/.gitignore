@@ -75,9 +75,3 @@ crashlytics-build.properties
 # Exceptions
 #!*.dll
 #!*.obj
-
-/[Aa]ssets/_Project/Scenes/TestScenes/
-/[Aa]ssets/_Project/Scenes/TestScenes.meta
-
-/[Aa]ssets/_Project/Develop/Tests/
-/[Aa]ssets/_Project/Develop/Tests.meta

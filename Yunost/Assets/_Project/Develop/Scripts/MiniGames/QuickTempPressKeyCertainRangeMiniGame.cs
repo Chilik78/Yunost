@@ -19,7 +19,7 @@ namespace MiniGames
         public override void Init(MiniGameContext context)
         {
             _line = new Line(context.getCurrentDifficult);
-            _shovel = new Shovel();
+            _shovel = new Shovel(500);
             _shovel.OnAnimationChange += OnAnimationChange;
             _shovel.OnChangeStageVisual += OnChangeStageVisual;
             _textCountAttempts = GameObject.Find("CountAttempts").GetComponent<CountAttemptsText>();

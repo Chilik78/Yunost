@@ -26,9 +26,9 @@ namespace MiniGames
 
         public void RunMiniGame(MiniGameContext context)
         {
-            SystemManager.GetInstance().SetSystemsToMiniGame(false);   
+            //SystemManager.GetInstance().SetSystemsToMiniGame(false);   
 
-            _screen = Instantiate(GetScreen(context));
+            //_screen = Instantiate(GetScreen(context));
             ChooseMiniGame(context);
             Run(context);
         }
@@ -70,7 +70,7 @@ namespace MiniGames
 
         private void Run(MiniGameContext context)
         {
-            ShowTutorial(context.TypeMiniGame);
+            //ShowTutorial(context.TypeMiniGame);
             
             if (_currGame != null)
             {
@@ -98,7 +98,7 @@ namespace MiniGames
         private void OnMiniGameEnd(MiniGameResultInfo resultInfo)
         {
             _currGame.OnMiniGameEnd -= OnMiniGameEnd;
-            SystemManager.GetInstance().SetSystemsToMiniGame(true);
+            //SystemManager.GetInstance().SetSystemsToMiniGame(true);
 
             MiniGameEnd?.Invoke(resultInfo);
 
@@ -111,7 +111,7 @@ namespace MiniGames
                 Debug.Log($"Выигрыш | Кол-во предметов, которые нужно забрать: {resultInfo.getNumLostItems}");
             }
 
-            Destroy(_screen);
+            //Destroy(_screen);
             _currGame = null;
         }
     }
