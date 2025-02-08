@@ -26,7 +26,7 @@ namespace MiniGames
 
         public void RunMiniGame(MiniGameContext context)
         {
-            SystemManager.GetInstance().DisableSystemsToMiniGame();   
+            SystemManager.GetInstance().SetSystemsToMiniGame(false);   
 
             _screen = Instantiate(GetScreen(context));
             ChooseMiniGame(context);
@@ -52,13 +52,14 @@ namespace MiniGames
         private Object GetScreen(MiniGameContext context)
         {
             string path = "MiniGameScreens/";
+            Debug.Log(context.TypeMiniGame);
             switch (context.TypeMiniGame)
             {
                 case TypesMiniGames.HoldingObjectInRange: break;
                 case TypesMiniGames.AdvancePathEachStage: break;
                 case TypesMiniGames.QuickPressKeyCertainTime: break;
                 case TypesMiniGames.GameWolfConsole: break;
-                case TypesMiniGames.QuickTempPressKeyCertainRange: break;
+                case TypesMiniGames.QuickTempPressKeyCertainRange: path += "QuickTempPressKeyCertainRange"; break;
                 case TypesMiniGames.ConnectElements: break;
                 case TypesMiniGames.ReachEndPointWithObstacles: break;
                 case TypesMiniGames.BreakingLock: path += "BreakingLock"; break;
@@ -69,7 +70,8 @@ namespace MiniGames
 
         private void Run(MiniGameContext context)
         {
-            universalTutorialManager.TriggerTutorial("MiniGame1"); //Триггер на появление окна туториала
+            ShowTutorial(context.TypeMiniGame);
+            
             if (_currGame != null)
             {
                 
@@ -78,10 +80,25 @@ namespace MiniGames
             }
         }
 
+        private void ShowTutorial(TypesMiniGames type)
+        {
+            switch (type) {
+                case TypesMiniGames.HoldingObjectInRange: break;
+                case TypesMiniGames.AdvancePathEachStage: break;
+                case TypesMiniGames.QuickPressKeyCertainTime: break;
+                case TypesMiniGames.GameWolfConsole: break;
+                case TypesMiniGames.QuickTempPressKeyCertainRange: universalTutorialManager.TriggerTutorial("MiniGameDigging"); break;
+                case TypesMiniGames.ConnectElements: break;
+                case TypesMiniGames.ReachEndPointWithObstacles: break;
+                case TypesMiniGames.BreakingLock: universalTutorialManager.TriggerTutorial("MiniGameBreakingLock"); break;
+                default: break;
+            }
+        }
+
         private void OnMiniGameEnd(MiniGameResultInfo resultInfo)
         {
             _currGame.OnMiniGameEnd -= OnMiniGameEnd;
-            SystemManager.GetInstance().EnableSystemsToMiniGame();
+            SystemManager.GetInstance().SetSystemsToMiniGame(true);
 
             MiniGameEnd?.Invoke(resultInfo);
 
@@ -95,6 +112,7 @@ namespace MiniGames
             }
 
             Destroy(_screen);
+            _currGame = null;
         }
     }
 }

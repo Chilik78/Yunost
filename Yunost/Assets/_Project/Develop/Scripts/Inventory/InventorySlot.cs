@@ -3,6 +3,8 @@ using UnityEngine.UI;
 using TMPro;
 using UnityEngine.EventSystems;
 using System.Collections.Generic;
+using Global;
+
 public class InventorySlot : MonoBehaviour, IPointerClickHandler
 {
     public RawImage iconImage; // UI-компонент для отображения текстуры
@@ -13,7 +15,9 @@ public class InventorySlot : MonoBehaviour, IPointerClickHandler
 
     private Transform itemParent;
     private CraftingManager craftingManager;
-
+    public static Item buffItem1;
+    public static Item buffItem2;
+    private ListOfItems listOfItems;
     public Transform GetItemParent()
     {
         return itemParent;
@@ -80,26 +84,53 @@ public class InventorySlot : MonoBehaviour, IPointerClickHandler
     }
     public void OnPointerClick(PointerEventData eventData)
     {
-        Debug.Log("НАЖАЛИ НА РЖОМБУ");
-        Debug.Log(currentItem);
-        Debug.Log(eventData.button);
+
+        listOfItems = ServiceLocator.Get<ListOfItems>();
         if (eventData.button == PointerEventData.InputButton.Left && craftingManager != null && currentItem != null)
         {
-            Debug.Log("ВСЁ ЧЕТКО" + craftingManager.inputSlot1.childCount + craftingManager.inputSlot2.childCount);
-            
-            if (craftingManager.inputSlot1.childCount == 1 || craftingManager.inputSlot1.childCount == 0)
+            Debug.Log("ВСЁ ЧЕТКО" + craftingManager.inputSlot1.childCount + " " + craftingManager.inputSlot2.childCount);
+            //craftingManager.inputSlot1.childCount == 1 || craftingManager.inputSlot1.childCount == 0
+            //craftingManager.inputSlot1.childCount >= 0) &&currentItem != buffItem
+            if ((craftingManager.inputSlot1.childCount == 1) && currentItem != buffItem1 && currentItem != buffItem2)
             {
-                Debug.Log("ДОБАВЛЯЕМ В ПЕРВЫЙ СЛОТ");
+                buffItem1 = currentItem;
+
+                Debug.LogWarning("ДОБАВЛЯЕМ В ПЕРВЫЙ СЛОТ " + currentItem);
                 craftingManager.AddItemToCraftSlot(craftingManager.inputSlot1, currentItem);
 
             }
-            else if (craftingManager.inputSlot2.childCount == 1 || craftingManager.inputSlot1.childCount == 0)
+            //craftingManager.inputSlot2.childCount == 1 || craftingManager.inputSlot1.childCount == 0
+            //craftingManager.inputSlot2.childCount >= 0) && currentItem != buffItem
+            else if ((craftingManager.inputSlot2.childCount == 1) && currentItem != buffItem2 && currentItem != buffItem1)
             {
-                Debug.Log("ДОБАВЛЯЕМ ВО ВТОРОЙ СЛОТ");
+                buffItem2 = currentItem;
+                Debug.LogWarning("ДОБАВЛЯЕМ ВО ВТОРОЙ СЛОТ " + currentItem);
                 craftingManager.AddItemToCraftSlot(craftingManager.inputSlot2, currentItem);
+            }
+            else if (currentItem == buffItem1 || currentItem == buffItem2)
+            {
+                if (currentItem == buffItem1)
+                {
+                    Debug.LogWarning("Пытаемся вернуть обратно " + currentItem);
+                    buffItem1 = null;
+                    craftingManager.CreateOutputItem(currentItem);
+                    ClearSlot();
+                    craftingManager.ClearSlot(craftingManager.inputSlot1);
+                    Debug.LogWarning("количество итемов " + listOfItems.ItemNames.Count + " count of inputSlot1 childs " + craftingManager.inputSlot1.childCount);
+                }
+                else
+                {
+                    Debug.LogWarning("Пытаемся вернуть обратно " + currentItem);
+                    buffItem2 = null;
+                    craftingManager.CreateOutputItem(currentItem);
+                    ClearSlot();
+                    craftingManager.ClearSlot(craftingManager.inputSlot2);
+                    Debug.LogWarning("количество итемов " + listOfItems.ItemNames.Count + " count of inputSlot1 childs " + craftingManager.inputSlot2.childCount);
+                }
             }
         }
     }
+
 
 
 

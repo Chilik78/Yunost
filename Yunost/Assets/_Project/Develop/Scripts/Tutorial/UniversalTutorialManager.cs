@@ -1,7 +1,5 @@
 using UnityEngine;
-using UnityEngine.Events;
 using System.Collections.Generic;
-using TMPro;
 
 public class UniversalTutorialManager : MonoBehaviour
 {
@@ -27,7 +25,7 @@ public class UniversalTutorialManager : MonoBehaviour
         if (windowMessages.ContainsKey(windowName) && !triggeredWindows.Contains(windowName))
         {
             Debug.LogWarning($"Œ ÕŒ “”“Œ–»¿À¿ {windowName} Á‡ÔÛ˘ÂÌÓ");;
-            triggeredWindows.Add(windowName); 
+            triggeredWindows.Add(windowName);
             tutorialManager.StartTutorial(windowMessages[windowName]);
         }
     }

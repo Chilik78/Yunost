@@ -27,14 +27,14 @@ public class CraftingManager : MonoBehaviour
             Debug.LogError("InventoryManager not found!");
         }
         EnsureSlotsCreated();
-        bool exist = IsExistInInventory("tool");
-        Debug.Log("Оюъект существует? - " + exist);
+     
+        //Debug.Log("Объект существует? - " + exist);
     }
 
     private void Update()
     {
-        bool exist = IsExistInInventory("tool");
-        Debug.Log("Оюъект существует? - " + exist);
+        
+        //Debug.Log("Объект существует? - " + exist);
     }
 
     public void AddItemToCraftSlot(Transform slot, Item item)
@@ -57,10 +57,13 @@ public class CraftingManager : MonoBehaviour
             if (craftedItem != null)
             {
                 CreateOutputItem(craftedItem);
+                inventoryManager.RemoveItemFromInventory(itemInInput1.name);
+                inventoryManager.RemoveItemFromInventory(itemInInput2.name);
+                ClearInputSlots();
             }
-            ClearInputSlots();
         }
     }
+
 
     private Item CraftItem(Item item1, Item item2)
     {
@@ -74,7 +77,7 @@ public class CraftingManager : MonoBehaviour
     }
 
 
-    private void CreateOutputItem(Item outputItem)
+    public void CreateOutputItem(Item outputItem)
     {
         if (outputSlot.childCount > 0) ClearSlot(outputSlot);
         
@@ -97,11 +100,10 @@ public class CraftingManager : MonoBehaviour
         itemInInput1 = null;
         itemInInput2 = null;
         //EnsureSlotsCreated();
-        bool exist = IsExistInInventory("tool");
-        Debug.Log("Объект существует? - " + exist);
+
     }
 
-    private void ClearSlot(Transform slot)
+    public void ClearSlot(Transform slot)
     {
         Debug.Log(slot.gameObject.name);
         Transform child = slot.Find("SlotPrefab(Clone)");
@@ -120,11 +122,11 @@ public class CraftingManager : MonoBehaviour
     }
     private void CreateSlotIfNeeded(Transform slotTransform)
     {
-        Debug.Log(slotTransform.childCount);
+        //Debug.Log(slotTransform.childCount);
 
         if (slotTransform.childCount == 0) 
         {
-            Debug.Log("������� ����");
+            //Debug.Log("������� ����");
             //Instantiate(slotPrefab, slotTransform);
             GameObject newSlot = Instantiate(slotPrefab, slotTransform);
             
@@ -135,22 +137,7 @@ public class CraftingManager : MonoBehaviour
         }
     }
 
-    public bool IsExistInInventory(string objectName)
-    {
-        Debug.Log("Зашёл искать");
-        Transform child = inventoryManager.itemParent;
-        if (child == null) return false;
-        TMP_Text[] textComponents = child.GetComponentsInChildren<TMP_Text>();
-        if (textComponents == null) return false;
-
-        foreach (TMP_Text textComponent in textComponents)
-        {
-            Debug.Log(textComponent.text);
-            string textValue = textComponent.text;
-            if (textValue == objectName) return true;
-        }
-        return false;
-    }
+    
     
 
 }

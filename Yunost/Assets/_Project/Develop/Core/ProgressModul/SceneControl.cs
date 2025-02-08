@@ -1,45 +1,49 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 
 namespace ProgressModul
 {
-    public enum Scenes
+    public enum Tiles
     {
-        Menu,
         CampStation,
         MainCamp,
-        MyHome,
+        HubHome,
     }
 
-    public class SceneControl
+    public class SceneControl : ISaveLoadObject
     {
-        private string _initSceneName;
-        private int _initSceneIndex;
-        public delegate void ProgressLoadingHandler(float progress);
-        public delegate void LoadingHandler();
-        public event ProgressLoadingHandler ProgressLoading;
-        public event LoadingHandler StartLoading;
-        public event LoadingHandler StoptLoading;
-
-        public SceneControl(string initSceneName)
+        private Dictionary<int, string> _tileDictionary = new Dictionary<int, string>()
         {
-            _initSceneName = initSceneName; 
-        }
+            {0, "CampStation" },
+            {1,  "MainCamp"},
+            {2,  "HubHome"}
+        };
 
-        public SceneControl(int initSceneIndex)
-        {
-            _initSceneIndex = initSceneIndex;
-        }
 
+        private string _initSceneName = "Main";
+        private string _currentTile;
+        public string CurrentTile => _currentTile;
+        public IEnumerable<string> GetTileNames => _tileDictionary.Values;
+        public string ComponentSaveId => "SceneControl";
+
+        public bool IsNewGame { get; private set; } = true;
+
+        public delegate void TileHandler(string newTile, string prevTile);
+        public event TileHandler TileChanged;
         public void Init ()
         {
-            if (_initSceneName == null)
-                SceneManager.LoadScene(_initSceneIndex);
-            else
-                SceneManager.LoadScene(_initSceneName);
+            Debug.LogWarning(_currentTile);
+            SceneManager.LoadScene(_initSceneName);
+            IsNewGame = true;
+        }
+
+        public void Load()
+        {
+            SceneManager.LoadScene(_initSceneName);
         }
 
         public void OpenMenu()
@@ -48,33 +52,21 @@ namespace ProgressModul
             SceneManager.LoadScene("Menu");
         }
 
-        public void NextScene()
+        public void ChangeTile(string tile)
         {
-            int index = SceneManager.GetActiveScene().buildIndex;
-            SceneManager.LoadScene(index+1);
-        }
+            if (!_tileDictionary.ContainsValue(tile))
+            {
+                Debug.LogError($"Нет такого тайла: {tile}");
+            }
 
-        public void PreviousScene()
-        {
-            int index = SceneManager.GetActiveScene().buildIndex;
-            SceneManager.LoadScene(index - 1);
-        }
+            if(TileChanged != null)
+            {
+                TileChanged(tile, _currentTile);
+            }
 
-        public AsyncOperation GoToSceneAsync(int index)
-        {
-            return SceneManager.LoadSceneAsync(index);
+            _currentTile = tile;
         }
-
-        public AsyncOperation GoToSceneAsync(string name)
-        {
-            return SceneManager.LoadSceneAsync(name);
-        }
-
-        public AsyncOperation GoToSceneAsync(Scenes scene)
-        {
-            return SceneManager.LoadSceneAsync((int)scene);
-        }
-
+        
         public void GoToScene(int index)
         {
             SceneManager.LoadScene(index);
@@ -85,60 +77,35 @@ namespace ProgressModul
             SceneManager.LoadScene(name);
         }
 
-        public void GoToScene(Scenes scene)
+        public void GoToScene(Tiles scene)
         {
             SceneManager.LoadScene((int)scene);
         }
 
-        public AsyncOperation UnloadSceneAsync(int index)
+       
+
+       
+        SaveLoadData ISaveLoadObject.GetSaveLoadData()
         {
-            return SceneManager.UnloadSceneAsync(index);
+            return new SceneSaveLoadData(ComponentSaveId, _currentTile);
         }
 
-        public AsyncOperation UnloadSceneAsync(string name)
+        void ISaveLoadObject.RestoreValues(SaveLoadData loadData)
         {
-            return SceneManager.UnloadSceneAsync(name);
-        }
-
-        private IEnumerator _loadNewSceneAsync(AsyncOperation loadSceneOp)
-        {
-            if (StartLoading != null)
-                StartLoading();
-
-            loadSceneOp.allowSceneActivation = false;
-            while (!loadSceneOp.isDone)
+            if (loadData?.Data == null || loadData.Data.Length < 1)
             {
-                if (ProgressLoading != null)
-                    ProgressLoading(loadSceneOp.progress / 0.9f);
-
-                if (loadSceneOp.progress >= 0.9f)
-                {
-                    break;
-                }
-                yield return null;
+                Debug.LogError($"Can't restore values.");
+                return;
             }
-            loadSceneOp.allowSceneActivation = true;
-            
-            if (StoptLoading != null)
-                StoptLoading();
+
+            // [0] - (field)
+
+            _currentTile = loadData.Data[0].ToString();
         }
 
-        public IEnumerator LoadNewSceneAsync(int index)
+        void ISaveLoadObject.SetDefault()
         {
-            var loadSceneOp = GoToSceneAsync(index);
-            return _loadNewSceneAsync(loadSceneOp);
-        }
-
-        public IEnumerator LoadNewSceneAsync(string name)
-        {
-            var loadSceneOp = GoToSceneAsync(name);
-            return _loadNewSceneAsync(loadSceneOp);
-        }
-
-        public IEnumerator LoadNewSceneAsync(Scenes scene)
-        {
-            var loadSceneOp = GoToSceneAsync(scene);
-            return _loadNewSceneAsync(loadSceneOp);
+            _currentTile = _tileDictionary[(int)Tiles.CampStation];
         }
     }
 }

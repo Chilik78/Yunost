@@ -136,7 +136,6 @@ namespace MiniGames
             }
             else if(isPressed)
             {
-                Debug.Log(_line.getAngleLine);
                 _countAttempts--;
                 _textCountAttempts.TakeAwayAttempt();   
             }

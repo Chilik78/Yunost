@@ -1,19 +1,23 @@
-
+﻿
 using Global;
+using Ink.Runtime;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
 namespace ProgressModul
 {
-    public class TaskObserver
+    public class TaskObserver : ISaveLoadObject
     {
-        private List<Task> _inProgressTasks;
-        private List<Task> _doneTasks;
+        private List<Task> _inProgressTasks = new(1);
+        private List<Task> _doneTasks = new(1);
         public delegate void TaskHandler(Task task);
         public event TaskHandler HaveDoneTask;
         public event TaskHandler HaveNewTask;
         public event TaskHandler HaveNewSubTask;
+        public string ComponentSaveId => "TaskObserver";
 
         static public List<Task> ParseJsonWithTasks(string json)
         {
@@ -38,6 +42,11 @@ namespace ProgressModul
             _doneTasks = initDoneTasks;
         }
 
+        public TaskObserver()
+        {
+
+        }
+
         public TaskObserver(List<Task> initInProgressTasks)
         {
             _inProgressTasks = initInProgressTasks;
@@ -49,7 +58,7 @@ namespace ProgressModul
             get => _inProgressTasks;
         }
 
-        public Task GetFirstInProgressTask 
+        public Task GetFirstInProgressTask
         {
             get
             {
@@ -70,6 +79,10 @@ namespace ProgressModul
             if (isAllDone)
             {
                 SetDoneTask(task);
+                if (HaveNewSubTask != null)
+                {
+                    HaveNewSubTask(GetFirstInProgressTask);
+                }
             }
             else
             {
@@ -85,16 +98,16 @@ namespace ProgressModul
         public void SetDoneTask(Task task)
         {
             if (task == null) return;
-            
+
 
             task.SetDone();
             _inProgressTasks.Remove(task);
             _doneTasks.Add(task);
 
-            if(HaveDoneTask != null)
+            if (HaveDoneTask != null)
                 HaveDoneTask(task);
-            
-            if(HaveNewTask != null) 
+
+            if (HaveNewTask != null)
                 HaveNewTask(GetFirstInProgressTask);
         }
 
@@ -106,7 +119,7 @@ namespace ProgressModul
         public void SetDoneTaskById(string id)
         {
             Task task = _inProgressTasks.Where(t => t.Id == id).First();
-            if(task != null)
+            if (task != null)
             {
                 SetDoneTask(task);
             }
@@ -115,17 +128,80 @@ namespace ProgressModul
         public void SetDoneSubTaskByIds(string taskId, string subTaskId)
         {
             Task task = _inProgressTasks.Where(t => t.Id == taskId).First();
-            if(task == null) return;
+            if (task == null) return;
 
             bool isAllDone = task.SetDoneSubTaskById(subTaskId);
             if (isAllDone)
             {
                 SetDoneTask(task);
+                if (HaveNewSubTask != null)
+                {
+                    HaveNewSubTask(GetFirstInProgressTask);
+                }
             }
             else
             {
                 if (HaveNewSubTask != null) HaveNewSubTask(task);
             }
+        }
+
+        public SaveLoadData GetSaveLoadData()
+        {
+            return new TaskSaveLoadData(ComponentSaveId, _inProgressTasks.Select(x => x.GetModel).ToList(), _doneTasks.Select(x => x.GetModel).ToList());
+        }
+
+        public void RestoreValues(SaveLoadData loadData)
+        {
+            _inProgressTasks.Clear();
+            _doneTasks.Clear();
+
+            if (loadData?.Data == null || loadData.Data.Length < 2)
+            {
+                Debug.LogError($"Can't restore values.");
+                return;
+            }
+
+            // [0] - (JArray) with items
+            // [1] - (JArray) with items
+
+            var items = ((JArray)loadData.Data[0]).ToObject<List<TaskModel>>();
+            _inProgressTasks.AddRange(items.Select(x => new Task(x)));
+
+            var items2 = ((JArray)loadData.Data[1]).ToObject<List<TaskModel>>();
+            _doneTasks.AddRange(items2.Select(x => new Task(x)));
+        }
+
+        static public string PrefsKey => "CurrentTasks";
+
+        public void SaveTasksToPrefs()
+        {
+            var saveLoadData = GetSaveLoadData();
+            var serializedSaveFile = JsonConvert.SerializeObject(saveLoadData);
+            PlayerPrefs.SetString(PrefsKey, serializedSaveFile);
+        }
+
+        static public TaskObserver CreateFromPrefs()
+        {
+            string serializedFile = PlayerPrefs.GetString(PrefsKey);
+            PlayerPrefs.DeleteKey(PrefsKey);
+            if (string.IsNullOrEmpty(serializedFile))
+            {
+                Debug.LogError($"Çàãðóæåííûé json {PrefsKey} ïóñòîé.");
+                return null;
+            }
+            Debug.Log($"Çàãðóçêà json {PrefsKey}");
+            SaveLoadData saveLoadData = JsonConvert.DeserializeObject<SaveLoadData>(serializedFile);
+            TaskObserver taskObserver = new();
+            taskObserver.RestoreValues(saveLoadData);
+
+            return taskObserver;
+        }
+
+        public void SetDefault()
+        {
+            string json = Resources.Load<TextAsset>("InitTasks").text;
+            _inProgressTasks = ParseJsonWithTasks(json);
+            _doneTasks = new();
         }
 
         public Task GetLastDoneTask
@@ -134,5 +210,3 @@ namespace ProgressModul
         }
     }
 }
-
-

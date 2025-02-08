@@ -1,7 +1,7 @@
+using Global;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
 
 public class InventoryManager : MonoBehaviour
 {
@@ -12,6 +12,7 @@ public class InventoryManager : MonoBehaviour
     public Button inventoryButton; // Кнопка для открытия инвентаря
     public Transform itemParent;   // Родитель для слотов инвентаря
     public GameObject slotPrefab;  // Префаб слота для предметов
+    public List<Item> autoInventoryItems = new List<Item>();
 
     private bool isInventoryOpen = false;
     private List<Item> inventoryItems = new List<Item>();
@@ -19,6 +20,9 @@ public class InventoryManager : MonoBehaviour
     private bool isPaused = false;
 
     private UniversalTutorialManager universalTutorialManager;
+
+    private CraftingManager craftingManager;
+    private ListOfItems listOfItems;
 
     void Start()
     {
@@ -42,33 +46,88 @@ public class InventoryManager : MonoBehaviour
         inventoryButton.onClick.AddListener(ToggleInventory);
 
         universalTutorialManager = FindObjectOfType<UniversalTutorialManager>();
+
+        listOfItems = ServiceLocator.Get<ListOfItems>();
+
+        if (autoInventoryItems.Count > 0)
+        {
+            listOfItems.AutoInventoryItems = autoInventoryItems;
+        }
+        AutoFillInventory();
     }
 
-
-
-
-    void Update()
+    private void AutoFillInventory()
     {
-        // Открытие/закрытие инвентаря
-        if (Input.GetKeyDown(KeyCode.I))
+        foreach (string itemName in listOfItems.ItemNames)
         {
-            ToggleInventory();
+            Item existingItem = listOfItems.AutoInventoryItems.Find(item => item.name == itemName);
 
-        }
-
-
-        // Подбор предмета по кнопке F
-        if (Input.GetKeyDown(KeyCode.F))
-        {
-            if (nearbyItem != null)
+            if (existingItem != null ) 
             {
-                PickupNearbyItem();
+                AddItem(existingItem); 
+                Debug.LogWarning($"Предмет автоматически {existingItem.name} добавлен в инвентарь.");
             }
             else
             {
-                Debug.LogWarning("Рядом нет предметов для подбора!");
+                Debug.LogWarning($"Предмет {itemName} отсутствует в inventoryItems.");
             }
         }
+
+    }
+
+    public void RemoveItemFromInventory(string itemName)
+    {
+        foreach (Item item in inventoryItems)
+        {
+            if (item.name == itemName)
+            {
+                RemoveItem(item);
+                listOfItems.RemoveItemFromList(itemName);
+
+                break;
+            }
+            else
+            {
+                Debug.LogWarning("Нельзя удалить этот итем: он не существует");
+            }
+        }
+
+    }
+
+    void Update()
+    {
+        
+        // Открытие/закрытие инвентаря
+        if (Input.GetKeyDown(KeyCode.I))
+        {
+            
+            ToggleInventory();
+            
+            
+            
+        }
+
+        if (Input.GetKeyDown(KeyCode.L))
+        {   
+            Debug.LogWarning(listOfItems.ItemExists("bag"));
+            Debug.LogWarning("Количество итемов в целом: " + listOfItems.AutoInventoryItems.Count);
+        }
+
+
+
+        // Подбор предмета по кнопке F
+        //if (Input.GetKeyDown(KeyCode.F))
+        //{
+        //    if (nearbyItem != null)
+        //    {
+        //        PickupNearbyItem(); //временная штука для тестов
+        //        Debug.LogWarning("В зоне пика предмета");
+        //    }
+        //    else
+        //    {
+        //        Debug.LogWarning("Рядом нет предметов для подбора!");
+        //    }
+        //}
     }
 
     private void ToggleInventory()
@@ -105,40 +164,24 @@ public class InventoryManager : MonoBehaviour
 
     public void AddItem(Item item)
     {
-        Debug.Log(item.name);
+        /*        Debug.Log(ListOfItems.ItemExists("bag"));
+                Debug.Log(item.name);*/
+
         inventoryItems.Add(item);
         UpdateInventoryUI();
+
+        if (!listOfItems.ItemNames.Contains(item.name))
+        {
+            listOfItems.ItemNames.Add(item.name);
+            Debug.Log($"Название {item.name} добавлено в глобальный список.");
+        }
+        else
+        {
+            Debug.Log($"Название {item.name} уже есть в глобальном списке.");
+        }
+        Debug.Log("bag существует: " + listOfItems.ItemExists("bag"));
     }
 
-    /*    public void AddItem(Item newItem)
-        {
-            if (newItem == null)
-            {
-                Debug.LogWarning("Попытка добавить пустой предмет!");
-                return;
-            }
-
-            inventoryItems.Add(newItem);
-
-            
-            GameObject slot = Instantiate(slotPrefab, itemParent);
-
-            
-            InventorySlot inventorySlot = slot.GetComponent<InventorySlot>();
-            if (inventorySlot != null)
-            {
-                if (slot.GetComponent<CanvasGroup>() == null)
-                {
-                    slot.AddComponent<CanvasGroup>();
-                }
-                inventorySlot.SetItem(newItem);
-                inventorySlot.SetParent(itemParent);
-            }
-            else
-            {
-                Debug.LogError("Префаб слота не содержит компонент InventorySlot!");
-            }
-        }*/
 
     public void ShowPickupUI(PickupItem item)
     {
@@ -153,13 +196,15 @@ public class InventoryManager : MonoBehaviour
         nearbyItem = null;
     }
 
-    private void PickupNearbyItem()
+    public void PickupNearbyItem()
     {
         if (nearbyItem != null && nearbyItem.item != null)
         {
+            
             AddItem(nearbyItem.item);
             Destroy(nearbyItem.gameObject);
             HidePickupUI();
+            Debug.LogWarning("Добавили в инвентарь");
         }
         else
         {
@@ -174,19 +219,19 @@ public class InventoryManager : MonoBehaviour
         if (index != -1)
         {
             inventoryItems.RemoveAt(index);
-       
-            UpdateInventoryUI(); 
+
+            UpdateInventoryUI();
         }
     }
 
     private void UpdateInventoryUI()
     {
-   
+
         foreach (Transform child in itemParent)
         {
             Destroy(child.gameObject);
         }
- 
+
         foreach (Item item in inventoryItems)
         {
             GameObject slot = Instantiate(slotPrefab, itemParent);
@@ -198,3 +243,4 @@ public class InventoryManager : MonoBehaviour
         }
     }
 }
+
