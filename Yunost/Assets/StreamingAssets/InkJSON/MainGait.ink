@@ -1,10 +1,21 @@
 INCLUDE globals.ink
 EXTERNAL hitHealth(value)
 EXTERNAL changeScene(sceneName)
+EXTERNAL setDoneSubTask(idTask, idSubTask)
+EXTERNAL setDoneTask(idTask)
+-> NameQuest
+INCLUDE Quests\Act1\LongRoad\MainGait_Act1_LongRoad.ink
 
-// ДОБАВИТЬ ФУНКЦИЮ СМЕНЫ СЦЕНЫ
 
+== NameQuest
+{ 
+- CurrentQuest == "long_road": -> Act1_LongRoad
+} 
+-> END
+
+/*
 -> ВоротаОсмотр
+
 
 == ВоротаОсмотр==
 Ворота: Ворота величаво, словно вышибалы, прикрывают главный вход в пионерский лагерь. Чувствуется, что ещё пару лет и им на смену придёт более надёжный охранник и скорее всего из материала поплотнее...
@@ -24,5 +35,5 @@ EXTERNAL changeScene(sceneName)
 Вы: *Треск досок*. Аааай! Это был мой самый глупый поступок за день...Плечо такой манёвр не осилило..Эх, надо будет заглянуть в медпункт.
 Ворота: Тем временем, ворота гордо продолжали смотреть вперёд, будто они и не ощутили попытку "мелкого вожатого" пробраться без приглашения...
     + [Лучше займусь делом] -> ВоротаОсмотр
-
+*/
     

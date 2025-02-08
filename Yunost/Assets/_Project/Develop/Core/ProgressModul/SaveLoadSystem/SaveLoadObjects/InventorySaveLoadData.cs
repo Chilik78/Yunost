@@ -1,19 +1,11 @@
 ﻿using System.Collections.Generic;
 
-namespace ProgressModul.Test
+namespace ProgressModul
 {
-    /// <summary>
-    /// Custom save load data for inventory. Appends with equipped item and equipped tool.
-    /// </summary>
     public class InventorySaveLoadData : SaveLoadData
     {
-        public int EquippedItem { get; private set; }
-        public int EquippedArmor { get; private set; }
-
-        public InventorySaveLoadData(string id, List<InventoryItem> data, int equippedItem, int equippedArmor) : base(id, new object[] { data, equippedItem, equippedArmor })
+        public InventorySaveLoadData(string id, List<string> ItemNames) : base(id, new object[] { ItemNames })
         {
-            EquippedItem = equippedItem;
-            EquippedArmor = equippedArmor;
         }
     }
 }

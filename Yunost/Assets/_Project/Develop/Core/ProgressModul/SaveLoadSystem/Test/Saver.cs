@@ -8,8 +8,9 @@ namespace ProgressModul.Test
     /// </summary>
     public class Saver : MonoBehaviour
     {
-        [SerializeField] private InventoryHolder _inventoryHolder;
+        //[SerializeField] private InventoryHolder _inventoryHolder;
         TaskObserver taskObserver;
+        ListOfItems listOfItems;
 
         private SaveLoadSystem _saveLoadSystem;
 
@@ -18,8 +19,12 @@ namespace ProgressModul.Test
             _saveLoadSystem ??= new();
             TextAsset initTasksJson = Resources.Load<TextAsset>("InitTasks");
             taskObserver = new(initTasksJson.text);
-            _saveLoadSystem.AddToSaveLoad(_inventoryHolder.Inventory);
+            listOfItems = new ListOfItems();
+            listOfItems.ItemNames.Add("bag");
+            listOfItems.AutoInventoryItems.Add(new Item());
+            //_saveLoadSystem.AddToSaveLoad(_inventoryHolder.Inventory);
             _saveLoadSystem.AddToSaveLoad(taskObserver);
+            _saveLoadSystem.AddToSaveLoad(listOfItems);
         }
 
         [Button("Save to file")]
@@ -32,7 +37,7 @@ namespace ProgressModul.Test
         private void Load()
         {
             _saveLoadSystem.LoadGame(SaveType.File);
-            _inventoryHolder.UpdateItems();
+            //_inventoryHolder.UpdateItems();
             foreach (var task in taskObserver.GetInProgressTasks)
             {
                 Debug.Log(task.Name);

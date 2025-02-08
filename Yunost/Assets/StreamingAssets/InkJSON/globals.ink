@@ -1,13 +1,53 @@
-//// Акт 1
+// Текущее задание
+VAR CurrentQuest = "long_road"
+VAR CurrentSubquest = "talk_makar"
 
-// Главные Ворота
-VAR Удар_По_Воротам = "Нет"
+//// Act1 ////
 
-// Акт 1. Долгая дорога.
+/// LongRoad
 
-VAR Чемодан_Подобран = false
-VAR Повторение_Чемодан_Акт1_ДолгаяДорога = "Нет"
-VAR Повторение_ЧемоданПодобран_Акт1_ДолгаяДорога = "Нет"
+// Makar
+VAR itemExist = false
+VAR longRoadRepeat1 = false
+VAR longRoadRepeat2 = false
+
+// MainGait
+VAR hitGait = false
+
+/// HelpForFriend
+
+// Oleg
+VAR repeatTalkSearchTools = false
+
+// Director
+VAR meetDirector = false
+
+// Picklock
+VAR picklockExist = false
+
+// Screwdriver
+VAR screwdriverExist = false
+
+// Tool
+VAR toolExist = false
+
+// HomeDoorOleg
+VAR tryToOpenDoor = false
+VAR firstCheckDoor = false
+VAR doorOpened = false
+VAR hitDoor = false
+
+/// SweetHome
+
+// Oleg
+VAR repeatTalkOleg = false
+
+// Director
+VAR hitDoorTalk = false
+
+// HomeDoor
+VAR homeDoorOpened = false
+
 
 // Акт 1. Друг в беде
 

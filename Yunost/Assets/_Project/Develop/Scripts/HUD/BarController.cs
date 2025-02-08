@@ -34,8 +34,14 @@ public class BarController : MonoBehaviour
         }
     }
 
+    private void OnDestroy()
+    {
+        if (type == BarType.Health) ServiceLocator.Get<PlayerStats>().ClearAllListeners();
+    }
+
     void setFill(PlayerStats playerStats)
     {
+        Debug.LogWarning($"{bar} is setting {playerStats.Health}");
         switch (type)
         {
             case BarType.Health:

@@ -14,6 +14,9 @@ namespace Player
 
         private bool _isFrezed = false;
 
+        public delegate void MovementDelegate(Vector3 position, Quaternion rotation);
+        public event MovementDelegate OnMove;
+
         void Start()
         {
             _rb = GetComponent<Rigidbody>();
@@ -25,10 +28,12 @@ namespace Player
         {
             if(_isFrezed) return;
             Rotate();
+            //Move();
         }
 
         private void FixedUpdate()
         {
+            if (_isFrezed) return;
             Move();
         }
 
@@ -43,7 +48,7 @@ namespace Player
             float moveHorizontal = Input.GetAxis("Horizontal");
             float moveVertical = Input.GetAxis("Vertical");
 
-            _input = new Vector3(moveHorizontal, 0, moveVertical);
+            _input = new Vector3(moveHorizontal, 0.0f, moveVertical);
 
             if (Input.GetKey(KeyCode.LeftShift))
             {
@@ -54,7 +59,9 @@ namespace Player
                 _speed = speedOnWalk;
             }
 
-            _rb.MovePosition(transform.position + (transform.forward * _input.magnitude) * _speed * Time.deltaTime);
+            //_rb.MovePosition(transform.position + (transform.forward * _input.magnitude) * _speed * Time.deltaTime);
+            _rb.AddForce(_input.ToIso() * _speed * Time.fixedDeltaTime, ForceMode.Force);
+            if(OnMove != null) OnMove(transform.position, transform.rotation);
         }
         private void Rotate()
         {

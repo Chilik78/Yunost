@@ -1,19 +1,21 @@
 INCLUDE globals.ink
-EXTERNAL itemInInventory(item)
+EXTERNAL itemIsExist(item)
 EXTERNAL setDoneTask(idTask)
 EXTERNAL setDoneSubTask(idTask, idSubTask)
+EXTERNAL tpSofia()
+-> NameQuest
+INCLUDE Quests\Act1\LongRoad\Makar_Act1_LongRoad.ink
+INCLUDE Quests\Act1\TeamGame\Makar_Act1_TeamGame.ink
 
 
-// Проверка наличия чемодана в инвентаре
-~Чемодан_Подобран = itemInInventory("Bag")
+== NameQuest
+{ 
+- CurrentQuest == "long_road": -> Act1_LongRoad
+- CurrentQuest == "team_game": -> Act1_TeamGame
+} 
+-> END
 
-// Условия
-{Повторение_Чемодан_Акт1_ДолгаяДорога == "Да" && Чемодан_Подобран == "Нет": -> Повтор_Чемодан_Акт1_ДолгаяДорога}
-{Чемодан_Подобран == true: -> ЧемоданПодобран_Акт1_ДолгаяДорога}
-{Повторение_ЧемоданПодобран_Акт1_ДолгаяДорога == "Да": -> Повтор_ЧемоданПодобран_Акт1_ДолгаяДорога}
-
--> Чемодан_Акт1_ДолгаяДорога
-
+/*
 === Чемодан_Акт1_ДолгаяДорога ===
 Макар: Санёк, ты еле ковыляешь. А чемодан то твой где? У автобуса оставил? Давай забирай свой чемодан - жду тебя тут.
     + [Чемодан...точно! Я мигом!] 
@@ -68,4 +70,5 @@ EXTERNAL setDoneSubTask(idTask, idSubTask)
 == Повтор_ЧемоданПодобран_Акт1_ДолгаяДорога ==
 Макар: Напоминаю, отнеси свои вещи в свой дом. Иди до театральной сцены прямо, потом налево и выйдешь к домикам. Не забудь про Олега! 
     + [Выдвигаюсь.] -> END
+*/
 

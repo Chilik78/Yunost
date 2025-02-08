@@ -9,6 +9,16 @@ public class MenuControls : MonoBehaviour
         ServiceLocator.Get<SceneControl>().Init();
     }
 
+    public void LoadGame()
+    {
+        ServiceLocator.Get<SceneControl>().Load();
+    }
+
+    public void SaveGame()
+    {
+        ServiceLocator.Get<SaveLoadSystem>().SaveGame(SaveType.File);
+    }
+
     public void ExitPressed()
     {
         Application.Quit();

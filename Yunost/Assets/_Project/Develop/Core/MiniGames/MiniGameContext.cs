@@ -9,22 +9,13 @@ namespace MiniGames
 
         public TypesMiniGames TypeMiniGame { get => _typeMiniGame; set => _typeMiniGame = value; }
         public float MaxTimeInSeconds { get => _maxTimeInSeconds; set => _maxTimeInSeconds = value; }
-        public TypeDifficultMiniGames CurrentDifficult 
-        {
-            get => this._ñurrentDifficult;
-            set 
-            { 
-                if(this._ñurrentDifficult == TypeDifficultMiniGames.NoUse)
-                {
-                    this._ñurrentDifficult = value;
-                }
-            } 
-        }
+        public TypeDifficultMiniGames getCurrentDifficult {get => this._ñurrentDifficult;}
         public int getCountItems { get => _countItems; }
 
-        public MiniGameContext(TypesMiniGames inptTypeMiniGame, float inptMaxTimeInSeconds, int countItems)
+        public MiniGameContext(TypesMiniGames inptTypeMiniGame, TypeDifficultMiniGames difficult, float inptMaxTimeInSeconds, int countItems)
         {
-            this._typeMiniGame = inptTypeMiniGame;   
+            this._typeMiniGame = inptTypeMiniGame;
+            this._ñurrentDifficult = difficult;
             this._maxTimeInSeconds = inptMaxTimeInSeconds;
             this._countItems = countItems;
         }
