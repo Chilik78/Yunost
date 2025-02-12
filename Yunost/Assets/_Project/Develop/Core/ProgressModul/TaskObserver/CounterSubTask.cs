@@ -32,5 +32,6 @@ namespace ProgressModul
         public override string Description => _description + " - " + _currentCount.ToString();
 
         public int CurrentCount => _currentCount;
+        public int FinalCount => _finalCount;
     }
 }

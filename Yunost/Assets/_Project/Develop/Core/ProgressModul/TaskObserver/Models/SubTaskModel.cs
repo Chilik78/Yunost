@@ -11,8 +11,9 @@ namespace ProgressModul
         public readonly string flow;
         public readonly int stackIndex;
         public readonly string[] friends;
+        public readonly string type;
 
-        public SubTaskModel(string id, string description, string flow, int stackIndex, bool isDone = false, string[] friends = null)
+        public SubTaskModel(string id, string description, string flow, int stackIndex, bool isDone = false, string[] friends = null, string type = "base")
         {
             this.id = id;
             this.description = description;
@@ -20,6 +21,7 @@ namespace ProgressModul
             this.flow = flow;
             this.stackIndex = stackIndex;
             this.friends = friends;
+            this.type = type;
         }
 
         public override string ToString()

@@ -70,14 +70,14 @@ public class DialogManager : MonoBehaviour
         var taskObserver = ServiceLocator.Get<TaskObserver>();
         //dialogVariables.ChangeVariable("CurrentQuest", taskObserver.GetFirstInProgressTask.Id);
         //dialogVariables.ChangeVariable("CurrentSubquest", taskObserver.GetFirstInProgressTask.GetFirstInProgressSubTask.Id);
-        taskObserver.HaveNewTask += (Task task) => dialogVariables.ChangeVariable("CurrentQuest", task.Id);
+        //taskObserver.HaveNewTask += (Task task) => dialogVariables.ChangeVariable("CurrentQuest", task.Id);
         //taskObserver.HaveNewSubTask += (Task task) => dialogVariables.ChangeVariable("CurrentSubquest", task.GetFirstInProgressSubTask.Id);
         // Добавление прослушки на кнопки выбора
         foreach (GameObject choice in choices)
         {
             choice.GetComponent<Button>().onClick.AddListener(() => ContinueStory());
         }
-
+        
         // Игрок вне диалога
         dialogIsPlaying = false;
 

@@ -7,54 +7,55 @@ namespace ProgressModul
 {
     public class Task
     {
-        private string _id;
-        private string _name;
-        private string _flow;
+        private TaskModel _model;
         private List<SubTask> _subTasks;
-        private TaskState _state;
-        private TaskType _type;
 
         public Task(TaskModel model)
         {
-            _name = model.name;
-            _subTasks = model.subTasks.Select(m => new SubTask(m)).ToList();
-            _id = model.id;
-            _flow = model.flow;
-            _state = model.state;
-            _type = model.type;
+            _model = model;
+            _subTasks = model.SubTasks.Select(m => typeof(CounterSubTaskModel) == m.GetType() ? new CounterSubTask((CounterSubTaskModel)m) : new SubTask(m)).ToList();
         }
 
         public TaskModel GetModel { get {
-                SubTaskModel[] subTaskModels = _subTasks.Select(s => s.GetModel).ToArray();
-                return new TaskModel(_id, _name, _flow, _state, _type, subTaskModels);
+                return _model;
             }
         }
 
         public string Flow
         {
-            get => _flow;
-            set => _flow = value;
+            get => _model.Flow;
+            set => _model.Flow = value;
         }
 
         public string Id
         {
-            get => _id;
+            get => _model.Id;
         }
 
         public string Name 
         {
-            get => _name;
+            get => _model.Name;
         }
 
         public TaskState State
         {
-            get => _state;
-            set => _state = value;
+            get => _model.State;
+            set => _model.State = value;
         }
 
         public TaskType Type
         {
-            get => _type;
+            get => _model.Type;
+        }
+
+        public int StartTime
+        {
+            get => _model.StartTime;
+        }
+
+        public int DeadTime
+        {
+            get => _model.DeadTime;
         }
 
         public IEnumerable<SubTask> SubTasks => _subTasks;

@@ -19,7 +19,11 @@ namespace ProgressModul
 
         static public List<Task> ParseJsonWithTasks(string json)
         {
-            var taskModels = JsonConvert.DeserializeObject<List<TaskModel>>(json);
+            JsonSerializerSettings settings = new JsonSerializerSettings
+            {
+                Converters = { new TaskModelJsonConverter() }
+            };
+            var taskModels = JsonConvert.DeserializeObject<List<TaskModel>>(json, settings);
             List<Task> tasks = taskModels.Select(t => new Task(t)).ToList();
             return tasks;
         }
@@ -35,9 +39,14 @@ namespace ProgressModul
 
         public IEnumerable<Task> Tasks => _tasks;
 
-        public IEnumerable<Task> GetTasks(TaskState state, TaskType taskType)
+        public IEnumerable<Task> GetTasks(TaskState state, TaskType taskType, int leftBorder, int rightBorder)
         {
-            return _tasks.Where(t => t.State == state && t.Type == taskType);
+            return _tasks.Where(
+                t => t.State == state && 
+                t.Type == taskType && 
+                leftBorder <= t.StartTime && 
+                rightBorder >= t.DeadTime
+            );
         }
 
         private void _setTaskState(Task task,  TaskState state)
@@ -88,7 +97,7 @@ namespace ProgressModul
                     subTask.DeacreaseStackIndex();
                     if (finded.Friends != null && finded.Friends.Contains(subTask.Id))
                     {
-                        subTask.SetDone();
+                        SetDoneSubTaskById(taskId, subTask.Id);
                     }
                 }
 

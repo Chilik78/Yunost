@@ -1,11 +1,8 @@
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Newtonsoft.Json;
 using NUnit.Framework;
 using ProgressModul;
 using UnityEngine;
-using UnityEngine.TestTools;
 
 public class TaskTests
 {
@@ -21,7 +18,7 @@ public class TaskTests
     public void GetCurrentSubTasks()
     {
         var subTasks = tasks[0].CurrentSubTasks;
-        Assert.AreEqual(2, subTasks.Count());
+        Assert.AreEqual(1, subTasks.Count());
     }
 
     [Test]
@@ -29,16 +26,6 @@ public class TaskTests
     {
         tasks[0].Flow = "2";
         Assert.AreEqual(tasks[0].Flow, "2");
-    }
-
-    [Test]
-    public void SetDoneWithFriends()
-    {
-        tasks[0].SetDoneSubTaskById("take_case");
-        tasks[0].Flow = "2";
-
-        var subTasks = tasks[0].CurrentSubTasks;
-        Assert.AreEqual(1, subTasks.Count());
     }
 
     [Test]

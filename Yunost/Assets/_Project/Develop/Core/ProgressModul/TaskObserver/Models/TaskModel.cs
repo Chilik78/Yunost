@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Dynamic;
 using System.Linq;
 
 namespace ProgressModul
@@ -19,26 +20,30 @@ namespace ProgressModul
     [Serializable]
     public class TaskModel
     {
-        public readonly string id;
-        public readonly string name;
-        public readonly string flow;
-        public readonly SubTaskModel[] subTasks;
-        public readonly TaskType type;
-        public readonly TaskState state;
+        public string Id { get; private set; }
+        public string Name { get; private set; }
+        public string Flow { get; set;  }
+        public SubTaskModel[] SubTasks { get; private set; }
+        public TaskType Type { get; private set; }
+        public TaskState State { get; set; }
+        public int StartTime { get; private set; }
+        public int DeadTime { get; private set; }
 
-        public TaskModel(string id, string name, string flow, TaskState state, TaskType type, SubTaskModel[] subTasks)
+        public TaskModel(string id, string name, string flow, TaskState state, TaskType type, SubTaskModel[] subTasks, int startTime, int deadTime)
         {
-            this.id = id;   
-            this.name = name;
-            this.flow = flow;
-            this.state = state;
-            this.type = type;
-            this.subTasks = subTasks;
+            Id = id;
+            Name = name;
+            Flow = flow;
+            State = state;
+            Type = type;
+            SubTasks = subTasks;
+            StartTime = startTime;
+            DeadTime = deadTime;
         }
 
         public override string ToString()
         {
-            return $"{id} : {name} : {flow} : {state} : {type} : \n[{(subTasks == null ? null : string.Join("\n", subTasks.Select(s => s.ToString())))}]";
+            return $"{Id} : {Name} : {Flow} : {State} : {Type} : {StartTime} : {DeadTime} : \n[{(SubTasks == null ? null : string.Join("\n", SubTasks.Select(s => s.ToString())))}]";
         }
     }
 }

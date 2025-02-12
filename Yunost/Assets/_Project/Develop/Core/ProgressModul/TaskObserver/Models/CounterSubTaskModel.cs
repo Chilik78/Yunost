@@ -7,7 +7,7 @@ namespace ProgressModul
     {
         public readonly int finalCount;
         public readonly int currentCount;
-        public CounterSubTaskModel(string id, string description, string flow, int stackIndex, int finalCount, int currentCount, bool isDone = false, string[] friends = null) : 
+        public CounterSubTaskModel(string id, string description, string flow, int stackIndex, int finalCount, int currentCount = 0, bool isDone = false, string[] friends = null) : 
             base(id, description, flow, stackIndex, isDone, friends)
         {
             this.finalCount = finalCount;
