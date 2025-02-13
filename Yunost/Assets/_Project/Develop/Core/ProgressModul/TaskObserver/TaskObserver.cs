@@ -58,7 +58,7 @@ namespace ProgressModul
 
         public void SetTaskStateById(string id, TaskState state)
         {
-            var task = _getTaskById(id);
+            var task = GetTaskById(id);
             if (task == null)
             {
                 Debug.LogError($"Id: {id} в Tasks нет");
@@ -67,14 +67,34 @@ namespace ProgressModul
             _setTaskState(task, state);
         }
 
-        private Task _getTaskById(string id)
+        public Task GetTaskById(string id)
         {
             return _tasks.FirstOrDefault(t => t.Id == id);
         }
 
+        public SubTask GetSubTaskById(string taskId, string id)
+        {
+            var task = GetTaskById(taskId);
+            if (task != null)
+            {
+                return task.SubTasks.FirstOrDefault(t => t.Id == id);
+            }
+            return null;
+        }
+
+        public IEnumerable<SubTask> GetCurrentSubTasksByTaskId(string taskId)
+        {
+            var task = GetTaskById(taskId);
+            if (task != null)
+            {
+                return task.CurrentSubTasks;
+            }
+            return null;
+        }
+
         public void SetDoneSubTaskById(string taskId, string id)
         {
-            var task = _getTaskById(taskId);
+            var task = GetTaskById(taskId);
             if(task == null)
             {
                 Debug.LogError($"Id: {id} в Tasks нет");
@@ -120,16 +140,14 @@ namespace ProgressModul
         {
             _tasks.Clear();
 
-            if (loadData?.Data == null || loadData.Data.Length < 2)
+            if (loadData?.Data == null || loadData.Data.Length < 1)
             {
                 Debug.LogError($"Can't restore values.");
                 return;
             }
-
+            
             // [0] - (JArray) with items
-
-            var items = ((JArray)loadData.Data[0]).ToObject<List<TaskModel>>();
-            _tasks.AddRange(items.Select(x => new Task(x)));
+            _tasks = ParseJsonWithTasks(loadData.Data[0].ToString());
         }
 
 

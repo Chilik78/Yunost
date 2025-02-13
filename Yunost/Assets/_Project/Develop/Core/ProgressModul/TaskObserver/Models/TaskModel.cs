@@ -1,5 +1,5 @@
-﻿using System;
-using System.Dynamic;
+﻿using Newtonsoft.Json;
+using System;
 using System.Linq;
 
 namespace ProgressModul
@@ -20,13 +20,21 @@ namespace ProgressModul
     [Serializable]
     public class TaskModel
     {
+        [JsonProperty("id")]
         public string Id { get; private set; }
+        [JsonProperty("name")]
         public string Name { get; private set; }
+        [JsonProperty("flow")]
         public string Flow { get; set;  }
+        [JsonProperty("subTasks")]
         public SubTaskModel[] SubTasks { get; private set; }
+        [JsonProperty("type")]
         public TaskType Type { get; private set; }
+        [JsonProperty("state")]
         public TaskState State { get; set; }
+        [JsonProperty("startTime")]
         public int StartTime { get; private set; }
+        [JsonProperty("deadTime")]
         public int DeadTime { get; private set; }
 
         public TaskModel(string id, string name, string flow, TaskState state, TaskType type, SubTaskModel[] subTasks, int startTime, int deadTime)

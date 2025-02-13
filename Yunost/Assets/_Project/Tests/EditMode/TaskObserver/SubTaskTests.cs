@@ -166,4 +166,22 @@ public class SubTaskTests
         var res = Tests.CounterSubTaskDoneIfCurrentEqualToFinal(counterSubTask);
         Assert.IsTrue(res);
     }
+
+    [Test]
+    public void CounterSubTaskDescription()
+    {
+        const string desc = "Выкопать ямы в местах с Красными Флажками";
+        const int finalCount = 3;
+        CounterSubTaskModel model = new CounterSubTaskModel("digging", desc, "1", 4, finalCount);
+        CounterSubTask counterSubTask = new CounterSubTask(model);
+        Debug.Log(counterSubTask.Description);
+        for(int i = 0; i < finalCount+1; i++)
+        {
+            var res = counterSubTask.SetDone();
+            Debug.Log(counterSubTask.Description);
+            Debug.Log(res);
+        }  
+
+        Assert.AreEqual($"{desc} {finalCount}/{finalCount}", counterSubTask.Description);
+    }
 }

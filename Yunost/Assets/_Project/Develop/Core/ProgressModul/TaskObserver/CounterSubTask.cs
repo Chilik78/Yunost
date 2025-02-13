@@ -25,11 +25,12 @@ namespace ProgressModul
 
         public override bool SetDone()
         {
+            if( _isDone ) return _isDone;
             IncreaseCount();
             return _isDone;
         }
 
-        public override string Description => _description + " - " + _currentCount.ToString();
+        public override string Description => $"{_description} {CurrentCount}/{FinalCount}";
 
         public int CurrentCount => _currentCount;
         public int FinalCount => _finalCount;
