@@ -2,6 +2,13 @@
 VAR CurrentQuest = "long_road"
 VAR CurrentSubquest = "talk_makar"
 
+// Функции
+// setStateTask(idTask, status)
+// status [0; 2]
+// 0 - Выполнено
+// 1 - В процессе
+// 2 - Провалено
+
 //// Act1 ////
 
 /// LongRoad
@@ -48,17 +55,5 @@ VAR hitDoorTalk = false
 // HomeDoor
 VAR homeDoorOpened = false
 
-
-// Акт 1. Друг в беде
-
-VAR Повторение_Инструменты_Акт1_ПомощьДругу = "Нет"
-VAR Повторение_Ключ_Акт1_ДомМилыйДом = "Нет"
-VAR Инструмент_Найден = false
-
-// Акт 1. Дом..Милый дом
-
-VAR Ключ_Подобран = false
-VAR Дверь_Открыта = "Нет"
-VAR Повторение_Директор_Акт1_ДомМилыйДом = "Нет"
 
 

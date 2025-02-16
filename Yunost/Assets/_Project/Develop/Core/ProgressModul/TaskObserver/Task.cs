@@ -17,6 +17,7 @@ namespace ProgressModul
         }
 
         public TaskModel GetModel { get {
+                _model.SubTasks = _subTasks.Select(s => s.GetModel).ToArray();
                 return _model;
             }
         }

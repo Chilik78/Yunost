@@ -4,14 +4,14 @@
 Дверь: Входная деревянная Дверь в Дом. Добавить больше нечего.
 
 // Сцена MainCamp
-+ {homeDoorOpened == true && CurrentSubquest == "go_to_home"} [Войти в Дом №1] 
++ {homeDoorOpened == true && isSubTaskInProgress("sweet_home", "go_to_home")} [Войти в Дом №1] 
 ~setDoneSubTask("sweet_home","go_to_home")
 ~changeScene("HubHome")
 -> END 
-+ {CurrentSubquest == "open_door"} [Открыть дверь] -> Act1_SweetHome_OpenDoor
-+ {CurrentSubquest != "drop_case" && CurrentSubquest != "go_to_bed"} [Осмотреть дверь] -> Act1_SweetHome_CheckDoorOutside
++ {isSubTaskInProgress("sweet_home", "open_door")} [Открыть дверь] -> Act1_SweetHome_OpenDoor
++ {not isSubTaskInProgress("sweet_home", "drop_case") && not isSubTaskInProgress("sweet_home", "go_to_bed")} [Осмотреть дверь] -> Act1_SweetHome_CheckDoorOutside
 // Сцена HubHome
-+ {CurrentSubquest == "drop_case" or CurrentSubquest == "go_to_bed"} [Осмотреть дверь] -> Act1_SweetHome_CheckDoorIn
++ {isSubTaskInProgress("sweet_home", "drop_case") or isSubTaskInProgress("sweet_home", "go_to_bed")} [Осмотреть дверь] -> Act1_SweetHome_CheckDoorIn
 + [Уйти] -> END
 
 == Act1_SweetHome_CheckDoorIn

@@ -2,7 +2,7 @@
 == Act1_LongRoad
 ~itemExist = itemIsExist("bag")
 {itemExist == true && longRoadRepeat2 == false: -> Act1_LongRoad_hasCase}
-{itemExist == false && CurrentSubquest == "talk_makar" && longRoadRepeat1 == false: -> Act1_LongRoad_withoutCase}
+{itemExist == false && isSubTaskInProgress("long_road", "talk_makar") && longRoadRepeat1 == false: -> Act1_LongRoad_withoutCase}
 -> Act1_LongRoad_repeat
 
 // ГГ подобрал Чемодан
@@ -10,16 +10,16 @@
 Макар: Санёк, ты еле на ногах стоишь. Иди к своему домику, оставь там Чемодан и отдохни, а то прям тут свалишься. И, да, у соседнего домика тебя ждёт Олег, ему требуется твоя помощь.
 + [Правда, стоило бы передохнуть.]
     // Смена текущего подзадания
-    {CurrentSubquest == "talk_makar": 
-    ~setDoneSubTask("long_road", "talk_makar")
-    }
+    //{isSubTaskInProgress("long_road", "talk_makar"): 
+    //~setDoneSubTask("long_road", "talk_makar")
+    //}
     ~setDoneSubTask("long_road", "take_case")
     -> Act1_LongRoad_hasCaseTired
 + [Да я полон сил! Пошли к Директору.]
     // Cмена текущего подзадания
-    {CurrentSubquest == "talk_makar": 
-    ~setDoneSubTask("long_road", "talk_makar")
-    }
+    //{isSubTaskInProgress("long_road", "talk_makar"): 
+    //~setDoneSubTask("long_road", "talk_makar")
+    //}
     ~setDoneSubTask("long_road", "take_case")
     ->Act1_LongRoad_hasCaseEnergetic
 -> DONE

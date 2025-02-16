@@ -132,6 +132,20 @@ public class TaskObserverTests
         Assert.AreEqual(id, _task.Id);
     }
 
+    [Test]
+    public void IsTaskInProgress()
+    {
+        const string id = "long_road";
+        //foreach (var t in taskObserver.GetTasks(TaskState.InProgress, TaskType.Main, 10000)) Debug.Log(t.ToString());
+        taskObserver.SetDoneSubTaskById("long_road", "take_case");
+        var task = taskObserver.GetTaskById(id);
+        Debug.Log(task.ToString());
+        Debug.Log(task.SubTasks.All(s => s.IsDone));
+        var res = taskObserver.IsTaskInProgress(id, TaskType.Main);
+        Assert.IsTrue(res);
+    }
+
+
     // A UnityTest behaves like a coroutine in Play Mode. In Edit Mode you can use
     // `yield return null;` to skip a frame.
     /*[UnityTest]

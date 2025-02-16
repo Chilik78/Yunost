@@ -18,7 +18,7 @@
 == Act1_HelpForFriend_CheckDoor
 Дверь: Дверь изготовлена из натуральной древесины. Обыкновенность двери подчёркивает стандартный цилиндровый замок, рассчитанный на несколько проворотов ключа. Совершив резкий удар плечём в дверную область вблизи замка есть вероятность открыть дверь без лишней подготовки. С другой стороны, если раздобыть Инструменты для взлома, то можно взломать замок и избежать лишних "жертв". 
 + [Закончить осмотр] 
-{firstCheckDoor == false && CurrentSubquest == "check_door": 
+{firstCheckDoor == false && isSubTaskInProgress("help_for_friend", "check_door"): 
 ~setDoneSubTask("help_for_friend", "check_door")
 }
 ~firstCheckDoor = true
@@ -28,11 +28,11 @@
 Дверь: Сильный удар плечом в деревянную Дверь застал Замок врасплох. Громкий треск дерева в сочетании со звонким механическим звуком Замка привлекли внимание Олега. Судя по удивлённому лицу он определённо не ожидал такого развития событий. Дверь открыта! Но теперь...придётся столкнуться с последствиями такого выбора.
 + [*лёгкий стон* Ух...Моё плечо...]
 ~hitHealth(30)
-{CurrentSubquest == "search_tools": 
+{isSubTaskInProgress("help_for_friend", "search_tools"): 
 ~setDoneSubTask("help_for_friend", "search_tools")
 ~setDoneSubTask("help_for_friend", "open_door")
 }
-{CurrentSubquest == "open_door":
+{isSubTaskInProgress("help_for_friend", "open_door"):
 ~setDoneSubTask("help_for_friend", "open_door")
 }
 ~doorOpened = true

@@ -1,12 +1,12 @@
 
 == Act1_TeamGame
-{CurrentSubquest == "meet_sofia": 
+{isSubTaskInProgress("team_game","meet_sofia"): 
 Олег: Олег слегка недовольный стоит и обсуждает с Макаром не увидевшие свет идеи, связанные с "рыбалкой".
 - else:
 Собрание: Участники собрания стоит полукругом у Анатолия Степановича и кого-то ждут.
 } 
-+ {CurrentSubquest == "talk_counselors"}[Я готов к обсуждению] -> Act1_TeamGame_TalkCounselors
-+ {CurrentSubquest == "talk_counselors"}[Осмотреть участников собрания] -> Act1_TeamGame_CheckCounselors
++ {isSubTaskInProgress("team_game","talk_counselors")}[Я готов к обсуждению] -> Act1_TeamGame_TalkCounselors
++ {isSubTaskInProgress("team_game","talk_counselors")}[Осмотреть участников собрания] -> Act1_TeamGame_CheckCounselors
 + [*Уйти*] -> END
 
 == Act1_TeamGame_TalkCounselors

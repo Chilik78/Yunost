@@ -1,15 +1,15 @@
 
 == Act1_TeamGame
-+ {CurrentSubquest == "leave_house"} [Выйти из Дома №1] 
++ {isSubTaskInProgress("team_game", "leave_house")} [Выйти из Дома №1] 
 ~setDoneSubTask("team_game", "leave_house")
 ~changeSceneWithTp("MainCamp", "NearHubHome")
 ~tpNPC()
 -> END
-+ {CurrentSubquest == "go_to_bed_night"} [Войти в Дом №1] 
++ {isSubTaskInProgress("team_game", "go_to_bed_night")} [Войти в Дом №1] 
 ~changeScene("HubHome")
 -> END
-+ {CurrentSubquest == "leave_house"} [Осмотреть дверь] -> Act1_TeamGame_CheckDoorIn
-+ {CurrentSubquest != "leave_house"} [Осмотреть дверь] -> Act1_TeamGame_CheckDoorOutside
++ {isSubTaskInProgress("team_game", "leave_house")} [Осмотреть дверь] -> Act1_TeamGame_CheckDoorIn
++ {not isSubTaskInProgress("team_game", "leave_house")} [Осмотреть дверь] -> Act1_TeamGame_CheckDoorOutside
 + [*Уйти*] -> END
 
 == Act1_TeamGame_CheckDoorIn

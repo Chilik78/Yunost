@@ -1,8 +1,10 @@
 INCLUDE globals.ink
 EXTERNAL pickupItem(item)
 EXTERNAL itemIsExist(item)
-EXTERNAL setDoneTask(idTask)
-EXTERNAL setDoneSubTask(idTask, idSubTask)
+EXTERNAL setStateTask(taskId, state)
+EXTERNAL setDoneSubTask(taskId, subTaskId)
+EXTERNAL isTaskInProgress(taskId, type)
+EXTERNAL isSubTaskInProgress(taskId, subTaskId)
 EXTERNAL changeTime(h, m)
 EXTERNAL startMiniGameDigging()
 -> NameQuest
@@ -10,6 +12,6 @@ INCLUDE Quests\Act1\TeamGame\DiggingPlace_Act1_TeamGame.ink
 
 == NameQuest
 { 
-- CurrentQuest == "team_game": -> Act1_TeamGame
+- isTaskInProgress("team_game", 0): -> Act1_TeamGame
 } 
 -> END

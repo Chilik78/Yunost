@@ -2,13 +2,18 @@ INCLUDE globals.ink
 EXTERNAL hitHealth(value)
 EXTERNAL startMiniGame()
 EXTERNAL itemIsExist(item)
-EXTERNAL setDoneSubTask(idTask, idSubTask)
+EXTERNAL setStateTask(taskId, state)
+EXTERNAL setDoneSubTask(taskId, subTaskId)
+EXTERNAL isTaskInProgress(taskId, type)
+EXTERNAL isSubTaskInProgress(taskId, subTaskId)
+
 -> NameQuest
+
 INCLUDE Quests\Act1\HelpForFriend\HomeDoorOleg_Act1_HelpForFriend.ink
 
 == NameQuest
 { 
-- CurrentQuest == "help_for_friend": -> Act1_HelpForFriend
+- isTaskInProgress("help_for_friend", 0): -> Act1_HelpForFriend
 }
 -> Repeat
 

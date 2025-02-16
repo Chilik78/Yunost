@@ -1,13 +1,13 @@
 
 
 == Act1_TeamGame
-{CurrentSubquest == "meet_sofia": 
+{isSubTaskInProgress("team_game", "meet_sofia"): 
 Макар: Макар стоит намного серьёзней и недружелюбней, чем обычно. Олег тем временем в ярких красках описывает нереализованные идеи, связанные с "рыбалкой".
 - else:
 Собрание: Участники собрания стоит полукругом у Анатолия Степановича и кого-то ждут.
 } 
-+ {CurrentSubquest == "talk_counselors"}[Я готов к обсуждению] -> Act1_TeamGame_TalkCounselors
-+ {CurrentSubquest == "talk_counselors"}[Осмотреть участников собрания] -> Act1_TeamGame_CheckCounselors
++ {isSubTaskInProgress("team_game","talk_counselors")}[Я готов к обсуждению] -> Act1_TeamGame_TalkCounselors
++ {isSubTaskInProgress("team_game","talk_counselors")}[Осмотреть участников собрания] -> Act1_TeamGame_CheckCounselors
 + [*Уйти*] -> END
 
 == Act1_TeamGame_TalkCounselors
@@ -41,7 +41,6 @@
 София: Я уже всё продумала. Я увидела хорошую поляну у костра. Там как раз была лопата. Саш, жду тебя на поляне у костра.
 + [До встречи]
 ~tpSofia()
-// TODO: Функция перемещения NPC
 ~setDoneSubTask("team_game", "talk_counselors")
 -> END
 

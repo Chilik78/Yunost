@@ -1,39 +1,17 @@
 INCLUDE globals.ink
 EXTERNAL hitHealth(value)
 EXTERNAL changeScene(sceneName)
-EXTERNAL setDoneSubTask(idTask, idSubTask)
-EXTERNAL setDoneTask(idTask)
--> NameQuest
+EXTERNAL isTaskInProgress(taskId, type)
+EXTERNAL isSubTaskInProgress(taskId, subTaskId)
+EXTERNAL setStateTask(taskId, state)
+EXTERNAL setDoneSubTask(taskId, subTaskId)
 INCLUDE Quests\Act1\LongRoad\MainGait_Act1_LongRoad.ink
 
 
+-> NameQuest
+
 == NameQuest
 { 
-- CurrentQuest == "long_road": -> Act1_LongRoad
+- isTaskInProgress("long_road", 0): -> Act1_LongRoad
 } 
--> END
-
-/*
--> ВоротаОсмотр
-
-
-== ВоротаОсмотр==
-Ворота: Ворота величаво, словно вышибалы, прикрывают главный вход в пионерский лагерь. Чувствуется, что ещё пару лет и им на смену придёт более надёжный охранник и скорее всего из материала поплотнее...
-    {Повторение_ЧемоданПодобран_Акт1_ДолгаяДорога == "Да": 
-        + [Открыть ворота] 
-        ~changeScene("MainCamp")
-        -> END
-    }
-    {Удар_По_Воротам == "Нет":
-        + [Попробовать выбить ворота] -> УдарПоВоротам
-    }
-    + [Закончить осмотр] -> END
-
-
-== УдарПоВоротам ==
-~hitHealth(90)
-Вы: *Треск досок*. Аааай! Это был мой самый глупый поступок за день...Плечо такой манёвр не осилило..Эх, надо будет заглянуть в медпункт.
-Ворота: Тем временем, ворота гордо продолжали смотреть вперёд, будто они и не ощутили попытку "мелкого вожатого" пробраться без приглашения...
-    + [Лучше займусь делом] -> ВоротаОсмотр
-*/
-    
+-> END 

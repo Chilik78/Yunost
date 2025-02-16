@@ -27,7 +27,7 @@ namespace ProgressModul
         [JsonProperty("flow")]
         public string Flow { get; set;  }
         [JsonProperty("subTasks")]
-        public SubTaskModel[] SubTasks { get; private set; }
+        public SubTaskModel[] SubTasks { get; set; }
         [JsonProperty("type")]
         public TaskType Type { get; private set; }
         [JsonProperty("state")]

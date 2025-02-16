@@ -49,10 +49,19 @@ namespace ProgressModul
             );
         }
 
+        public IEnumerable<Task> GetTasks(TaskState state, TaskType taskType, int border)
+        {
+            return _tasks.Where(
+                t => t.State == state &&
+                t.Type == taskType &&
+                border >= t.DeadTime
+            );
+        }
+
         public bool IsTaskInProgress(string taskId, TaskType type)
         {
             //TODO: Переписать границы с GameTimeControl
-            return GetTasks(TaskState.InProgress, type, 0, 10000).Any(t => t.Id == taskId);
+            return GetTasks(TaskState.InProgress, type, 10000).Any(t => t.Id == taskId);
         }
 
         public bool IsSubTaskInProgress(string taskId, string subTaskId)
@@ -138,12 +147,13 @@ namespace ProgressModul
                 return;
             }
 
-            if (finded.SetDone())
+            if (!finded.IsDone)
             {
+                if(finded.SetDone())
                 foreach (var subTask in subTasks)
                 {
                     subTask.DeacreaseStackIndex();
-                    if (finded.Friends != null && finded.Friends.Contains(subTask.Id))
+                    if (finded.Friends != null && finded.Friends.Contains(subTask.Id) && !subTask.IsDone)
                     {
                         SetDoneSubTaskById(taskId, subTask.Id);
                     }
@@ -153,7 +163,7 @@ namespace ProgressModul
                     HaveNewSubTasks(task.CurrentSubTasks);
             }
 
-            if (subTasks.Where(s => !s.IsDone && s.StackIndex == 0).Count() == 0)
+            if (subTasks.All(s => s.IsDone))
             {
                 _setTaskState(task, TaskState.Done);
             }

@@ -1,20 +1,23 @@
 INCLUDE globals.ink
 EXTERNAL itemIsExist(item)
-EXTERNAL setDoneTask(idTask)
-EXTERNAL setDoneSubTask(idTask, idSubTask)
+EXTERNAL setStateTask(taskId, state)
+EXTERNAL setDoneSubTask(taskId, subTaskId)
+EXTERNAL isTaskInProgress(taskId, type)
+EXTERNAL isSubTaskInProgress(taskId, subTaskId)
 EXTERNAL changeScene(nameScene)
 EXTERNAL changeSceneWithTp(nameScene, id)
 EXTERNAL tpNPC()
 -> NameQuest
+
 INCLUDE Quests\Act1\HelpForFriend\HomeDoor_Act1_HelpForFriend.ink
 INCLUDE Quests\Act1\SweetHome\HomeDoor_Act1_SweetHome.ink
 INCLUDE Quests\Act1\TeamGame\HomeDoor_Act1_TeamGame.ink
 
 == NameQuest
 { 
-- CurrentQuest == "help_for_friend": -> Act1_HelpForFriend
-- CurrentQuest == "sweet_home": -> Act1_SweetHome
-- CurrentQuest == "team_game": -> Act1_TeamGame
+- isTaskInProgress("help_for_friend", 0): -> Act1_HelpForFriend
+- isTaskInProgress("sweet_home", 0): -> Act1_SweetHome
+- isTaskInProgress("team_game", 0): -> Act1_TeamGame
 } 
 -> END
 

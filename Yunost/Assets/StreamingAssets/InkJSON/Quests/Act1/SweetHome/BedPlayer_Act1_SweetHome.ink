@@ -2,7 +2,7 @@
 == Act1_SweetHome
 Кровать: Надёжная деревянная конструкция, прикрытая матрасом средней жёсткости, белой простынёй и мягкой подушкой.
 + [Осмотреть кровать] -> Act1_SweetHome_CheckBed
-+ {CurrentSubquest == "go_to_bed"} [Прилечь отдохнуть]
++ {isSubTaskInProgress("sweet_home","go_to_bed")} [Прилечь отдохнуть]
 ~setDoneSubTask("sweet_home", "go_to_bed")
 ~changeTime(18, 0)
 TODO: Функция увеличения здоровья?

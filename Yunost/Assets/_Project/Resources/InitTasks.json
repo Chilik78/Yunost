@@ -34,36 +34,36 @@
             "flow": "",
             "state": 0,
             "type": 0,
-            "startTime": 0,
-            "deadTime": 1000,
+            "startTime": 1000,
+            "deadTime": 2000,
             "subTasks": [
                 {
                     "id": "talk_oleg",
                     "description": "Поговорить с Олегом",
-                    "flow": "1"
+                    "flow": ""
                 },
                 {
                     "id": "check_door",
                     "description": "Осмотреть дверь",
-                    "flow": "1",
+                    "flow": "",
                     "stackIndex": 1
                 },
                 {
                     "id": "search_tools",
                     "description": "Найти Отвёртку с Отмычками и объединить их в Инструменты для взлома",
-                    "flow": "1",
+                    "flow": "",
                     "stackIndex": 2
                 },
                 {
                     "id": "open_door",
                     "description": "Взломать дверной замок ИЛИ найти другой способ открыть дверь",
-                    "flow": "1",
+                    "flow": "",
                     "stackIndex": 3
                 },
                 {
                     "id": "talk_result",
                     "description": "Подвести итоги с Олегом",
-                    "flow": "1",
+                    "flow": "",
                     "stackIndex": 4
                 }
             ]
@@ -71,7 +71,7 @@
         {
             "id": "sweet_home",
             "name": "Дом, милый дом",
-            "flow": "",
+            "flow": "1",
             "state": 0,
             "type": 0,
             "startTime": 0,
@@ -148,7 +148,7 @@
                 }, 
                 {
                     "id": "digging",
-                    "description": "Выкопать ямы в местах с Красными Флажками 0/3",
+                    "description": "Выкопать ямы в местах с Красными Флажками",
                     "flow": "1",
                     "stackIndex": 4,
                     "finalCount": 3

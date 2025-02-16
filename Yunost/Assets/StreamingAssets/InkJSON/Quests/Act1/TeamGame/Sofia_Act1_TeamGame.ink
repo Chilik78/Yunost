@@ -2,10 +2,10 @@
 // Общение у костра
 == Act1_TeamGameTalk
 София: *София задумчиво разглядывает территорию поляны*
-+ {CurrentSubquest == "meet_sofia"} [Каков наш план действий?] -> Act1_TeamGame_Plan
++ {isSubTaskInProgress("team_game", "meet_sofia")} [Каков наш план действий?] -> Act1_TeamGame_Plan
 + [Как у тебя дела?] -> Act1_TeamGame_Discussion
-+ {CurrentSubquest == "search_shovel"}[Я готов приступить к выкапыванию ям] -> Act1_TeamGame_Digging
-+ {CurrentSubquest == "result_talk_sofia"} [Я выкопал все ямы.] -> Act1_TeamGame_ResultTalk
++ {isSubTaskInProgress("team_game", "search_shovel")}[Я готов приступить к выкапыванию ям] -> Act1_TeamGame_Digging
++ {isSubTaskInProgress("team_game", "result_talk_sofia")} [Я выкопал все ямы.] -> Act1_TeamGame_ResultTalk
 + [*Уйти*] -> END
 
 == Act1_TeamGame_Plan
@@ -46,8 +46,8 @@
 // Разговор на собрании
 == Act1_TeamGame
 Собрание: Участники собрания стоит полукругом у Анатолия Степановича и кого-то ждут.
-+ {CurrentSubquest == "talk_counselors"}[Я готов к обсуждению] -> Act1_TeamGame_TalkCounselors
-+ {CurrentSubquest == "talk_counselors"}[Осмотреть участников собрания] -> Act1_TeamGame_CheckCounselors
++ {isSubTaskInProgress("team_game", "talk_counselors")}[Я готов к обсуждению] -> Act1_TeamGame_TalkCounselors
++ {isSubTaskInProgress("team_game", "talk_counselors")}[Осмотреть участников собрания] -> Act1_TeamGame_CheckCounselors
 + [*Уйти*] -> END
 
 == Act1_TeamGame_TalkCounselors

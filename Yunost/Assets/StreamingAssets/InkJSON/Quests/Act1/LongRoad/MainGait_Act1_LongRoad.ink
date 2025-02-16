@@ -1,13 +1,13 @@
 
 == Act1_LongRoad
 Ворота: Ворота величаво, словно вышибалы, прикрывают главный вход в пионерский лагерь. Чувствуется, что ещё пару лет и им на смену придёт более надёжный охранник и скорее всего из материала поплотнее... 
-+ {CurrentSubquest == "go_to_camp"} [Открыть ворота]
++ {isSubTaskInProgress("long_road", "go_to_camp")} [Открыть ворота]
     // Завершение квеста LongRoad
     ~setDoneSubTask("long_road", "go_to_camp")
     // Смена сцены
     ~changeScene("MainCamp")
     -> END
-* {hitGait == false && CurrentSubquest != "go_to_camp"} [Попробовать выбить ворота] -> Act1_HitGates 
+* {hitGait == false && not isSubTaskInProgress("long_road", "go_to_camp")} [Попробовать выбить ворота] -> Act1_HitGates 
 + [Закончить осмотр] -> END
 
 == Act1_HitGates

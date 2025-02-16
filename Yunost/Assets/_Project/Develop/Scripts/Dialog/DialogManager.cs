@@ -187,8 +187,8 @@ public class DialogManager : MonoBehaviour
         });
 
         // Смена выполнение задания
-        currentStory.BindExternalFunction("setStateTask", (string taskId, TaskState state) => {
-            ServiceLocator.Get<TaskObserver>().SetTaskStateById(taskId, state);
+        currentStory.BindExternalFunction("setStateTask", (string taskId, int state) => {
+            ServiceLocator.Get<TaskObserver>().SetTaskStateById(taskId, (TaskState)state);
         });
 
         // Смена выполнение подзадания
@@ -197,18 +197,18 @@ public class DialogManager : MonoBehaviour
         });
 
         // Проверка наличия таска в выполнении
-        currentStory.BindExternalFunction("isTaskInProgress", (string taskId, TaskType type) => {
-            ServiceLocator.Get<TaskObserver>().IsTaskInProgress(taskId, type);
+        currentStory.BindExternalFunction("isTaskInProgress", (string taskId, int type) => {
+            return ServiceLocator.Get<TaskObserver>().IsTaskInProgress(taskId, (TaskType)type);
         });
 
         // Проверка наличия сабтаска в выполнении
         currentStory.BindExternalFunction("isSubTaskInProgress", (string taskId, string subTaskId) => {
-            ServiceLocator.Get<TaskObserver>().IsSubTaskInProgress(taskId, subTaskId);
+           return ServiceLocator.Get<TaskObserver>().IsSubTaskInProgress(taskId, subTaskId);
         });
 
         // Получение статуса таска
         currentStory.BindExternalFunction("getTaskState", (string taskId) => {
-            ServiceLocator.Get<TaskObserver>().GetTaskState(taskId);
+            return (int)ServiceLocator.Get<TaskObserver>().GetTaskState(taskId);
         });
 
         // Уменьшение здоровья
