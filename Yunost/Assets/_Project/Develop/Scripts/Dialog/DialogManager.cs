@@ -66,12 +66,7 @@ public class DialogManager : MonoBehaviour
         {
             Debug.LogWarning("ScrollRect не привязан!!!!!!!!!!!!!!!!");
         }
-
-        var taskObserver = ServiceLocator.Get<TaskObserver>();
-        //dialogVariables.ChangeVariable("CurrentQuest", taskObserver.GetFirstInProgressTask.Id);
-        //dialogVariables.ChangeVariable("CurrentSubquest", taskObserver.GetFirstInProgressTask.GetFirstInProgressSubTask.Id);
-        //taskObserver.HaveNewTask += (Task task) => dialogVariables.ChangeVariable("CurrentQuest", task.Id);
-        //taskObserver.HaveNewSubTask += (Task task) => dialogVariables.ChangeVariable("CurrentSubquest", task.GetFirstInProgressSubTask.Id);
+        
         // Добавление прослушки на кнопки выбора
         foreach (GameObject choice in choices)
         {
@@ -192,13 +187,28 @@ public class DialogManager : MonoBehaviour
         });
 
         // Смена выполнение задания
-        currentStory.BindExternalFunction("setDoneTask", (string taskId) => {
-            //ServiceLocator.Get<TaskObserver>().SetDoneTaskById(taskId);
+        currentStory.BindExternalFunction("setStateTask", (string taskId, TaskState state) => {
+            ServiceLocator.Get<TaskObserver>().SetTaskStateById(taskId, state);
         });
 
         // Смена выполнение подзадания
         currentStory.BindExternalFunction("setDoneSubTask", (string taskId, string subTaskId) => {
-            //ServiceLocator.Get<TaskObserver>().SetDoneSubTaskByIds(taskId, subTaskId);
+            ServiceLocator.Get<TaskObserver>().SetDoneSubTaskById(taskId, subTaskId);
+        });
+
+        // Проверка наличия таска в выполнении
+        currentStory.BindExternalFunction("isTaskInProgress", (string taskId, TaskType type) => {
+            ServiceLocator.Get<TaskObserver>().IsTaskInProgress(taskId, type);
+        });
+
+        // Проверка наличия сабтаска в выполнении
+        currentStory.BindExternalFunction("isSubTaskInProgress", (string taskId, string subTaskId) => {
+            ServiceLocator.Get<TaskObserver>().IsSubTaskInProgress(taskId, subTaskId);
+        });
+
+        // Получение статуса таска
+        currentStory.BindExternalFunction("getTaskState", (string taskId) => {
+            ServiceLocator.Get<TaskObserver>().GetTaskState(taskId);
         });
 
         // Уменьшение здоровья

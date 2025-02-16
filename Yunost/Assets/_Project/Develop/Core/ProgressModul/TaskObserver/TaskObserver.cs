@@ -14,7 +14,7 @@ namespace ProgressModul
         public delegate void SubTaskListHandler(IEnumerable<SubTask> subTasks);
         public event TaskHandler TaskStateChanged;
         public event SubTaskListHandler HaveNewSubTasks;
-        
+
         public string ComponentSaveId => "TaskObserver";
 
         static public List<Task> ParseJsonWithTasks(string json)
@@ -42,11 +42,39 @@ namespace ProgressModul
         public IEnumerable<Task> GetTasks(TaskState state, TaskType taskType, int leftBorder, int rightBorder)
         {
             return _tasks.Where(
-                t => t.State == state && 
-                t.Type == taskType && 
-                leftBorder <= t.StartTime && 
+                t => t.State == state &&
+                t.Type == taskType &&
+                leftBorder <= t.StartTime &&
                 rightBorder >= t.DeadTime
             );
+        }
+
+        public bool IsTaskInProgress(string taskId, TaskType type)
+        {
+            //TODO: Переписать границы с GameTimeControl
+            return GetTasks(TaskState.InProgress, type, 0, 10000).Any(t => t.Id == taskId);
+        }
+
+        public bool IsSubTaskInProgress(string taskId, string subTaskId)
+        {
+            var task = _tasks.FirstOrDefault(t => t.Id == taskId);
+            if (task == null)
+            {
+                Debug.LogError($"Нет таска {taskId}");
+                return false;
+            }
+            return task.CurrentSubTasks.Any(s => s.Id == subTaskId);
+        }
+
+        public TaskState GetTaskState(string taskId)
+        {
+            var task = _tasks.FirstOrDefault(t => t.Id == taskId);
+            if(task == null)
+            {
+                Debug.LogError($"Нет таска {taskId}");
+                return TaskState.Failed;
+            }
+            return task.State;
         }
 
         private void _setTaskState(Task task,  TaskState state)

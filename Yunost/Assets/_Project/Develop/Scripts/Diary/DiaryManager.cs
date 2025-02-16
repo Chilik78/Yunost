@@ -59,21 +59,26 @@ public class DiaryManager : MonoBehaviour
 
         var taskObserver = ServiceLocator.Get<TaskObserver>();
 
-        /*var task = taskObserver.GetFirstInProgressTask;
-        UpdateTask(task);
+        var tasks = taskObserver.GetTasks(TaskState.InProgress, TaskType.Main, 0, 1000);
+        UpdateTask(tasks.First());
 
-        taskObserver.HaveNewTask += UpdateTask;
-        taskObserver.HaveNewSubTask += UpdateTask;*/
+        taskObserver.HaveNewSubTasks += UpdateSubTasks;
+    }
+    private Task _task; 
+    private void UpdateSubTasks(IEnumerable<SubTask> subTasks)
+    {
+        UpdateDiary(_task.Name, subTasks.Select(x => x.Description).ToArray());
     }
 
     private void UpdateTask(Task task)
     {
-        if (task == null)
+        _task = task;
+        if (_task == null)
         {
             Debug.LogWarning("Задания в прогрессе исчерпаны");
             return;
         }
-        //UpdateDiary(task.Name, task.GetInProgressSubTasks.Select(x => x.Description).ToArray());
+        UpdateDiary(_task.Name, _task.CurrentSubTasks.Select(x => x.Description).ToArray());
     }
 
     private void Update()

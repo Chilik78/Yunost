@@ -34,8 +34,8 @@
             "flow": "",
             "state": 0,
             "type": 0,
-            "startTime": 0,
-            "deadTime": 1000,
+            "startTime": 1000,
+            "deadTime": 2000,
             "subTasks": [
                 {
                     "id": "talk_oleg",

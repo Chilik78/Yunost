@@ -1,7 +1,7 @@
 using Global;
-using Ink.Runtime;
 using System.IO;
 using UnityEngine;
+
 
 public class DialogTrigger : MonoBehaviour
 {
