@@ -91,7 +91,7 @@ public class SubTaskTests
         subTaskModel = new SubTaskModel("id", "Описание", "1", 1, true, new string[]{"1", "2" });
         subTask = new SubTask(subTaskModel);
 
-        counterSubTaskModel = new CounterSubTaskModel("id", "Описание", "1", 1, 10, 9, true);
+        counterSubTaskModel = new CounterSubTaskModel("id", "Описание", "1", 1, 10, 9, false);
         counterSubTask = new CounterSubTask(counterSubTaskModel);
 
         string json = Resources.Load<TextAsset>("InitTasks").text;

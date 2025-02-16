@@ -1,62 +1,38 @@
 ﻿
-using System.Collections.Generic;
 
 namespace ProgressModul
 {
     public class SubTask
     {
-        protected readonly string _id;
-        protected string _description;
-        protected bool _isDone;
-        protected readonly string _flow;
-        protected int _stackIndex;
-        protected string[] _friends;
+        public string Id { get => _model.Id; }
+        virtual public string Description { get => _model.Description; }
+        public bool IsDone { get => _model.IsDone; private set => _model.IsDone = value; }
+        public string Flow { get => _model.Flow; }
+        public int StackIndex { get => _model.StackIndex; private set => _model.StackIndex = value; }
+        public string[] Friends { get => _model.Friends; }
+
+        private SubTaskModel _model;
+
         public SubTask(SubTaskModel model)
         {
-            _id = model.id;
-            _isDone = model.isDone;
-            _description = model.description;
-            _flow = model.flow;
-            _stackIndex = model.stackIndex;
-            _friends = model.friends;
+            _model = model;
         }
 
         public virtual SubTaskModel GetModel
         {
-            get => new SubTaskModel(_id, _description, _flow, _stackIndex, _isDone, _friends);
+            get => _model;
         }
 
         public virtual bool SetDone()
         {
-            _isDone = true;
-            return _isDone;
-        }
-
-        public string Id
-        {
-            get => _id;
-        }
-
-        public bool IsDone
-        {
-            get => _isDone;
-        }
-
-        public virtual string Description
-        {
-            get => _description;
+            IsDone = true;
+            return IsDone;
         }
 
         public void DeacreaseStackIndex()
         {
-            _stackIndex--;
+            StackIndex--;
         }
-
-        public int StackIndex => _stackIndex;
-
-        public string Flow => _flow;
-
-        public IEnumerable<string> Friends => _friends;
 
         public override string ToString()
         {

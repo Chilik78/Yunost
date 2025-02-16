@@ -5,18 +5,18 @@ namespace ProgressModul
     [Serializable]
     public class CounterSubTaskModel : SubTaskModel
     {
-        public readonly int finalCount;
-        public readonly int currentCount;
+        public int FinalCount { get; private set; }
+        public int CurrentCount { get; set; }
         public CounterSubTaskModel(string id, string description, string flow, int stackIndex, int finalCount, int currentCount = 0, bool isDone = false, string[] friends = null) : 
             base(id, description, flow, stackIndex, isDone, friends)
         {
-            this.finalCount = finalCount;
-            this.currentCount = currentCount;
+            FinalCount = finalCount;
+            CurrentCount = currentCount;
         }
 
         public override string ToString()
         {
-            return base.ToString() + " : " + $"{finalCount} : {currentCount}";
+            return base.ToString() + " : " + $"{FinalCount} : {CurrentCount}";
         }
     }
 }

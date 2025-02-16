@@ -1,30 +1,37 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 
 namespace ProgressModul
 {
     [Serializable]
     public class SubTaskModel
     {
-        public readonly string id;
-        public readonly string description;
-        public readonly bool isDone;
-        public readonly string flow;
-        public readonly int stackIndex;
-        public readonly string[] friends;
+        [JsonProperty("id")]
+        public string Id { get; private set; }
+        [JsonProperty("description")]
+        public string Description { get; private set; }
+        [JsonProperty("isDone")]
+        public bool IsDone { get; set; }
+        [JsonProperty("flow")]
+        public string Flow { get; private set; }
+        [JsonProperty("stackIndex")]
+        public int StackIndex { get; set; }
+        [JsonProperty("friends")]
+        public string[] Friends { get; private set; }
 
         public SubTaskModel(string id, string description, string flow, int stackIndex, bool isDone = false, string[] friends = null)
         {
-            this.id = id;
-            this.description = description;
-            this.isDone = isDone;
-            this.flow = flow;
-            this.stackIndex = stackIndex;
-            this.friends = friends;
+            Id = id;
+            Description = description;
+            Flow = flow;
+            StackIndex = stackIndex;
+            IsDone = isDone;
+            Friends = friends;
         }
 
         public override string ToString()
         {
-            return $"{id} : {description} : {isDone} : {flow} : {stackIndex} : [{(friends == null ? null : string.Join(", ", friends))}]";
+            return $"{Id} : {Description} : {IsDone} : {Flow} : {StackIndex} : [{(Friends == null ? null : string.Join(", ", Friends))}]";
         }
     }
 }

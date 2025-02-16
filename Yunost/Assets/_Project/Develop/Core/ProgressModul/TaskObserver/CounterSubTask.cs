@@ -4,35 +4,32 @@ namespace ProgressModul
 {
     public class CounterSubTask : SubTask
     {
-        private readonly int _finalCount;
-        private int _currentCount;
+        public int FinalCount { get => _model.FinalCount; }
+        public int CurrentCount { get => _model.CurrentCount; private set => _model.CurrentCount = value; }
+        private CounterSubTaskModel _model;
         public CounterSubTask(CounterSubTaskModel model) : base(model)
         {
-            _finalCount = model.finalCount;
-            _currentCount = model.currentCount;
+            _model = model;
         }
 
         public override SubTaskModel GetModel
         {
-            get => new CounterSubTaskModel(_id, _description, _flow, _stackIndex, _finalCount, _currentCount, _isDone, _friends);
+            get => _model;
         }
 
         public void IncreaseCount()
         {
-            _currentCount++;
-            if(_finalCount == _currentCount) base.SetDone();
+            CurrentCount++;
+            if(FinalCount == CurrentCount) base.SetDone();
         }
 
         public override bool SetDone()
         {
-            if( _isDone ) return _isDone;
+            if( IsDone ) return IsDone;
             IncreaseCount();
-            return _isDone;
+            return IsDone;
         }
 
-        public override string Description => $"{_description} {CurrentCount}/{FinalCount}";
-
-        public int CurrentCount => _currentCount;
-        public int FinalCount => _finalCount;
+        public override string Description => $"{base.Description} {CurrentCount}/{FinalCount}";
     }
 }
