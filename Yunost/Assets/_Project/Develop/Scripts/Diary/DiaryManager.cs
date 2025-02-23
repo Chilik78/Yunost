@@ -2,36 +2,26 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using Global;
-using ProgressModul;
-using System.Linq;
+
+
 
 public class DiaryManager : MonoBehaviour
 {
     public GameObject diaryUI;
     public Button diaryButton;
-    public TMP_Text diaryText;
+    public GameObject taskPanelPrefab; // Префаб панели задания, включающей кнопку и выпадающий список.
+    public Transform taskListContent; 
+    public ScrollRect scrollRect; // Ссылка на Scroll Rect
 
-    private bool isDiaryOpen = false;
 
-    public void UpdateDiary(string mainTask, string[] subTasks)
-    {
-        string diaryContent = $"<b><color=blue>Задание:</color></b> <color=black>{mainTask}</color>\n\n";
+    private bool _isDiaryOpen = false;
 
-        if (subTasks != null && subTasks.Length > 0)
-        {
-            diaryContent += "<b><color=yellow>Подзадания:</color></b>\n";
-            for (int i = 0; i < subTasks.Length; i++)
-            {
-                diaryContent += $"<color=black>- {subTasks[i]}</color>\n";
-            }
-        }
+    // Для теста
+    public List<string> mainTasks = new List<string>();
+    public List<List<string>> allSubTasks = new List<List<string>>();
 
-        if (diaryText != null)
-        {
-            diaryText.text = diaryContent;
-        }
-    }
+
+
 
     private void Start()
     {
@@ -41,45 +31,69 @@ public class DiaryManager : MonoBehaviour
             diaryUI.SetActive(false);
         }
 
-
-        if (diaryUI != null)
+        if (diaryButton != null)
         {
             diaryButton.onClick.AddListener(ToggleDiary);
         }
 
 
-        /*//для тестов
-        string mainTask = "Найти Шнюка";
-        string[] subTasks = {
+        //Для теста
+        mainTasks.Add("Найти Шнюка");
+        List<string> task1Subtasks = new List<string> {
             "Поговорить с Пупсенем",
             "Обыскать хату Вупсеня",
             "Найти клад бабки",
-            "Вернуться на луну"
-        };*/
+            "Вернуться на луну" };
+        allSubTasks.Add(task1Subtasks);
 
-        var taskObserver = ServiceLocator.Get<TaskObserver>();
+        mainTasks.Add("Найти клад");
+        List<string> task2Subtasks = new List<string> {
+            "Поговорить с Кузей",
+            "Взять карту",
+            "Взыть лопату" };
+        allSubTasks.Add(task2Subtasks);
 
-        var tasks = taskObserver.GetTasks(TaskState.InProgress, TaskType.Main, 0, 1000);
-        UpdateTask(tasks.First());
+        mainTasks.Add("Найти бабку");
+        List<string> task3Subtasks = new List<string> {
+            "Бла",
+            "Блабла",
+            "Блаблабла" };
+        allSubTasks.Add(task3Subtasks);
 
-        taskObserver.HaveNewSubTasks += UpdateSubTasks;
+        mainTasks.Add("Найти луну");
+        List<string> task4Subtasks = new List<string> {
+            "Бабаба",
+            "Беребере",
+            "бебе" };
+        allSubTasks.Add(task4Subtasks);
+
+
+        UpdateTaskList(mainTasks, allSubTasks);
+
     }
-    private Task _task; 
-    private void UpdateSubTasks(IEnumerable<SubTask> subTasks)
-    {
-        UpdateDiary(_task.Name, subTasks.Select(x => x.Description).ToArray());
-    }
 
-    private void UpdateTask(Task task)
+    private void UpdateTaskList(List<string> mainTasks, List<List<string>> allSubTasks)
     {
-        _task = task;
-        if (_task == null)
+        // Очищаем старые кнопки заданий
+
+
+        // Создаем панели для каждого задания
+        for (int i = 0; i < mainTasks.Count; i++)
         {
-            Debug.LogWarning("Задания в прогрессе исчерпаны");
-            return;
+            GameObject taskPanelGO = Instantiate(taskPanelPrefab, taskListContent);
+            TaskPanelController taskPanelController = taskPanelGO.GetComponent<TaskPanelController>();
+
+            if (taskPanelController != null)
+            {
+                taskPanelController.SetTaskData(mainTasks[i], allSubTasks[i]);
+            }
+            else
+            {
+                Debug.LogError("TaskPanelPrefab не имеет TaskPanelController!");
+            }
         }
-        UpdateDiary(_task.Name, _task.CurrentSubTasks.Select(x => x.Description).ToArray());
     }
+
 
     private void Update()
     {
@@ -89,17 +103,19 @@ public class DiaryManager : MonoBehaviour
         }
     }
 
+
     private void ToggleDiary()
     {
 
-        isDiaryOpen = !isDiaryOpen;
+        _isDiaryOpen = !_isDiaryOpen;
 
         if (diaryUI != null)
         {
-            diaryUI.SetActive(isDiaryOpen); 
+            diaryUI.SetActive(_isDiaryOpen); 
         }
 
-        Time.timeScale = isDiaryOpen ? 0f : 1f;
+        Time.timeScale = _isDiaryOpen ? 0f : 1f;
 
     }
 }
+
