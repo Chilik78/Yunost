@@ -21,7 +21,6 @@ public class TaskPanelController : MonoBehaviour
 
         UpdateSubtaskDropdown(subTasks);
 
-        // Обработчики
         taskButton.onClick.RemoveAllListeners();
         taskButton.onClick.AddListener(ToggleDropdownVisibility);
 
