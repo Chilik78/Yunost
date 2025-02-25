@@ -23,6 +23,7 @@ namespace MiniGames
 
         private int _countPicks;
 
+        #region Init
         public override void Init(MiniGameContext context)
         {
             _currentContext = context;
@@ -59,7 +60,21 @@ namespace MiniGames
             _unlockRange = new Vector2(_unlockAngle - _lockRange, _unlockAngle + _lockRange);
         }
 
-        public override void TrackingProgressGame()
+        private void OnBrokenPick()
+        {
+            _countPicks--;
+            Debug.LogWarning($"Count Picks {_countPicks}");
+            BuildUI();
+            CheckEndGame();
+        }
+
+        protected override void BuildUI()
+        {
+            _textCountPicks.text = $"Осталось отмычек: {_countPicks}";
+        }
+        
+        #endregion
+        public override void TrackingProgressGameOnUpdate()
         {
             if (!isGameEnd && _pick.getSwap)
             {
@@ -82,25 +97,12 @@ namespace MiniGames
                 _pick.OnPickBroken -= OnBrokenPick;
                 CalculateResult(new MiniGameResultInfo(TypeResultMiniGames.Сompleted, _currentContext.getCountItems - _countPicks));
             }
-            else if(_countPicks == 0)
+            else if (_countPicks == 0)
             {
                 isGameEnd = true;
                 _pick.OnPickBroken -= OnBrokenPick;
                 CalculateResult(new MiniGameResultInfo(TypeResultMiniGames.Failed, _currentContext.getCountItems));
             }
-        }
-
-        private void OnBrokenPick()
-        {
-            _countPicks--;
-            Debug.LogWarning($"Count Picks {_countPicks}");
-            BuildUI();
-            CheckEndGame();
-        }
-
-        protected override void BuildUI()
-        {
-            _textCountPicks.text = $"Осталось отмычек: {_countPicks}";
         }
     }
 }

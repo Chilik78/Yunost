@@ -8,28 +8,33 @@ namespace MiniGames
         private Object _screen;
 
         public delegate void MiniGameEndHandler(MiniGameResultInfo resultInfo);
-
         public event MiniGameEndHandler MiniGameEnd;
 
-        private UniversalTutorialManager universalTutorialManager;
+        private UniversalTutorialManager _universalTutorialManager;
 
         private void Start()
         {
-            universalTutorialManager = FindObjectOfType<UniversalTutorialManager>();
+            _universalTutorialManager = FindObjectOfType<UniversalTutorialManager>();
         }
 
         private void Update()
         {
             if (_currGame != null)
-                _currGame.TrackingProgressGame();
+                _currGame.TrackingProgressGameOnUpdate();
+        }
+
+        private void FixedUpdate()
+        {
+            if(_currGame != null)
+                _currGame.TrackingProgressGameOnFixedUpdate();
         }
 
         public void RunMiniGame(MiniGameContext context)
         {
-            //SystemManager.GetInstance().SetSystemsToMiniGame(false);   
+            SystemManager.GetInstance().SetSystemsToMiniGame(false);   
 
-            //_screen = Instantiate(GetScreen(context));
             ChooseMiniGame(context);
+            _screen = Instantiate(GetScreen(context));
             Run(context);
         }
 
@@ -37,7 +42,7 @@ namespace MiniGames
         {
             switch (context.TypeMiniGame)
             {
-                case TypesMiniGames.HoldingObjectInRange: break;
+                case TypesMiniGames.HoldingObjectInRange: _currGame = new HoldingObjectInRangeMiniGame(); break;
                 case TypesMiniGames.AdvancePathEachStage: break;
                 case TypesMiniGames.QuickPressKeyCertainTime: break;
                 case TypesMiniGames.GameWolfConsole: break;
@@ -52,7 +57,7 @@ namespace MiniGames
         private Object GetScreen(MiniGameContext context)
         {
             string path = "MiniGameScreens/";
-            Debug.Log(context.TypeMiniGame);
+            
             switch (context.TypeMiniGame)
             {
                 case TypesMiniGames.HoldingObjectInRange: break;
@@ -70,11 +75,10 @@ namespace MiniGames
 
         private void Run(MiniGameContext context)
         {
-            //ShowTutorial(context.TypeMiniGame);
+            ShowTutorial(context.TypeMiniGame);
             
             if (_currGame != null)
             {
-                
                 _currGame.Init(context);
                 _currGame.OnMiniGameEnd += OnMiniGameEnd;
             }
@@ -87,10 +91,10 @@ namespace MiniGames
                 case TypesMiniGames.AdvancePathEachStage: break;
                 case TypesMiniGames.QuickPressKeyCertainTime: break;
                 case TypesMiniGames.GameWolfConsole: break;
-                case TypesMiniGames.QuickTempPressKeyCertainRange: universalTutorialManager.TriggerTutorial("MiniGameDigging"); break;
+                case TypesMiniGames.QuickTempPressKeyCertainRange: _universalTutorialManager.TriggerTutorial("MiniGameDigging"); break;
                 case TypesMiniGames.ConnectElements: break;
                 case TypesMiniGames.ReachEndPointWithObstacles: break;
-                case TypesMiniGames.BreakingLock: universalTutorialManager.TriggerTutorial("MiniGameBreakingLock"); break;
+                case TypesMiniGames.BreakingLock: _universalTutorialManager.TriggerTutorial("MiniGameBreakingLock"); break;
                 default: break;
             }
         }
@@ -98,7 +102,7 @@ namespace MiniGames
         private void OnMiniGameEnd(MiniGameResultInfo resultInfo)
         {
             _currGame.OnMiniGameEnd -= OnMiniGameEnd;
-            //SystemManager.GetInstance().SetSystemsToMiniGame(true);
+            SystemManager.GetInstance().SetSystemsToMiniGame(true);
 
             MiniGameEnd?.Invoke(resultInfo);
 
@@ -111,7 +115,7 @@ namespace MiniGames
                 Debug.Log($"Выигрыш | Кол-во предметов, которые нужно забрать: {resultInfo.getNumLostItems}");
             }
 
-            //Destroy(_screen);
+            Destroy(_screen);
             _currGame = null;
         }
     }

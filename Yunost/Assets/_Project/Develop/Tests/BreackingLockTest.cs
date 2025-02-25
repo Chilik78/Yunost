@@ -7,7 +7,7 @@ public class BreackingLockTest : MonoBehaviour
     public int countItems;
     void Start()
     {
-        MiniGameContext context = new MiniGameContext(TypesMiniGames.BreakingLock, difficult, 0, countItems);
+        MiniGameContext context = new MiniGameContext(TypesMiniGames.BreakingLock, difficult, countItems);
         MiniGamesManager manager = transform.gameObject.GetComponent<MiniGamesManager>();
         manager.RunMiniGame(context);
     }

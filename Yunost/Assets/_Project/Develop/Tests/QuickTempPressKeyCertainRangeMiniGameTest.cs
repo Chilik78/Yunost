@@ -8,7 +8,7 @@ public class QuickTempPressKeyCertainRangeMiniGameTest : MonoBehaviour
 
     void Start()
     {
-        MiniGameContext context = new MiniGameContext(TypesMiniGames.QuickTempPressKeyCertainRange, difficult, 0, 0);
+        MiniGameContext context = new MiniGameContext(TypesMiniGames.QuickTempPressKeyCertainRange, difficult, 0);
         MiniGamesManager manager = transform.gameObject.GetComponent<MiniGamesManager>();
         manager.RunMiniGame(context);   
     }
