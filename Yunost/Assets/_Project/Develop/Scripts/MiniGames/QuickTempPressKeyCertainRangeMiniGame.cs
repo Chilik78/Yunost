@@ -40,6 +40,7 @@ namespace MiniGames
             _stages[_numCurrStage].SetActive(true);
         }
 
+        #region Init
         private void InitStages()
         {
             _stages[0] = GameObject.Find("Begin_stage");
@@ -107,8 +108,10 @@ namespace MiniGames
             LineDrawer lineDrawer = GameObject.Find("Line").GetComponent<LineDrawer>();
             lineDrawer.DrawLine();
         }
+        #endregion
 
-        public override void TrackingProgressGame()
+        #region TrackingProgressGame
+        public override void TrackingProgressGameOnUpdate()
         {
             if(!_isAnimate)
             {
@@ -160,4 +163,5 @@ namespace MiniGames
             }
         }
     }
+    #endregion
 }

@@ -59,6 +59,7 @@ namespace MiniGames
                 InitSmoothTimes(timeAnimation);
             }
 
+            #region Init
             private void InitPileDirt()
             {
                 _pileDirt[0] = GameObject.Find("First_pile_dirt");
@@ -92,7 +93,9 @@ namespace MiniGames
                 //    RotMoveToStartPosition: {_smoothTimeRotMoveToStartPosition}
                 //");
             }
+            #endregion
 
+            #region Animations
             public void Dig(int numStage)
             {
                 ChooseAnimation(numStage);
@@ -113,6 +116,7 @@ namespace MiniGames
                 }
             }
 
+            #region MoveToGround
             private void MoveToGround(int numStage)
             {
                 if (_lastYPosMoveToGround == _shovel.transform.position.y)
@@ -145,7 +149,9 @@ namespace MiniGames
                     default: return _startPos;
                 }
             }
+            #endregion
 
+            #region DigUp
             private void DigUp(int numStage)
             {
                 if (_lastYPosDigUp == _shovel.transform.position.y)
@@ -185,7 +191,9 @@ namespace MiniGames
 
                 _shovel.transform.position = Vector3.SmoothDamp(_shovel.transform.position, _targetCoordDigUp, ref _velDigUp, _smoothTimeDigUp);
             }
+            #endregion
 
+            #region MoveDirtOnGround
             private void MoveDirtOnGround(int numStage)
             {
 
@@ -207,7 +215,9 @@ namespace MiniGames
                 _lastYPosMoveDirtOnGround = _shovel.transform.position.y;
                 _shovel.transform.position = Vector3.SmoothDamp(_shovel.transform.position, _targetYPosMoveDirtOnGround, ref _velDigUp, _smoothTimeDigUp);
             }
+            #endregion
 
+            #region MoveToStartPosition
             private void MoveToStartPosition()
             {
                 if (Mathf.Abs(_shovel.transform.position.y - _startPos.y) <= 0.0005)
@@ -221,6 +231,9 @@ namespace MiniGames
                 _shovel.transform.position = Vector3.SmoothDamp(_shovel.transform.position, _startPos, ref _velMoveToGround, _smoothTimeMoveToStartPosition);
                 _shovel.transform.rotation = Quaternion.Slerp(_shovel.transform.localRotation, _startRot, _smoothTimeRotMoveToStartPosition);
             }
+            #endregion
+            
+            #endregion
         }
     }
 }

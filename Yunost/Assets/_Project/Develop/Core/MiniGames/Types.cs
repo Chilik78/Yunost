@@ -22,7 +22,6 @@ namespace MiniGames
 
     public enum TypeDifficultMiniGames
     {
-        NoUse,
         Easy,
         Medium,
         Hard,
