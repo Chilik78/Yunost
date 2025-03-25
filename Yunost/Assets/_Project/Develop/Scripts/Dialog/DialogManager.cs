@@ -216,13 +216,7 @@ public class DialogManager : MonoBehaviour
             ServiceLocator.Get<PlayerStats>().HitHealth(value);
         });
 
-        // Смена сцены
-        currentStory.BindExternalFunction("changeScene", (string sceneName) => {
-            ServiceLocator.Get<SceneControl>().ChangeTile(sceneName);
-        });
-
         currentStory.BindExternalFunction("changeSceneWithTp", (string sceneName, string id) => {
-            ServiceLocator.Get<SceneControl>().ChangeTile(sceneName);
             var player = GameObject.FindWithTag("Player");
             if (id != null)
                 GameObject.Find("GameSystems").GetComponent<MarkController>().ObjectToMark(player.transform, id);

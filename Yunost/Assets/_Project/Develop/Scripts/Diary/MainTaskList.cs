@@ -1,4 +1,7 @@
+using Global;
+using ProgressModul;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 
@@ -8,9 +11,14 @@ public class MainTaskList : TaskList
     {
         tasks.Clear();
 
-        // TODO: добавить корректные данные
-        //Для теста
-        tasks.Add(new TaskData("Главная задача 1", new List<string> { "Подзадача 1", "Подзадача 2" }));
-        tasks.Add(new TaskData("Главная задача 2", new List<string> { "Подзадача 1", "Подзадача 2" }));
+        // TODO: динамический подбор времени
+        var mainTasks = ServiceLocator.Get<TaskObserver>().GetTasks(TaskState.InProgress, TaskType.Main, 1000);
+        Debug.LogWarning(mainTasks.Count());
+        foreach ( var task in mainTasks )
+        {
+            var name = task.Name;
+            var subNames = task.CurrentSubTasks.Select(s => s.Description).ToList();
+            tasks.Add(new TaskData(name, subNames));
+        }
     }
 }

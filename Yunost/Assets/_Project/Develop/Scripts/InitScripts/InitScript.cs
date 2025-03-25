@@ -13,14 +13,7 @@ public class InitScript : MonoBehaviour
 
         GlobalInitScript.InitServices();
 
-        if (ServiceLocator.Get<SceneControl>().IsNewGame)
-        {
-            ServiceLocator.Get<SaveLoadSystem>().LoadDefault();
-        }
-        else
-        {
-            ServiceLocator.Get<SaveLoadSystem>().LoadGame(SaveType.File);
-        }
+        ServiceLocator.Get<SaveLoadSystem>().LoadDefault();
 
         //DontDestroyOnLoad(GameObject.Find("GameSystems"));
     }
@@ -47,12 +40,6 @@ public class InitScript : MonoBehaviour
 
         systemManager.SetHubCamera(false);
         gameSystems.GetComponent<MarkController>().ObjectToMark(player.transform, "start_game");
-
-
-        if (ServiceLocator.Get<SceneControl>().IsNewGame) return;
-
-        player.transform.position = new Vector3(playerStats.X, player.transform.position.y, playerStats.Z);
-        player.transform.rotation = Quaternion.Euler(0, playerStats.RotY, 0);
     }
 
     private void savePositions(Vector3 position, Quaternion rotation)

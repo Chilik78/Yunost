@@ -15,11 +15,12 @@ public class SystemManager : MonoBehaviour
             Debug.LogWarning("Íà ñöåíå áîëüøå îäíîãî äèàëîãà");
         }
         _instance = this;
+        _getLinks();
     }
 
     public static SystemManager GetInstance() => _instance;
 
-    void Start()
+    private void _getLinks()
     {
         _gameSystems = this.gameObject;
         _player = GameObject.FindGameObjectWithTag("Player");
@@ -58,6 +59,7 @@ public class SystemManager : MonoBehaviour
 
     public void SetHubCamera(bool state)
     {
+        Debug.LogWarning(_hubCamera);
         if (_hubCamera == null) return;
         _hubCamera.SetActive(state);
     }

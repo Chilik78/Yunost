@@ -44,12 +44,7 @@ public static class GlobalInitScript
 
     private static void InitGlobalServices()
     {
-        SceneControl sceneControl = new SceneControl();
         SaveLoadSystem saveLoadSystem = new SaveLoadSystem();
-       
-        ServiceLocator.Register(sceneControl);
         ServiceLocator.Register(saveLoadSystem);
-
-        saveLoadSystem.AddToSaveLoad(sceneControl);
     }
 }

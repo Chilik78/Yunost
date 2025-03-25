@@ -1,4 +1,8 @@
+using Global;
+using ProgressModul;
 using System.Collections.Generic;
+using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public abstract class TaskList : MonoBehaviour
@@ -12,19 +16,51 @@ public abstract class TaskList : MonoBehaviour
     {
         LoadTasks();
         UpdateTasksList();
+        ServiceLocator.Get<TaskObserver>().TaskStateChanged += UpdateOnChangedTask;
+        ServiceLocator.Get<TaskObserver>().HaveNewSubTasks += UpdateOnChangedSubTasks;
+    }
+
+    private void UpdateOnChangedSubTasks(IEnumerable<SubTask> subTasks)
+    {
+        LoadTasks();
+        UpdateTasksList();
+    }
+
+    private void OnDestroy()
+    {
+        ServiceLocator.Get<TaskObserver>().TaskStateChanged -= UpdateOnChangedTask;
+        ServiceLocator.Get<TaskObserver>().HaveNewSubTasks -= UpdateOnChangedSubTasks;
+    }
+
+    private void UpdateOnChangedTask(Task task)
+    {
+        LoadTasks();
+        UpdateTasksList();
     }
 
     protected abstract void LoadTasks(); 
 
+    private List<GameObject> panels = new List<GameObject>();
+
+    private void _clearPanels()
+    {
+        while(panels.Count > 0 )
+        {
+            Destroy(panels[0]);
+            panels.RemoveAt(0);
+        }
+    }
+
     protected virtual void UpdateTasksList()
     {
+        _clearPanels();
         foreach (TaskData task in tasks)
         {
             GameObject taskPanel = Instantiate(taskPanelPrefab, taskListContent);
             TaskPanelController taskPanelController = taskPanel.GetComponent<TaskPanelController>();
 
-            taskPanelController.SetTaskData(task.mainTask, task.subTasks); 
-
+            taskPanelController.SetTaskData(task.mainTask, task.subTasks);
+            panels.Add(taskPanel);
         }
     }
 }
