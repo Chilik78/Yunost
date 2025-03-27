@@ -1,6 +1,5 @@
 INCLUDE globals.ink
 EXTERNAL hitHealth(value)
-EXTERNAL changeScene(sceneName)
 EXTERNAL isTaskInProgress(taskId, type)
 EXTERNAL isSubTaskInProgress(taskId, subTaskId)
 EXTERNAL setStateTask(taskId, state)

@@ -5,7 +5,6 @@
     // Завершение квеста LongRoad
     ~setDoneSubTask("long_road", "go_to_camp")
     // Смена сцены
-    ~changeScene("MainCamp")
     -> END
 * {hitGait == false && not isSubTaskInProgress("long_road", "go_to_camp")} [Попробовать выбить ворота] -> Act1_HitGates 
 + [Закончить осмотр] -> END

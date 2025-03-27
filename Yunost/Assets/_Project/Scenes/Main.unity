@@ -1713,7 +1713,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 45935209}
-  - component: {fileID: 45935210}
   m_Layer: 0
   m_Name: NearHubHome
   m_TagString: Mark
@@ -1736,19 +1735,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1018494309}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &45935210
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 45935208}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2ad6a430ecf177c4e8d0b59c09e73445, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _id: NearHubHome
 --- !u!1 &51771863
 GameObject:
   m_ObjectHideFlags: 0
@@ -5295,7 +5281,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 143992504}
-  - component: {fileID: 143992505}
   m_Layer: 0
   m_Name: MakarAdmin
   m_TagString: Mark
@@ -5318,19 +5303,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1018494309}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &143992505
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 143992503}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2ad6a430ecf177c4e8d0b59c09e73445, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _id: MakarAdmin
 --- !u!1 &146624285
 GameObject:
   m_ObjectHideFlags: 0
@@ -38751,7 +38723,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 479913983}
-  - component: {fileID: 479913984}
   m_Layer: 0
   m_Name: OlegAdmin
   m_TagString: Mark
@@ -38774,19 +38745,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1018494309}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &479913984
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 479913982}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2ad6a430ecf177c4e8d0b59c09e73445, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _id: OlegAdmin
 --- !u!1 &483315353
 GameObject:
   m_ObjectHideFlags: 0
@@ -43901,7 +43859,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 600277134}
-  - component: {fileID: 600277135}
   m_Layer: 0
   m_Name: Flag1MainCamp
   m_TagString: Mark
@@ -43924,19 +43881,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1018494309}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &600277135
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 600277133}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2ad6a430ecf177c4e8d0b59c09e73445, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _id: Flag1MainCamp
 --- !u!1 &603799748
 GameObject:
   m_ObjectHideFlags: 0
@@ -66272,7 +66216,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1114650264}
-  - component: {fileID: 1114650265}
   m_Layer: 0
   m_Name: LizaAdmin
   m_TagString: Mark
@@ -66295,19 +66238,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1018494309}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1114650265
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1114650263}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2ad6a430ecf177c4e8d0b59c09e73445, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _id: LizaAdmin
 --- !u!1 &1117215217
 GameObject:
   m_ObjectHideFlags: 0
@@ -74286,7 +74216,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1306013053}
-  - component: {fileID: 1306013054}
   m_Layer: 0
   m_Name: SofiaFireMainCamp
   m_TagString: Mark
@@ -74309,19 +74238,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1018494309}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1306013054
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1306013052}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2ad6a430ecf177c4e8d0b59c09e73445, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _id: SofiaFireMainCamp
 --- !u!1 &1307358843
 GameObject:
   m_ObjectHideFlags: 0
@@ -82380,7 +82296,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1371808003}
-  - component: {fileID: 1371808004}
   m_Layer: 0
   m_Name: StartHubHome
   m_TagString: Mark
@@ -82403,19 +82318,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1018494309}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1371808004
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1371808002}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2ad6a430ecf177c4e8d0b59c09e73445, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _id: HubHome
 --- !u!1 &1371983036
 GameObject:
   m_ObjectHideFlags: 0
@@ -82698,7 +82600,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1379148437}
-  - component: {fileID: 1379148438}
   m_Layer: 0
   m_Name: Flag2MainCamp
   m_TagString: Mark
@@ -82721,19 +82622,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1018494309}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1379148438
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1379148436}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2ad6a430ecf177c4e8d0b59c09e73445, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _id: Flag2MainCamp
 --- !u!1 &1379517522
 GameObject:
   m_ObjectHideFlags: 0
@@ -85530,7 +85418,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1413833548}
-  - component: {fileID: 1413833549}
   m_Layer: 0
   m_Name: Flag3MainCamp
   m_TagString: Mark
@@ -85553,19 +85440,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1018494309}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1413833549
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1413833547}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2ad6a430ecf177c4e8d0b59c09e73445, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _id: Flag3MainCamp
 --- !u!1 &1414211016
 GameObject:
   m_ObjectHideFlags: 0
@@ -87728,7 +87602,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _shiftByY: 7
-  _jsonPath: 
+  _jsonPath: CasePlaceHome
 --- !u!65 &1446854056
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -94916,7 +94790,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1594683711}
-  - component: {fileID: 1594683712}
   m_Layer: 0
   m_Name: SofaAdmin
   m_TagString: Mark
@@ -94939,19 +94812,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1018494309}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1594683712
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1594683710}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2ad6a430ecf177c4e8d0b59c09e73445, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _id: SofaAdmin
 --- !u!1 &1594755743
 GameObject:
   m_ObjectHideFlags: 0
@@ -96921,7 +96781,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1627344321}
-  - component: {fileID: 1627344322}
   m_Layer: 0
   m_Name: StartGame
   m_TagString: Mark
@@ -96938,25 +96797,12 @@ Transform:
   m_GameObject: {fileID: 1627344320}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -11.47, y: 0, z: -9.39}
+  m_LocalPosition: {x: -10.431, y: 0, z: -8.34}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1018494309}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1627344322
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1627344320}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2ad6a430ecf177c4e8d0b59c09e73445, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _id: start_game
 --- !u!1 &1628060164
 GameObject:
   m_ObjectHideFlags: 0
@@ -110466,7 +110312,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1926246330}
-  - component: {fileID: 1926246331}
   m_Layer: 0
   m_Name: ShovelMainCamp
   m_TagString: Mark
@@ -110489,19 +110334,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1018494309}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1926246331
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1926246329}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2ad6a430ecf177c4e8d0b59c09e73445, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _id: ShovelMainCamp
 --- !u!1 &1934590549
 GameObject:
   m_ObjectHideFlags: 0
@@ -131710,7 +131542,7 @@ Transform:
   m_GameObject: {fileID: 7738515245538970062}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -34.11, y: 2.18, z: -28.28}
+  m_LocalPosition: {x: -31.215, y: 2.18, z: -24.78}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -147996,7 +147828,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _shiftByY: 7
-  _jsonPath: 
+  _jsonPath: HomeDoor
 --- !u!222 &6020226487044636503
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -169737,7 +169569,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _shiftByY: 7
-  _jsonPath: 
+  _jsonPath: BedPlayer
 --- !u!4 &8750447936057239350
 Transform:
   m_ObjectHideFlags: 0
