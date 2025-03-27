@@ -2,11 +2,11 @@
 == Act1_TeamGame
 + {isSubTaskInProgress("team_game", "leave_house")} [Выйти из Дома №1] 
 ~setDoneSubTask("team_game", "leave_house")
-~changeSceneWithTp("MainCamp", "NearHubHome")
+~tp("Player", "near_hub_home")
 ~tpNPC()
 -> END
 + {isSubTaskInProgress("team_game", "go_to_bed_night")} [Войти в Дом №1] 
-~changeScene("HubHome")
+~tp("Player", "start_hub_home")
 -> END
 + {isSubTaskInProgress("team_game", "leave_house")} [Осмотреть дверь] -> Act1_TeamGame_CheckDoorIn
 + {not isSubTaskInProgress("team_game", "leave_house")} [Осмотреть дверь] -> Act1_TeamGame_CheckDoorOutside

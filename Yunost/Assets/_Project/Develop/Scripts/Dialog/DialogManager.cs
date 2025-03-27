@@ -142,14 +142,11 @@ public class DialogManager : MonoBehaviour
     // Открытие диалогового окна
     public void EnterDialogMode(string json)
     {
-
-
-
         currentStory = new Story(json);
         dialogIsPlaying = true;
         dialoguePanel.SetActive(true);
 
-
+        
         if (scrollRect != null)
         {
             Canvas.ForceUpdateCanvases(); // Обновляем канвас перед изменением прокрутки
@@ -216,10 +213,10 @@ public class DialogManager : MonoBehaviour
             ServiceLocator.Get<PlayerStats>().HitHealth(value);
         });
 
-        currentStory.BindExternalFunction("changeSceneWithTp", (string sceneName, string id) => {
-            var player = GameObject.FindWithTag("Player");
-            if (id != null)
-                GameObject.Find("GameSystems").GetComponent<MarkController>().ObjectToMark(player.transform, id);
+        currentStory.BindExternalFunction("tp", (string objName, string id) =>
+        {
+            var obj = GameObject.Find(objName);
+            GameObject.Find("GameSystems").GetComponent<MarkController>().ObjectToMark(obj.transform, id);
         });
 
         // Смена времени
@@ -234,24 +231,20 @@ public class DialogManager : MonoBehaviour
 
         currentStory.BindExternalFunction("tpNPC", () =>
         {
-            var makar = GameObject.Find("Итеракт Макара");
-            var oleg = GameObject.Find("Итеракт Олега");
-            var lisa = GameObject.Find("Итеракт Елизаветы");
-            var sofa = GameObject.Find("Итеракт Софии");
-            var shovel = GameObject.Find("Итеракт Софии");
-            var flag1 = GameObject.Find("Итеракт Софии");
-            var flag2 = GameObject.Find("Итеракт Софии");
-            var flag3 = GameObject.Find("Итеракт Софии");
-            GameObject.Find("GameSystems").GetComponent<MarkController>().ObjectToMark(makar.transform, "MakarAdmin");
-            GameObject.Find("GameSystems").GetComponent<MarkController>().ObjectToMark(oleg.transform, "OlegAdmin");
-            GameObject.Find("GameSystems").GetComponent<MarkController>().ObjectToMark(lisa.transform, "LizaAdmin");
-            GameObject.Find("GameSystems").GetComponent<MarkController>().ObjectToMark(sofa.transform, "SofaAdmin");
+            var makar = GameObject.Find("Makar");
+            var oleg = GameObject.Find("Oleg");
+            var lisa = GameObject.Find("Lisa");
+            var sofa = GameObject.Find("Sofia");
+            GameObject.Find("GameSystems").GetComponent<MarkController>().ObjectToMark(makar.transform, "makar_admin");
+            GameObject.Find("GameSystems").GetComponent<MarkController>().ObjectToMark(oleg.transform, "oleg_admin");
+            GameObject.Find("GameSystems").GetComponent<MarkController>().ObjectToMark(lisa.transform, "lisa_admin");
+            GameObject.Find("GameSystems").GetComponent<MarkController>().ObjectToMark(sofa.transform, "sofa_admin");
         });
 
         currentStory.BindExternalFunction("tpSofia", () =>
         {
-            var sofa = GameObject.Find("Итеракт Софии");
-            GameObject.Find("GameSystems").GetComponent<MarkController>().ObjectToMark(sofa.transform, "SofiaFireMainCamp");
+            var sofa = GameObject.Find("Sofia");
+            GameObject.Find("GameSystems").GetComponent<MarkController>().ObjectToMark(sofa.transform, "sofia_fire_main_camp");
         });
 
         ContinueStory();

@@ -36,10 +36,7 @@ public class InitScript : MonoBehaviour
         player.GetComponent<Movement>().OnMove += savePositions;
 
         var gameSystems = GameObject.Find("GameSystems");
-        var systemManager = gameSystems.GetComponent<SystemManager>();
-
-        systemManager.SetHubCamera(false);
-        gameSystems.GetComponent<MarkController>().ObjectToMark(player.transform, "StartGame");
+        gameSystems.GetComponent<MarkController>().ObjectToMark(player.transform, "start_game");
     }
 
     private void savePositions(Vector3 position, Quaternion rotation)

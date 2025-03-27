@@ -6,7 +6,7 @@
 // Сцена MainCamp
 + {homeDoorOpened == true && isSubTaskInProgress("sweet_home", "go_to_home")} [Войти в Дом №1] 
 ~setDoneSubTask("sweet_home","go_to_home")
-~changeScene("HubHome")
+~tp("Player", "start_hub_home")
 -> END 
 + {isSubTaskInProgress("sweet_home", "open_door")} [Открыть дверь] -> Act1_SweetHome_OpenDoor
 + {not isSubTaskInProgress("sweet_home", "drop_case") && not isSubTaskInProgress("sweet_home", "go_to_bed")} [Осмотреть дверь] -> Act1_SweetHome_CheckDoorOutside

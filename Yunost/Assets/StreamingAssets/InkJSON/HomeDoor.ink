@@ -4,8 +4,7 @@ EXTERNAL setStateTask(taskId, state)
 EXTERNAL setDoneSubTask(taskId, subTaskId)
 EXTERNAL isTaskInProgress(taskId, type)
 EXTERNAL isSubTaskInProgress(taskId, subTaskId)
-EXTERNAL changeScene(nameScene)
-EXTERNAL changeSceneWithTp(nameScene, id)
+EXTERNAL tp(objName, id)
 EXTERNAL tpNPC()
 -> NameQuest
 
@@ -30,7 +29,6 @@ INCLUDE Quests\Act1\TeamGame\HomeDoor_Act1_TeamGame.ink
     {Дверь_Открыта == "Да":
         + [Зайти в дом]
         //~setDoneSubTask("3", "3")
-        //~changeScene("MyHome")
         -> END
     }
     {Ключ_Подобран == true: 

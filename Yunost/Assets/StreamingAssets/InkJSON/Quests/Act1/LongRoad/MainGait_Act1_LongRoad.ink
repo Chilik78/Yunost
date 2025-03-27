@@ -4,6 +4,7 @@
 + {isSubTaskInProgress("long_road", "go_to_camp")} [Открыть ворота]
     // Завершение квеста LongRoad
     ~setDoneSubTask("long_road", "go_to_camp")
+    ~tp("Player", "start_main_camp")
     // Смена сцены
     -> END
 * {hitGait == false && not isSubTaskInProgress("long_road", "go_to_camp")} [Попробовать выбить ворота] -> Act1_HitGates 
