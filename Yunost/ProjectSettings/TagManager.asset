@@ -7,6 +7,7 @@ TagManager:
   - NPC
   - Iteract
   - Item
+  - Mark
   layers:
   - Default
   - TransparentFX

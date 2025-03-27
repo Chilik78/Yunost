@@ -95,6 +95,10 @@ public class DialogTrigger : MonoBehaviour
     private Material[] GetMaterials(GameObject target)
     {
         var renderer = target.GetComponent<Renderer>();
+        if(renderer == null)
+        {
+            renderer = target.GetComponentInChildren<Renderer>();
+        }
         return renderer.materials;
     }
 

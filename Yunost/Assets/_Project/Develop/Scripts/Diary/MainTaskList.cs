@@ -13,7 +13,6 @@ public class MainTaskList : TaskList
 
         // TODO: динамический подбор времени
         var mainTasks = ServiceLocator.Get<TaskObserver>().GetTasks(TaskState.InProgress, TaskType.Main, 1000);
-        Debug.LogWarning(mainTasks.Count());
         foreach ( var task in mainTasks )
         {
             var name = task.Name;
