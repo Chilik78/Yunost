@@ -1,5 +1,3 @@
-using Global;
-using ProgressModul;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -46,7 +44,7 @@ public class PauseMenuControls : MonoBehaviour
 
     public void BackToMenu()
     {
-        GlobalInitScript.UnregisterServices();
+        InitSystem.GetInstance().UnregisterServices();
         SceneManager.LoadScene("Menu");
         Resume();
         Debug.Log("Переход к меню отработал");

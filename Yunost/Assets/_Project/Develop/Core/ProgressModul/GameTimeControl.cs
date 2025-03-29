@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 
-namespace ProgressModul.Assets._Project.Develop.Core.ProgressModul
+namespace ProgressModul
 {
-    class GameTimeControl
+    public class GameTimeControl
     {
         private string _mainKey = "main_time";
         private string _sideKey = "side_time";

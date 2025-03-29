@@ -14,7 +14,7 @@ public class BarController : MonoBehaviour
     public Image bar;
     public BarType type;
 
-    void Start()
+    public void Init()
     {
         var playerStats = ServiceLocator.Get<PlayerStats>();
 
