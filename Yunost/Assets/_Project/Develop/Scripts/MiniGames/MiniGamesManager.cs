@@ -31,10 +31,11 @@ namespace MiniGames
 
         public void RunMiniGame(MiniGameContext context)
         {
+            Debug.LogWarning("MG in RunMiniGame");
             SystemManager.GetInstance().SetSystemsToMiniGame(false);   
 
             ChooseMiniGame(context);
-            _screen = Instantiate(GetScreen(context));
+            _screen = Instantiate(GetScreen(context), GameObject.Find("minigame_point").transform);
             Run(context);
         }
 
@@ -75,6 +76,7 @@ namespace MiniGames
 
         private void Run(MiniGameContext context)
         {
+            Debug.LogWarning("MG in Run");
             ShowTutorial(context.TypeMiniGame);
             
             if (_currGame != null)

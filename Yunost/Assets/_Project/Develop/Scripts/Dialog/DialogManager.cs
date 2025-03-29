@@ -172,7 +172,9 @@ public class DialogManager : MonoBehaviour
         // Старт Мини игры   
         currentStory.BindExternalFunction("startMiniGameDigging", () => {
             MiniGameContext testContext = new MiniGameContext(TypesMiniGames.QuickTempPressKeyCertainRange, TypeDifficultMiniGames.Easy, 0);
+            Debug.LogWarning("MG in bind");
             GameObject.Find("GameSystems").GetComponent<MiniGamesManager>().RunMiniGame(testContext);
+            
         });
 
         // Проверка на наличие предмета в инвентаре
