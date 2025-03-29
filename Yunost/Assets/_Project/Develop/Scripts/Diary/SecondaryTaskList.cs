@@ -1,4 +1,6 @@
-using System.Collections.Generic;
+using Global;
+using ProgressModul;
+using System.Linq;
 
 public class SecondaryTaskList : TaskList
 {
@@ -6,12 +8,13 @@ public class SecondaryTaskList : TaskList
     {
         tasks.Clear();
 
-        // TODO: добавить корректные данные
-        //Для теста
-        tasks.Add(new TaskData("Второстепенная задача 1", new List<string> { "Подзадача 1", "Подзадача 2" }));
-        tasks.Add(new TaskData("Второстепенная задача 2", new List<string> { "Подзадача 1", "Подзадача 2" }));
-        tasks.Add(new TaskData("Второстепенная задача 3", new List<string> { "Подзадача 1", "Подзадача 2" }));
-        tasks.Add(new TaskData("Второстепенная задача 4", new List<string> { "Подзадача 1", "Подзадача 2" }));
-        tasks.Add(new TaskData("Второстепенная задача 5", new List<string> { "Подзадача 1", "Подзадача 2" }));
+        // TODO: динамический подбор времени
+        var secondaryTasks = ServiceLocator.Get<TaskObserver>().GetTasks(TaskState.InProgress, TaskType.Side, 1000);
+        foreach (var task in secondaryTasks)
+        {
+            var name = task.Name;
+            var subNames = task.CurrentSubTasks.Select(s => s.Description).ToList();
+            tasks.Add(new TaskData(name, subNames));
+        }
     }
 }
