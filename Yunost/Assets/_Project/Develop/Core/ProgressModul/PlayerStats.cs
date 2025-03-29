@@ -120,7 +120,7 @@ namespace ProgressModul
 
             set
             {
-                if (Health >= 0 && value <= MaxHealth) 
+                if (value >= 0 && value <= MaxHealth) 
                 { 
                     PlayerPrefs.SetInt(_healthKey, value);
                     if(HealthChanged != null)
@@ -137,7 +137,7 @@ namespace ProgressModul
 
             set
             {
-                if (Stamina >= 0 && value <= MaxStamina)
+                if (value >= 0 && value <= MaxStamina)
                 {
                     PlayerPrefs.SetInt(_staminaKey, value);
                     if (StaminaChanged != null)
