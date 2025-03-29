@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f832964f67a8b045a8f6050b637ac9c, type: 3}
+  m_Name: InitConfig
+  m_EditorClassIdentifier: 
+  _hp: 100
+  _stamina: 100
+  _mainIGT: 0
+  _sideIGT: 0
+  _hours: 0
+  _minutes: 0
+  _act: 0
+  _positionMark: start_game
+  _npcsLoyality: 0

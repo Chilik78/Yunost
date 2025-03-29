@@ -8,6 +8,8 @@ public class SystemManager : MonoBehaviour
     private GameObject _gameSystems, _player, _mainCamera, _canvases, _sun, _hubCamera;
     public MiniGamesManager MiniGamesManager { get; set; }
 
+    public GameObject Player => _player;
+
     void Awake()
     {
         if (_instance != null)
