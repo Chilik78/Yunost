@@ -11,7 +11,8 @@ public class MainTaskList : TaskList
         tasks.Clear();
 
         // TODO: динамический подбор времени
-        var mainTasks = ServiceLocator.Get<TaskObserver>().GetTasks(TaskState.InProgress, TaskType.Main, 1000);
+        var border = ServiceLocator.Get<GameTimeControl>().MainTime+1;
+        var mainTasks = ServiceLocator.Get<TaskObserver>().GetTasks(TaskState.InProgress, TaskType.Main, border);
         foreach ( var task in mainTasks )
         {
             var name = task.Name;

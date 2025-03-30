@@ -6,7 +6,7 @@
             "state": 0,
             "type": 0,
             "startTime": 0,
-            "deadTime": 1000,
+            "deadTime": 1,
             "subTasks": [
                 {
                     "id": "talk_makar",
@@ -34,8 +34,8 @@
             "flow": "",
             "state": 0,
             "type": 0,
-            "startTime": 1000,
-            "deadTime": 2000,
+            "startTime": 1,
+            "deadTime": 2,
             "subTasks": [
                 {
                     "id": "talk_oleg",
@@ -74,8 +74,8 @@
             "flow": "1",
             "state": 0,
             "type": 0,
-            "startTime": 0,
-            "deadTime": 1000,
+            "startTime": 2,
+            "deadTime": 3,
             "subTasks": [
                 {
                     "id": "director",
@@ -120,8 +120,8 @@
             "flow": "1",
             "state": 0,
             "type": 0,
-            "startTime": 0,
-            "deadTime": 1000,
+            "startTime": 3,
+            "deadTime": 4,
             "subTasks": [
                 {
                     "id": "leave_house",

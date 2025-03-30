@@ -46,6 +46,10 @@ public class InitSystem : MonoBehaviour
         TimeControl timeControl = new(config.Hours, config.Minutes);
         DialogVariables dialogVariables = new DialogVariables();
 
+        taskObserver.TaskStateChanged += (Task task) => {
+            gameTimeControl.MainTime += 1;
+        };
+
         SaveLoadSystem saveLoadSystem = new SaveLoadSystem();
         ServiceLocator.Register(saveLoadSystem);
         saveLoadSystem.AddToSaveLoad(taskObserver);
