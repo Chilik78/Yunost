@@ -18,5 +18,6 @@ public class MainTaskList : TaskList
             var subNames = task.CurrentSubTasks.Select(s => s.Description).ToList();
             tasks.Add(new TaskData(name, subNames));
         }
+        
     }
 }
