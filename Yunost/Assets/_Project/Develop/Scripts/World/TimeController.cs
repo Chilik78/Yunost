@@ -17,11 +17,11 @@ public class DayNight : MonoBehaviour
     void Start()
     {
         ServiceLocator.Get<TimeControl>().TimeChanged += UpdateTime;
-        UpdateTime(ServiceLocator.Get<TimeControl>().CurrentTime);
+        UpdateTime(ServiceLocator.Get<TimeControl>().CurrentTime, ServiceLocator.Get<TimeControl>().Hours, ServiceLocator.Get<TimeControl>().Minutes);
     }
 
 
-    void UpdateTime(int time)
+    void UpdateTime(int time, int h, int m)
     {
         currentTime = time / 1000f;
         if (currentTime >= 1) currentTime = 0; else if (currentTime < 0) currentTime = 0;

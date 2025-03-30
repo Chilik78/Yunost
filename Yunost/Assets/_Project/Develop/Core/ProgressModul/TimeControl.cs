@@ -4,13 +4,13 @@ namespace ProgressModul
     public class TimeControl
     {
         int _currentTime = 0;
-        public delegate void TimeChangedHandler(int time);
+        public delegate void TimeChangedHandler(int time, int h, int m);
         public event TimeChangedHandler TimeChanged;
 
-        public TimeControl(int currentTime)
-        {
-            this.CurrentTime = currentTime;
-        }
+
+        public int Hours { get; private set; }
+        public int Minutes { get; private set; }
+
 
         public TimeControl(int h, int m)
         {
@@ -19,8 +19,21 @@ namespace ProgressModul
 
         public void SetTimeFormat(int h, int m)
         {
+            Hours = h;
+            Minutes = m;
             float hf = (m + 60 * h) / 60f;
             CurrentTime = (int)(hf / 24f * 1000f);
+
+            if (TimeChanged != null)
+            {
+                TimeChanged(CurrentTime, Hours, Minutes);
+            }
+        }
+
+        public void AddTime(int h, int m)
+        {
+            float hf = (m + 60 * h) / 60f;
+            CurrentTime += (int)(hf / 24f * 1000f);
         }
 
         public void AddTime(int time)
@@ -36,10 +49,6 @@ namespace ProgressModul
                 if (value > 0)
                 {
                     _currentTime = value;
-                    if (TimeChanged != null)
-                    {
-                        TimeChanged(_currentTime);
-                    }
                 }
             }
         }

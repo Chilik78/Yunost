@@ -50,8 +50,6 @@ public class DialogManager : MonoBehaviour
         }
 
         instance = this;
-
-        dialogVariables = ServiceLocator.Get<DialogVariables>();
     }
 
     // Получение объекта 
@@ -62,6 +60,7 @@ public class DialogManager : MonoBehaviour
 
     private void Start()
     {
+        dialogVariables = ServiceLocator.Get<DialogVariables>();
         if (scrollRect == null)
         {
             Debug.LogWarning("ScrollRect не привязан!!!!!!!!!!!!!!!!");

@@ -20,6 +20,9 @@ public class InitSystem : MonoBehaviour
         }
         _instance = this;
         _initServices();
+
+        var visualCue = Instantiate(Resources.Load("VisualCue"));
+        ServiceLocator.Register(visualCue);
     }
 
     public static InitSystem GetInstance() => _instance;
@@ -64,9 +67,6 @@ public class InitSystem : MonoBehaviour
 
         PlayerStats playerStats = ServiceLocator.Get<PlayerStats>();
         player.GetComponent<Movement>().OnMove += _savePositions;
-
-        var visualCue = Instantiate(Resources.Load("VisualCue"));
-        ServiceLocator.Register(visualCue);
 
         GameObject gameSystems = GameObject.Find("GameSystems");
         var barControllers = gameSystems.GetComponents<BarController>();
@@ -118,12 +118,10 @@ public class InitSystem : MonoBehaviour
         gameTimeControl.SideTimeChanged += (int time) => config.SideIGT = time;
 
         TimeControl timeControl = ServiceLocator.Get<TimeControl>();
-        timeControl.TimeChanged += (int time) =>
+        timeControl.TimeChanged += (int time, int h, int m) =>
         {
-            float h = 24 * timeControl.CurrentTime;
-            float m = 60 * (h - Mathf.Floor(h));
-            config.Hours = int.Parse(h.ToString());
-            config.Minutes = int.Parse(m.ToString());
+            config.Hours = h;
+            config.Minutes = m;
         };
     }
 
