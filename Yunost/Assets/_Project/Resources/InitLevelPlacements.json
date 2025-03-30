@@ -1,0 +1,12 @@
+[
+    {
+        "act": "Акт 1",
+        "name": "Start",
+        "npcPlacemnets": [
+            {
+                "name": "Oleg",
+                "mark": "start_game"
+            }
+        ]
+    }
+]

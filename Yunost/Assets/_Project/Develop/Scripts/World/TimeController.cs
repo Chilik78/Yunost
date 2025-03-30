@@ -3,7 +3,7 @@ using ProgressModul;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class DayNight : MonoBehaviour
+public class TimeController : MonoBehaviour
 {
 
     public Text _gameTime; // вывод текста

@@ -2,7 +2,6 @@
 using Player;
 using ProgressModul;
 using System;
-using System.Reflection;
 using UnityEngine;
 
 public class InitSystem : MonoBehaviour
@@ -147,7 +146,7 @@ public class InitSystem : MonoBehaviour
             var player = SystemManager.GetInstance().Player;
             MarkController.GetInstance().ObjectToMark(player.transform, config.PositionMark);
         }
-        catch (Exception e)
+        catch (Exception)
         {
             Debug.Log("Происходит ввод параметров");
         }

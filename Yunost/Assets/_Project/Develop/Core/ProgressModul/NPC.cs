@@ -1,26 +1,37 @@
 
 
+using UnityEngine;
+
 namespace ProgressModul
 {
     public class NPC
     {
-        int _loyalty;
-        int _maxLoayalty;
+        private string _loyaltyKey = "loyalty";
+        private string _maxLoayaltyKey = "max_loyalty";
+        private string _name;
 
-        public NPC(int loyalty, int maxLoayalty = 100)
+        private string _getKey(string key) => key + _name;
+
+        public NPC(string name, int loyalty = 0, int maxLoayalty = 100)
         {
-            _loyalty = loyalty;
-            _maxLoayalty = maxLoayalty;
+            _name = name;
+            PlayerPrefs.SetInt(_getKey(_loyaltyKey), loyalty);
+            PlayerPrefs.SetInt(_getKey(_maxLoayaltyKey), maxLoayalty);
+        }
+
+        public int MaxLoyalty
+        {
+            get => PlayerPrefs.GetInt(_getKey(_maxLoayaltyKey));
         }
 
         public int Loyalty
         {
-            get => _loyalty;
+            get => PlayerPrefs.GetInt(_getKey(_loyaltyKey));
             set
             {
-                if (_loyalty >= 0 && value <= _maxLoayalty)
+                if (value >= 0 && value <= MaxLoyalty)
                 {
-                    _loyalty = value; ;
+                    PlayerPrefs.SetInt(_getKey(_loyaltyKey), value);
                 }
             }
         }
