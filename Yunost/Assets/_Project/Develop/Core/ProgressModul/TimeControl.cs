@@ -1,17 +1,21 @@
 ﻿
+using UnityEngine;
+
 namespace ProgressModul
 {
     public class TimeControl
     {
-        int _currentTime = 0;
+        private string _currentTimeKey = "current_time";
+        private string _hoursKey = "hours";
+        private string _minutesKey = "minutes";
         public delegate void TimeChangedHandler(int time, int h, int m);
         public event TimeChangedHandler TimeChanged;
 
 
-        public int Hours { get; private set; }
-        public int Minutes { get; private set; }
+        public int Hours { get => PlayerPrefs.GetInt(_hoursKey); private set => PlayerPrefs.SetInt(_hoursKey, value); }
+        public int Minutes { get => PlayerPrefs.GetInt(_minutesKey); private set => PlayerPrefs.SetInt(_minutesKey, value); }
 
-
+        public TimeControl() { }
         public TimeControl(int h, int m)
         {
             SetTimeFormat(h, m);
@@ -43,12 +47,12 @@ namespace ProgressModul
 
         public int CurrentTime
         {
-            get => _currentTime;
+            get => PlayerPrefs.GetInt(_currentTimeKey);
             set
             {
                 if (value > 0)
                 {
-                    _currentTime = value;
+                    PlayerPrefs.SetInt(_currentTimeKey, value);
                 }
             }
         }

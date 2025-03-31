@@ -21,7 +21,7 @@ public class InitSystem : MonoBehaviour
             Debug.LogWarning("Íà ñöåíå áîëüøå îäíîãî äèàëîãà");
         }
         _instance = this;
-        _initServices();
+        _initServicesFromConfig();
 
         var visualCue = Instantiate(Resources.Load("VisualCue"));
         ServiceLocator.Register(visualCue);
@@ -39,7 +39,7 @@ public class InitSystem : MonoBehaviour
         ServiceLocator.Unregister<DialogVariables>();
     }
 
-    private void _initServices()
+    private void _initServicesFromConfig()
     {
         TaskObserver taskObserver = new(Resources.Load<TextAsset>("InitTasks").text);
         ListOfItems listOfItems = new();
