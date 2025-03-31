@@ -2,26 +2,37 @@
 using Player;
 using ProgressModul;
 using System;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class InitSystem : MonoBehaviour
 {
-
     [SerializeField] public InitConfig config;
     private InitConfig _copyConfig;
+    private bool _isLoaded;
 
     static private InitSystem _instance;
 
     void Awake()
     {
+        //TODO: Для дебага
+        _isLoaded = false; // PlayerPrefs.GetInt("is_loaded") == 1;
         _copyConfig = Instantiate(config);
         if (_instance != null)
         {
             Debug.LogWarning("Íà ñöåíå áîëüøå îäíîãî äèàëîãà");
         }
         _instance = this;
-        _initServicesFromConfig();
+        Debug.Log(_isLoaded);
+        if(_isLoaded )
+        {
+            _initServicesByLoad();
+            ServiceLocator.Get<SaveLoadSystem>().LoadGame(SaveType.File);
+        }
+        else
+        {
+            _initServicesFromConfig();
+        }
+        
 
         var visualCue = Instantiate(Resources.Load("VisualCue"));
         ServiceLocator.Register(visualCue);
@@ -33,10 +44,40 @@ public class InitSystem : MonoBehaviour
     {
         ServiceLocator.Unregister<TaskObserver>();
         ServiceLocator.Unregister<ListOfItems>();
-        ServiceLocator.Get<PlayerStats>().ClearAllListeners();
         ServiceLocator.Unregister<PlayerStats>();
         ServiceLocator.Unregister<TimeControl>();
         ServiceLocator.Unregister<DialogVariables>();
+        ServiceLocator.Unregister<GameTimeControl>();
+        ServiceLocator.Unregister<UnityEngine.Object>();
+
+        ServiceLocator.Get<SaveLoadSystem>().Clear();
+    }
+
+    private void _initServicesByLoad()
+    {
+        TaskObserver taskObserver = new();
+        ListOfItems listOfItems = new();
+        PlayerStats playerStats = new();
+        GameTimeControl gameTimeControl = new();
+        TimeControl timeControl = new();
+        DialogVariables dialogVariables = new DialogVariables();
+
+        taskObserver.TaskStateChanged += (Task task) => {
+            gameTimeControl.MainTime += 1;
+        };
+
+        var saveLoadSystem = ServiceLocator.Get<SaveLoadSystem>();
+
+        saveLoadSystem.AddToSaveLoad(taskObserver);
+        saveLoadSystem.AddToSaveLoad(listOfItems);
+        saveLoadSystem.AddToSaveLoad(dialogVariables);
+
+        ServiceLocator.Register(taskObserver);
+        ServiceLocator.Register(listOfItems);
+        ServiceLocator.Register(playerStats);
+        ServiceLocator.Register(gameTimeControl);
+        ServiceLocator.Register(timeControl);
+        ServiceLocator.Register(dialogVariables);
     }
 
     private void _initServicesFromConfig()
@@ -52,8 +93,7 @@ public class InitSystem : MonoBehaviour
             gameTimeControl.MainTime += 1;
         };
 
-        SaveLoadSystem saveLoadSystem = new SaveLoadSystem();
-        ServiceLocator.Register(saveLoadSystem);
+        var saveLoadSystem = ServiceLocator.Get<SaveLoadSystem>();
         saveLoadSystem.AddToSaveLoad(taskObserver);
         saveLoadSystem.AddToSaveLoad(listOfItems);
         saveLoadSystem.AddToSaveLoad(dialogVariables);
@@ -68,14 +108,20 @@ public class InitSystem : MonoBehaviour
 
     void Start()
     {
-/*        string path = "MiniGameScreens/QuickTempPressKeyCertainRange";
-        Instantiate(Resources.Load(path), GameObject.Find("minigame_point").transform);*/
         var player = SystemManager.GetInstance().Player;
-        MarkController.GetInstance().ObjectToMark(player.transform, config.PositionMark);
-
         PlayerStats playerStats = ServiceLocator.Get<PlayerStats>();
         player.GetComponent<Movement>().OnMove += _savePositions;
 
+        if (_isLoaded)
+        {
+            player.transform.position = new Vector3(playerStats.X, 0, playerStats.Z);
+            player.transform.rotation = Quaternion.Euler(new Vector3(0, playerStats.RotY, 0));
+        }
+        else
+        {
+            MarkController.GetInstance().ObjectToMark(player.transform, config.PositionMark);
+        }
+       
         GameObject gameSystems = GameObject.Find("GameSystems");
         var barControllers = gameSystems.GetComponents<BarController>();
         foreach (var barController in barControllers)
@@ -113,6 +159,8 @@ public class InitSystem : MonoBehaviour
         config.Hours = _copyConfig.Hours;
         config.Minutes = _copyConfig.Minutes;
         config.NPCSLoyality = _copyConfig.NPCSLoyality;
+
+        UnregisterServices();
     }
 
     private void _savePositions(Vector3 position, Quaternion rotation)

@@ -44,16 +44,16 @@ public class PauseMenuControls : MonoBehaviour
 
     public void BackToMenu()
     {
-        InitSystem.GetInstance().UnregisterServices();
         SceneManager.LoadScene("Menu");
         Resume();
+        
         Debug.Log("Переход к меню отработал");
     }
 
-/*    public void Start()
-    {
-        
-        pauseMenuUI = transform.gameObject;
-        pauseMenuUI.SetActive(false);
-    }*/
+    /*    public void Start()
+        {
+
+            pauseMenuUI = transform.gameObject;
+            pauseMenuUI.SetActive(false);
+        }*/
 }

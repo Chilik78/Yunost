@@ -28,6 +28,8 @@ namespace ProgressModul
             SaveAll(strategy);
         }
 
+        public void Clear() => _componentsIdToSaveObject?.Clear();
+
         /// <summary>
         /// Load game data.
         /// </summary>

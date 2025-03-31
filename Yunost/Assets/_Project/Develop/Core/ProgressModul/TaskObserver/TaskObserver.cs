@@ -1,6 +1,5 @@
 ﻿
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -9,7 +8,7 @@ namespace ProgressModul
 {
     public class TaskObserver : ISaveLoadObject
     {
-        private List<Task> _tasks;
+        private List<Task> _tasks = new List<Task>();
         public delegate void TaskHandler(Task task);
         public delegate void SubTaskListHandler(IEnumerable<SubTask> subTasks);
         public event TaskHandler TaskStateChanged;

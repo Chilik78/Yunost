@@ -1,17 +1,20 @@
 using Global;
 using ProgressModul;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MenuControls : MonoBehaviour
 {
     public void StartGame()
     {
-        ServiceLocator.Get<SaveLoadSystem>().LoadDefault();
+        PlayerPrefs.SetInt("is_loaded", 0);
+        SceneManager.LoadScene(1);
     }
 
     public void LoadGame()
     {
-        ServiceLocator.Get<SaveLoadSystem>().LoadGame(SaveType.File);
+        PlayerPrefs.SetInt("is_loaded", 1);
+        SceneManager.LoadScene(1);
     }
 
     public void SaveGame()

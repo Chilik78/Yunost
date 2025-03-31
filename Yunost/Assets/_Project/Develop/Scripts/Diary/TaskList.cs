@@ -26,12 +26,6 @@ public abstract class TaskList : MonoBehaviour
         UpdateTasksList();
     }
 
-    private void OnDestroy()
-    {
-        ServiceLocator.Get<TaskObserver>().TaskStateChanged -= UpdateOnChangedTask;
-        ServiceLocator.Get<TaskObserver>().HaveNewSubTasks -= UpdateOnChangedSubTasks;
-    }
-
     private void UpdateOnChangedTask(Task task)
     {
         LoadTasks();
