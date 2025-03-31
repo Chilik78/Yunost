@@ -2,17 +2,20 @@
 using Player;
 using ProgressModul;
 using System;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class InitSystem : MonoBehaviour
 {
 
     [SerializeField] public InitConfig config;
+    private InitConfig _copyConfig;
 
     static private InitSystem _instance;
 
     void Awake()
     {
+        _copyConfig = Instantiate(config);
         if (_instance != null)
         {
             Debug.LogWarning("Íà ñöåíå áîëüøå îäíîãî äèàëîãà");
@@ -65,6 +68,8 @@ public class InitSystem : MonoBehaviour
 
     void Start()
     {
+/*        string path = "MiniGameScreens/QuickTempPressKeyCertainRange";
+        Instantiate(Resources.Load(path), GameObject.Find("minigame_point").transform);*/
         var player = SystemManager.GetInstance().Player;
         MarkController.GetInstance().ObjectToMark(player.transform, config.PositionMark);
 
@@ -100,6 +105,14 @@ public class InitSystem : MonoBehaviour
             player.GetComponent<Movement>().OnMove -= _savePositions;
             Destroy(player);
         }
+        config.HP = _copyConfig.HP;
+        config.Act = _copyConfig.Act;
+        config.SideIGT = _copyConfig.SideIGT;
+        config.Stamina = _copyConfig.Stamina;
+        config.MainIGT = _copyConfig.MainIGT;
+        config.Hours = _copyConfig.Hours;
+        config.Minutes = _copyConfig.Minutes;
+        config.NPCSLoyality = _copyConfig.NPCSLoyality;
     }
 
     private void _savePositions(Vector3 position, Quaternion rotation)

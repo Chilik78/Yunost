@@ -1,5 +1,3 @@
-INCLUDE globals.ink
-
 //EXTERNAL startMiniGame()
 //EXTERNAL itemInInventory(item)
 EXTERNAL setDoneTask(idTask)

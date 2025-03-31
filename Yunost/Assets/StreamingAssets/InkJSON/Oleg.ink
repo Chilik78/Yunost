@@ -4,7 +4,7 @@ EXTERNAL setStateTask(taskId, state)
 EXTERNAL setDoneSubTask(taskId, subTaskId)
 EXTERNAL isTaskInProgress(taskId, type)
 EXTERNAL isSubTaskInProgress(taskId, subTaskId)
-EXTERNAL tpSofia()
+EXTERNAL applyPlacement(act, name)
 INCLUDE Quests\Act1\HelpForFriend\Oleg_Act1_HelpForFriend.ink
 INCLUDE Quests\Act1\SweetHome\Oleg_Act1_SweetHome.ink
 INCLUDE Quests\Act1\TeamGame\Oleg_Act1_TeamGame.ink

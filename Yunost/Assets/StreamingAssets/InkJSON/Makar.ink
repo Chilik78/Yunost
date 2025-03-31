@@ -4,8 +4,8 @@ EXTERNAL isTaskInProgress(taskId, type)
 EXTERNAL isSubTaskInProgress(taskId, supTaskId)
 EXTERNAL setStateTask(idTask, status)
 EXTERNAL setDoneSubTask(idTask, idSubTask)
-EXTERNAL tpSofia()
 EXTERNAL getTaskState(idTask)
+EXTERNAL applyPlacement(act, name)
 -> NameQuest
 INCLUDE Quests\Act1\LongRoad\Makar_Act1_LongRoad.ink
 INCLUDE Quests\Act1\TeamGame\Makar_Act1_TeamGame.ink

@@ -4,7 +4,7 @@ EXTERNAL setStateTask(taskId, state)
 EXTERNAL setDoneSubTask(taskId, subTaskId)
 EXTERNAL isTaskInProgress(taskId, type)
 EXTERNAL isSubTaskInProgress(taskId, subTaskId)
-EXTERNAL tpSofia()
+EXTERNAL applyPlacement(act, name)
 -> NameQuest
 INCLUDE Quests\Act1\TeamGame\Lisa_Act1_TeamGame.ink
 

@@ -230,22 +230,9 @@ public class DialogManager : MonoBehaviour
             GameObject.Find("HubHome").GetComponent<SeekItem>().Put();
         });
 
-        currentStory.BindExternalFunction("tpNPC", () =>
+        currentStory.BindExternalFunction("applyPlacement", (string act, string name) =>
         {
-            var makar = GameObject.Find("Makar");
-            var oleg = GameObject.Find("Oleg");
-            var lisa = GameObject.Find("Lisa");
-            var sofa = GameObject.Find("Sofia");
-            GameObject.Find("GameSystems").GetComponent<MarkController>().ObjectToMark(makar.transform, "makar_admin");
-            GameObject.Find("GameSystems").GetComponent<MarkController>().ObjectToMark(oleg.transform, "oleg_admin");
-            GameObject.Find("GameSystems").GetComponent<MarkController>().ObjectToMark(lisa.transform, "lisa_admin");
-            GameObject.Find("GameSystems").GetComponent<MarkController>().ObjectToMark(sofa.transform, "sofa_admin");
-        });
-
-        currentStory.BindExternalFunction("tpSofia", () =>
-        {
-            var sofa = GameObject.Find("Sofia");
-            GameObject.Find("GameSystems").GetComponent<MarkController>().ObjectToMark(sofa.transform, "sofia_fire_main_camp");
+            LevelManager.GetInstance().ApplyPlacement(act, name);
         });
 
         ContinueStory();

@@ -5,7 +5,7 @@ EXTERNAL setDoneSubTask(taskId, subTaskId)
 EXTERNAL isTaskInProgress(taskId, type)
 EXTERNAL isSubTaskInProgress(taskId, subTaskId)
 EXTERNAL tp(objName, id)
-EXTERNAL tpNPC()
+EXTERNAL applyPlacement(act, name)
 -> NameQuest
 
 INCLUDE Quests\Act1\HelpForFriend\HomeDoor_Act1_HelpForFriend.ink

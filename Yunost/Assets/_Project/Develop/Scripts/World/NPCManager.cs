@@ -7,7 +7,7 @@ public class NPCManager : MonoBehaviour
     private Dictionary<string, NPC> _npcsData = new Dictionary<string, NPC>();
     private Dictionary<string, GameObject> _npcsObjects = new Dictionary<string, GameObject>();
 
-    private string[] _npcsNames = new string[5] {
+    [SerializeField] private string[] _npcsNames = new string[5] {
         "Lisa", "Sofia", "Makar", "Oleg", "Director"
     };
 

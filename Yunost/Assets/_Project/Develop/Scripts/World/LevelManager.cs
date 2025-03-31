@@ -56,6 +56,7 @@ public class LevelManager : MonoBehaviour
     private void Awake()
     {
         _initLevelPlacements();
+        _instance = this;
     }
 
     public void ApplyPlacement(string act, string name)

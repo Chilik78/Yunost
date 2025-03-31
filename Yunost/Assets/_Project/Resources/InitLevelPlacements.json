@@ -1,11 +1,33 @@
 [
     {
         "act": "Акт 1",
-        "name": "Start",
+        "name": "team_game",
         "npcPlacemnets": [
             {
+                "name": "Lisa",
+                "mark": "lisa_admin"
+            },
+            {
+                "name": "Sofia",
+                "mark": "sofia_admin"
+            },
+            {
+                "name": "Makar",
+                "mark": "makar_admin"
+            },
+            {
                 "name": "Oleg",
-                "mark": "start_game"
+                "mark": "oleg_admin"
+            }
+        ]
+    },
+    {
+        "act": "Акт 1",
+        "name": "fire_main_camp",
+        "npcPlacemnets": [
+            {
+                "name": "Sofia",
+                "mark": "sofia_fire_main_camp"
             }
         ]
     }

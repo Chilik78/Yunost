@@ -3,7 +3,7 @@
 + {isSubTaskInProgress("team_game", "leave_house")} [Выйти из Дома №1] 
 ~setDoneSubTask("team_game", "leave_house")
 ~tp("Player", "near_hub_home")
-~tpNPC()
+~applyPlacement("Акт 1", "team_game")
 -> END
 + {isSubTaskInProgress("team_game", "go_to_bed_night")} [Войти в Дом №1] 
 ~tp("Player", "start_hub_home")

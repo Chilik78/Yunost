@@ -5,6 +5,7 @@ namespace ProgressModul
     [CreateAssetMenu(fileName = "InitConfig", menuName = "InitConfig")]
     public class InitConfig : ScriptableObject
     {
+
         //Инициализационные параметры
         [SerializeField] private int _hp = 100;
         [SerializeField] private int _stamina = 100;
