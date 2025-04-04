@@ -115,15 +115,15 @@
             ]
         },
         {
-            "id": "team_game",
-            "name": "Командная игра",
+            "id": "meeting",
+            "name": "Собрание",
             "flow": "1",
             "state": 0,
             "type": 0,
             "startTime": 3,
             "deadTime": 4,
             "subTasks": [
-                {
+            	{
                     "id": "leave_house",
                     "description": "Покинуть Дом №1",
                     "flow": "1"
@@ -133,43 +133,106 @@
                     "description": "Поговорить с вожатыми у Администрации",
                     "flow": "1",
                     "stackIndex": 1
-                },
+                }
+            ]
+        },
+        {
+            "id": "treasure_hunt",
+            "name": "Поиск сокровищ",
+            "flow": "1",
+            "state": 0,
+            "type": 0,
+            "startTime": 4,
+            "deadTime": 5,
+            "subTasks": [
                 {
                     "id": "meet_sofia",
                     "description": "Обсудить план действий с Софией на поляне у костра",
                     "flow": "1",
-                    "stackIndex": 2
                 },    
                 {
                     "id": "search_shovel",
                     "description": "Взять лопату и поговорить с Софией",
                     "flow": "1",
-                    "stackIndex": 3
+                    "stackIndex": 1
                 }, 
                 {
                     "id": "digging",
                     "description": "Выкопать ямы в местах с Красными Флажками",
                     "flow": "1",
-                    "stackIndex": 4,
+                    "stackIndex": 2,
                     "finalCount": 3
                 },
                 {
                     "id": "result_talk_sofia",
                     "description": "Обсудить результаты с Софией",
                     "flow": "1",
-                    "stackIndex": 5
+                    "stackIndex": 3
                 },
                 {
                     "id": "go_to_bed_night",
                     "description": "Лечь спать",
                     "flow": "1",
-                    "stackIndex": 6
+                    "stackIndex": 4
                 },
                 {
                     "id": "act1",
                     "description": "Поздравляем, вы прошли Акт-1",
                     "flow": "1",
-                    "stackIndex": 7
+                    "stackIndex": 5
+                }
+            ]
+        },
+        {
+            "id": "fishing",
+            "name": "Рыбалка",
+            "flow": "1",
+            "state": 0,
+            "type": 0,
+            "startTime": 4,
+            "deadTime": 5,
+            "subTasks": [
+                {
+                    "id": "meet_oleg_fishing",
+                    "description": "Обсудить план действий с Олегом у Пристани",
+                    "flow": "1",
+                },    
+                {
+                    "id": "search_fishing_rod",
+                    "description": "Взять Удочку и Приманку в Рыболовной хижине",
+                    "flow": "1",
+                    "stackIndex": 1
+                }, 
+                {
+                    "id": "go_to_fishing",
+                    "description": "Отправиться рыбачить с Олегом",
+                    "flow": "1",
+                    "stackIndex": 2,
+                    "finalCount": 3
+                },
+                {
+                    "id": "fishing_at_beach",
+                    "description": "Попробовать поймать рыбу с Пристани",
+                    "flow": "1",
+                    "stackIndex": 3
+                },
+                {
+                    "id": "result_talk_oleg",
+                    "description": "Подвести итоги с Олегом",
+                    "flow": "1",
+                    "stackIndex": 4
+                },
+                {
+                    "id": "go_to_bed_night_fishing",
+                    "description": "Лечь спать",
+                    "flow": "1",
+                    "stackIndex": 5
+                },
+                {
+                    "id": "act1_fishing",
+                    "description": "Поздравляем, вы прошли Акт-1",
+                    "flow": "1",
+                    "stackIndex": 6
                 }
             ]
         }

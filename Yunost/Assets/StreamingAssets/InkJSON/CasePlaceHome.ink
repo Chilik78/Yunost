@@ -8,11 +8,12 @@ EXTERNAL isSubTaskInProgress(taskId, subTaskId)
 EXTERNAL putItem()
 -> NameQuest
 INCLUDE Quests\Act1\SweetHome\CasePlaceHome_Act1_SweetHome.ink
-INCLUDE Quests\Act1\TeamGame\CasePlaceHome_Act1_TeamGame.ink
+INCLUDE Quests\Act1\Fishing\CasePlaceHome_Act1_Fishing.ink
 
 == NameQuest
 { 
 - isTaskInProgress("sweet_home", 0): -> Act1_SweetHome
-- isTaskInProgress("team_game", 0): -> Act1_TeamGame
+- isTaskInProgress("fishing", 0): -> Act1_TreasureHunt_Fishing
+- isTaskInProgress("treasure_hunt", 0): -> Act1_TreasureHunt_Fishing
 } 
 -> END

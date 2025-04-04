@@ -1,7 +1,7 @@
 [
     {
         "act": "Акт 1",
-        "name": "team_game",
+        "name": "meeting_admin",
         "npcPlacemnets": [
             {
                 "name": "Lisa",
@@ -23,12 +23,23 @@
     },
     {
         "act": "Акт 1",
-        "name": "fire_main_camp",
+        "name": "sofia_treasure_hunt_fire",
         "npcPlacemnets": [
             {
                 "name": "Sofia",
                 "mark": "sofia_fire_main_camp"
             }
         ]
+    },
+    {
+        "act": "Акт 1",
+        "name": "oleg_fishing_pier",
+        "npcPlacemnets": [
+            {
+                "name": "Oleg",
+                "mark": "oleg_pier_forest_area"
+            }
+        ]
     }
+
 ]

@@ -8,11 +8,14 @@ EXTERNAL getTaskState(idTask)
 EXTERNAL applyPlacement(act, name)
 -> NameQuest
 INCLUDE Quests\Act1\LongRoad\Makar_Act1_LongRoad.ink
-INCLUDE Quests\Act1\TeamGame\Makar_Act1_TeamGame.ink
+INCLUDE Quests\Act1\Meeting\Makar_Act1_Meeting.ink
 
 == NameQuest
 { 
 - isTaskInProgress("long_road", 0): -> Act1_LongRoad
-- isTaskInProgress("team_game", 0): -> Act1_TeamGame
+- isTaskInProgress("meeting", 0) or isTaskInProgress("treasure_hunt", 0): -> Act1_Meeting
+- else: 
+Видимо, с Макаром сейчас не о чем поговорить.
++ [*Уйти*] -> END
 } 
 -> END

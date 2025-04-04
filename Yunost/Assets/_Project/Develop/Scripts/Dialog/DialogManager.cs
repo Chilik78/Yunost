@@ -185,6 +185,7 @@ public class DialogManager : MonoBehaviour
         });
 
         // Смена выполнение задания
+        // 0 - 
         currentStory.BindExternalFunction("setStateTask", (string taskId, int state) => {
             ServiceLocator.Get<TaskObserver>().SetTaskStateById(taskId, (TaskState)state);
         });

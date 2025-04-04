@@ -51,9 +51,13 @@ VAR repeatTalkOleg = false
 
 // Director
 VAR hitDoorTalk = false
+VAR passedOleg = false
 
 // HomeDoor
 VAR homeDoorOpened = false
+
+// ResultMiniGames
+VAR act1Fishing = false
 
 
 
