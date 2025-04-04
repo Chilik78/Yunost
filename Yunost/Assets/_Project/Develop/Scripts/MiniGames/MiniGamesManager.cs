@@ -61,7 +61,7 @@ namespace MiniGames
             
             switch (context.TypeMiniGame)
             {
-                case TypesMiniGames.HoldingObjectInRange: break;
+                case TypesMiniGames.HoldingObjectInRange: path += "HoldingObjectInRange"; break;
                 case TypesMiniGames.AdvancePathEachStage: break;
                 case TypesMiniGames.QuickPressKeyCertainTime: break;
                 case TypesMiniGames.GameWolfConsole: break;
