@@ -6,7 +6,7 @@ EXTERNAL setDoneSubTask(taskId, subTaskId)
 EXTERNAL isTaskInProgress(taskId, type)
 EXTERNAL isSubTaskInProgress(taskId, subTaskId)
 EXTERNAL changeTime(h, m)
-EXTERNAL startMiniGameDigging()
+EXTERNAL startMiniGame(idMiniGame, idDifficulty)
 -> NameQuest
 INCLUDE Quests\Act1\TreasureHunt\DiggingPlace_Act1_TreasureHunt.ink
 

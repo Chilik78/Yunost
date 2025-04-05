@@ -1,7 +1,7 @@
 
 == Act1_TreasureHunt_Fishing
 {
-- isSubTaskInProgress("fishing", "go_to_bed_night"): -> Act1_Fishing
+- isSubTaskInProgress("fishing", "go_to_bed_night_fishing"): -> Act1_Fishing
 - isSubTaskInProgress("treasure_hunt", "go_to_bed_night"): -> Act1_TreasureHunt
 }
 
@@ -14,7 +14,7 @@
 
 == Act1_Fishing
 + [Лечь cпать] 
-~setDoneSubTask("fishing", "go_to_bed_night")
+~setDoneSubTask("fishing", "go_to_bed_night_fishing")
 -> END
 + [Осмотреть кровать] -> Act1_TreasureHunt_Fishing_CheckBed
 + [*Уйти*] -> END

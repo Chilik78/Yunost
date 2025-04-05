@@ -7,6 +7,7 @@ using UnityEngine.UI;
 using MiniGames;
 using Global;
 using ProgressModul;
+using UnityEngine.Android;
 
 
 public class DialogManager : MonoBehaviour
@@ -65,13 +66,13 @@ public class DialogManager : MonoBehaviour
         {
             Debug.LogWarning("ScrollRect не привязан!!!!!!!!!!!!!!!!");
         }
-        
+
         // Добавление прослушки на кнопки выбора
         foreach (GameObject choice in choices)
         {
             choice.GetComponent<Button>().onClick.AddListener(() => ContinueStory());
         }
-        
+
         // Игрок вне диалога
         dialogIsPlaying = false;
 
@@ -145,7 +146,7 @@ public class DialogManager : MonoBehaviour
         dialogIsPlaying = true;
         dialoguePanel.SetActive(true);
 
-        
+
         if (scrollRect != null)
         {
             Canvas.ForceUpdateCanvases(); // Обновляем канвас перед изменением прокрутки
@@ -157,23 +158,19 @@ public class DialogManager : MonoBehaviour
         // Начало прослушивания изменения Ink переменных
         dialogVariables.StartListening(currentStory);
 
+        // Проверка на наличие предмета в инвентаре
         currentStory.BindExternalFunction("itemIsExist", (string item) => {
             bool isExist = ServiceLocator.Get<ListOfItems>().ItemExists(item);
             return isExist;
         });
 
-        // Старт Мини игры   
-        currentStory.BindExternalFunction("startMiniGame", () => {
-            MiniGameContext testContext = new MiniGameContext(TypesMiniGames.BreakingLock, TypeDifficultMiniGames.Easy, 5);
-            GameObject.Find("GameSystems").GetComponent<MiniGamesManager>().RunMiniGame(testContext);
-        });
-
-        // Старт Мини игры   
-        currentStory.BindExternalFunction("startMiniGameDigging", () => {
-            MiniGameContext testContext = new MiniGameContext(TypesMiniGames.QuickTempPressKeyCertainRange, TypeDifficultMiniGames.Easy, 0);
-            Debug.LogWarning("MG in bind");
-            GameObject.Find("GameSystems").GetComponent<MiniGamesManager>().RunMiniGame(testContext);
+        // Запуск мини игр
+        currentStory.BindExternalFunction("startMiniGame", (int indexMiniGame, int indexDifficulty) => {
+            MiniGameContext testContext = new MiniGameContext(ChoiceMiniGame(indexMiniGame), ChoiceDifficultyMiniGame(indexDifficulty), 5);
             
+            // TODO: Возвращаемое значение "Результат прохождения мини-игры" 
+            
+            GameObject.Find("GameSystems").GetComponent<MiniGamesManager>().RunMiniGame(testContext);
         });
 
         // Проверка на наличие предмета в инвентаре
@@ -184,28 +181,27 @@ public class DialogManager : MonoBehaviour
             ClearText();
         });
 
-        // Смена выполнение задания
-        // 0 - 
+        // Изменение статуса задания
         currentStory.BindExternalFunction("setStateTask", (string taskId, int state) => {
             ServiceLocator.Get<TaskObserver>().SetTaskStateById(taskId, (TaskState)state);
         });
 
-        // Смена выполнение подзадания
+        // Изменение статуса подзадания
         currentStory.BindExternalFunction("setDoneSubTask", (string taskId, string subTaskId) => {
             ServiceLocator.Get<TaskObserver>().SetDoneSubTaskById(taskId, subTaskId);
         });
 
-        // Проверка наличия таска в выполнении
+        // Проверка наличия задания в выполнении
         currentStory.BindExternalFunction("isTaskInProgress", (string taskId, int type) => {
             return ServiceLocator.Get<TaskObserver>().IsTaskInProgress(taskId, (TaskType)type);
         });
 
-        // Проверка наличия сабтаска в выполнении
+        // Проверка наличия подзадания в выполнении
         currentStory.BindExternalFunction("isSubTaskInProgress", (string taskId, string subTaskId) => {
-           return ServiceLocator.Get<TaskObserver>().IsSubTaskInProgress(taskId, subTaskId);
+            return ServiceLocator.Get<TaskObserver>().IsSubTaskInProgress(taskId, subTaskId);
         });
 
-        // Получение статуса таска
+        // Получение статуса задания
         currentStory.BindExternalFunction("getTaskState", (string taskId) => {
             return (int)ServiceLocator.Get<TaskObserver>().GetTaskState(taskId);
         });
@@ -215,6 +211,7 @@ public class DialogManager : MonoBehaviour
             ServiceLocator.Get<PlayerStats>().HitHealth(value);
         });
 
+        // Изменение позиции игрока
         currentStory.BindExternalFunction("tp", (string objName, string id) =>
         {
             var obj = GameObject.Find(objName);
@@ -226,11 +223,13 @@ public class DialogManager : MonoBehaviour
             ServiceLocator.Get<TimeControl>().SetTimeFormat(h, m);
         });
 
+        // Помещение предмета из инвентаря на игровую сцена
         currentStory.BindExternalFunction("putItem", () =>
         {
             GameObject.Find("HubHome").GetComponent<SeekItem>().Put();
         });
 
+        // Изменение позиции игровых персонажей
         currentStory.BindExternalFunction("applyPlacement", (string act, string name) =>
         {
             LevelManager.GetInstance().ApplyPlacement(act, name);
@@ -514,6 +513,36 @@ public class DialogManager : MonoBehaviour
             Debug.LogWarning("Ink Variable = null: " + variableName);
         }
         return variableValue;
+    }
+
+    // Функция для определения типа мини-игры и сложности
+    private TypesMiniGames ChoiceMiniGame(int indexMiniGame)
+    {
+        switch (indexMiniGame) 
+        {
+            case 0: return TypesMiniGames.HoldingObjectInRange;
+            case 1: return TypesMiniGames.AdvancePathEachStage;
+            case 2: return TypesMiniGames.QuickPressKeyCertainTime;
+            case 3: return TypesMiniGames.GameWolfConsole;
+            case 4: return TypesMiniGames.QuickTempPressKeyCertainRange;
+            case 5: return TypesMiniGames.ConnectElements;
+            case 6: return TypesMiniGames.ReachEndPointWithObstacles;
+            case 7: return TypesMiniGames.BreakingLock;
+            default:
+                return TypesMiniGames.BreakingLock;
+        }
+    }
+
+    // Функция для опреденения сложности мини-игры
+    private TypeDifficultMiniGames ChoiceDifficultyMiniGame(int indexDifficulty)
+    {
+        switch (indexDifficulty)
+        {
+            case 0: return TypeDifficultMiniGames.Easy;
+            case 1: return TypeDifficultMiniGames.Medium;
+            case 2: return TypeDifficultMiniGames.Hard;
+            default: return TypeDifficultMiniGames.Easy;
+        }
     }
 
 

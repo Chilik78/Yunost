@@ -1,6 +1,6 @@
 INCLUDE globals.ink
 EXTERNAL hitHealth(value)
-EXTERNAL startMiniGame()
+EXTERNAL startMiniGame(idMiniGame, idDifficulty)
 EXTERNAL itemIsExist(item)
 EXTERNAL setStateTask(taskId, state)
 EXTERNAL setDoneSubTask(taskId, subTaskId)

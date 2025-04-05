@@ -5,7 +5,7 @@
 {isSubTaskInProgress("treasure_hunt", "digging"):
 ~setDoneSubTask("treasure_hunt", "digging")
 }
-~startMiniGameDigging()
+~startMiniGame(4, 1)
 -> Act1_TreasureHunt_Result
 + [*Уйти*] -> END
 

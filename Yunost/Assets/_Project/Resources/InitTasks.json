@@ -208,13 +208,13 @@
                     "description": "Отправиться рыбачить с Олегом",
                     "flow": "1",
                     "stackIndex": 2,
-                    "finalCount": 3
                 },
                 {
                     "id": "fishing_at_beach",
                     "description": "Попробовать поймать рыбу с Пристани",
                     "flow": "1",
-                    "stackIndex": 3
+                    "stackIndex": 3,
+                    "finalCount": 3
                 },
                 {
                     "id": "result_talk_oleg",

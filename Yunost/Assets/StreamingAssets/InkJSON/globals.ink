@@ -56,8 +56,18 @@ VAR passedOleg = false
 // HomeDoor
 VAR homeDoorOpened = false
 
+/// Fishing
+
+// Oleg
+VAR isTalkingDiscussionFishing = false
+
+// DifficultyMiniGames
+VAR difficultyFishing = 0
+
 // ResultMiniGames
 VAR act1Fishing = false
+
+
 
 
 

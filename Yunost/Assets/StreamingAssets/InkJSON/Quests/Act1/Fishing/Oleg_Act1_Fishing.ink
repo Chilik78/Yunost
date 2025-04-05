@@ -1,9 +1,8 @@
-VAR isTalkingDiscussion = false
 
 == Act1_Fishing
 Олег: *Олег с довольным видом наблюдает за течением реки*
 + {isSubTaskInProgress("fishing", "meet_oleg_fishing")} [Каков наш план действий?] -> Act1_Fishing_TalkOleg
-+ {isTalkingDiscussion == false} [Как у тебя дела?] -> Act1_Fishing_Discussion
++ {isTalkingDiscussionFishing == false} [Как у тебя дела?] -> Act1_Fishing_Discussion
 + {itemIsExist("Bait") && itemIsExist("FishingRod") && isSubTaskInProgress("fishing", "go_to_fishing")} [Приступим к рыбалке.] -> Act1_Fishing_ChoiceDifficulty
 + {isSubTaskInProgress("fishing", "result_talk_oleg")} [Думаю, порыбачили мы неплохо.] -> Act1_Fishing_ResultTalk
 + [Закончить разговор]
@@ -25,23 +24,23 @@ VAR isTalkingDiscussion = false
 
 == Act1_Fishing_EasyDifficulty
 Вы: А...э...хмм.
-Олег: *С недопониманием смотрит на вас* Пока не попробуешь - не поймёшь. Надеюсь, у тебя как обычно перед глазами возникнет воображаемое окно обучения. Дерзай!
+Олег: *С недопониманием смотрит на вас* Пока не попробуешь - не поймёшь. Надеюсь, у тебя как обычно перед глазами возникнет воображаемое окно обучения. Забросим Удочку с 3-х рыболовных мест. Я их отметил Красными флажками.
 + [*Крайне убедительно кивнуть головой*]
-TODO: Выставить настройку мини-игры на лёгкую
-~setDoneSubTask("fishing", "fishing_at_beach")
+~difficultyFishing = 0
+~setDoneSubTask("fishing", "go_to_fishing")
 -> END
 
 == Act1_Fishing_MediumDifficulty
 Вы: Проще не бывает.
-Олег: Отлично, в таком случае начнём забрасывать Удочку с пристани. 
-+ [Поехали!]
-TODO: Выставить настройку мини-игры на среднюю
-~setDoneSubTask("fishing", "fishing_at_beach")
+Олег: Отлично, в таком случае начнём забрасывать Удочку с 3-х рыболовных мест. Я их отметил Красными флажками.
++ [Приступаем!]
+~difficultyFishing = 1
+~setDoneSubTask("fishing", "go_to_fishing")
 -> END
 
 == Act1_Fishing_Discussion
 Вы: Как у тебя дела?
-~isTalkingDiscussion = true
+~isTalkingDiscussionFishing = true
 { hitDoor == true:
     Олег: Если честно, могло бы быть и лучше. Всё-таки не стоило нам выбивать Дверь моего Домика. Анатолий Степанович был не в себе от злости, когда я с ним встретился. Но, что есть, то есть. Я всё равно благодарен тебе за помощь.
     + [Ты прав, не стоило нам выбивать дверь.] -> Act1_HelpForFriend
