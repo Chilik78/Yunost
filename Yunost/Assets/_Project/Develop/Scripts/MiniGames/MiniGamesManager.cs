@@ -31,7 +31,6 @@ namespace MiniGames
 
         public void RunMiniGame(MiniGameContext context)
         {
-            Debug.LogWarning("MG in RunMiniGame");
             SystemManager.GetInstance().SetSystemsToMiniGame(false);   
 
             ChooseMiniGame(context);
@@ -49,7 +48,7 @@ namespace MiniGames
                 case TypesMiniGames.GameWolfConsole: break;
                 case TypesMiniGames.QuickTempPressKeyCertainRange: _currGame = new QuickTempPressKeyCertainRangeMiniGame(); break;
                 case TypesMiniGames.ConnectElements: break;
-                case TypesMiniGames.ReachEndPointWithObstacles: break;
+                case TypesMiniGames.ReachEndPointWithObstacles: _currGame = new ReachEndPointWithObstaclesMiniGame(); break;
                 case TypesMiniGames.BreakingLock: _currGame = new BreakingLockMiniGame(); break;
                 default: break;
             }
@@ -67,7 +66,7 @@ namespace MiniGames
                 case TypesMiniGames.GameWolfConsole: break;
                 case TypesMiniGames.QuickTempPressKeyCertainRange: path += "QuickTempPressKeyCertainRange"; break;
                 case TypesMiniGames.ConnectElements: break;
-                case TypesMiniGames.ReachEndPointWithObstacles: break;
+                case TypesMiniGames.ReachEndPointWithObstacles: path += "ReachEndPointWithObstacles"; break;
                 case TypesMiniGames.BreakingLock: path += "BreakingLock"; break;
                 default: break;
             }

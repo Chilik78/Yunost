@@ -8,6 +8,10 @@ TagManager:
   - Iteract
   - Item
   - Mark
+  - MiniGame ReachEndPointWithObstacles Border
+  - MiniGame ReachEndPointWithObstacles Obstacle
+  - MiniGame ReachEndPointWithObstacles Dangerous Obstacle
+  - MiniGame ReachEndPointWithObstacles Endpoint
   layers:
   - Default
   - TransparentFX
