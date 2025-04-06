@@ -31,10 +31,10 @@ namespace MiniGames
 
         public void RunMiniGame(MiniGameContext context)
         {
-            SystemManager.GetInstance().SetSystemsToMiniGame(false);   
+            //SystemManager.GetInstance().SetSystemsToMiniGame(false);   
 
             ChooseMiniGame(context);
-            _screen = Instantiate(GetScreen(context));
+            //_screen = Instantiate(GetScreen(context));
             Run(context);
         }
 
@@ -48,7 +48,7 @@ namespace MiniGames
                 case TypesMiniGames.GameWolfConsole: break;
                 case TypesMiniGames.QuickTempPressKeyCertainRange: _currGame = new QuickTempPressKeyCertainRangeMiniGame(); break;
                 case TypesMiniGames.ConnectElements: break;
-                case TypesMiniGames.ReachEndPointWithObstacles: break;
+                case TypesMiniGames.ReachEndPointWithObstacles: _currGame = new ReachEndPointWithObstaclesMiniGame(); break;
                 case TypesMiniGames.BreakingLock: _currGame = new BreakingLockMiniGame(); break;
                 default: break;
             }
@@ -102,20 +102,20 @@ namespace MiniGames
         private void OnMiniGameEnd(MiniGameResultInfo resultInfo)
         {
             _currGame.OnMiniGameEnd -= OnMiniGameEnd;
-            SystemManager.GetInstance().SetSystemsToMiniGame(true);
+            //SystemManager.GetInstance().SetSystemsToMiniGame(true);
 
             MiniGameEnd?.Invoke(resultInfo);
 
             if (resultInfo.getResultMiniGame == TypeResultMiniGames.Failed)
             {
-                Debug.LogError($"Проигрыш | Кол-во предметов, которые нужно забрать: {resultInfo.getNumLostItems}");
+                Debug.Log($"Проигрыш | Кол-во предметов, которые нужно забрать: {resultInfo.getNumLostItems}");
             }
             else
             {
                 Debug.Log($"Выигрыш | Кол-во предметов, которые нужно забрать: {resultInfo.getNumLostItems}");
             }
 
-            Destroy(_screen);
+            //Destroy(_screen);
             _currGame = null;
         }
     }
