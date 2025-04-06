@@ -108,6 +108,8 @@ GameObject:
   - component: {fileID: 6361332951872342858}
   - component: {fileID: 4727606512984066118}
   - component: {fileID: 4317164555139511974}
+  - component: {fileID: 3343836364214567136}
+  - component: {fileID: 7648962497695323928}
   m_Layer: 0
   m_Name: Director
   m_TagString: NPC
@@ -123,7 +125,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 465920752121391430}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0.9974856, z: -0, w: 0.07087033}
+  m_LocalRotation: {x: 0, y: -0.9974855, z: 0, w: 0.070870765}
   m_LocalPosition: {x: 0, y: -6.484355, z: 0}
   m_LocalScale: {x: 3, y: 3, z: 3}
   m_ConstrainProportionsScale: 0
@@ -132,7 +134,7 @@ Transform:
   - {fileID: 2694110579342114997}
   - {fileID: 5060231823898329984}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -171.872, z: 0}
 --- !u!95 &6361332951872342858
 Animator:
   serializedVersion: 7
@@ -205,6 +207,41 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 122
   m_CollisionDetection: 0
+--- !u!65 &3343836364214567136
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 465920752121391430}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 4, y: 4, z: 4}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &7648962497695323928
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 465920752121391430}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4652c102b204c8b4c8d98cd9dae3f388, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _shiftByY: 7
+  _jsonPath: Director
 --- !u!1 &491114883679129917
 GameObject:
   m_ObjectHideFlags: 0

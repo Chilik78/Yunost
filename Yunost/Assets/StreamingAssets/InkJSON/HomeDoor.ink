@@ -1,20 +1,22 @@
 INCLUDE globals.ink
 EXTERNAL itemIsExist(item)
-EXTERNAL setDoneTask(idTask)
-EXTERNAL setDoneSubTask(idTask, idSubTask)
-EXTERNAL changeScene(nameScene)
-EXTERNAL changeSceneWithTp(nameScene, id)
-EXTERNAL tpNPC()
+EXTERNAL setStateTask(taskId, state)
+EXTERNAL setDoneSubTask(taskId, subTaskId)
+EXTERNAL isTaskInProgress(taskId, type)
+EXTERNAL isSubTaskInProgress(taskId, subTaskId)
+EXTERNAL tp(objName, id)
+EXTERNAL applyPlacement(act, name)
 -> NameQuest
+
 INCLUDE Quests\Act1\HelpForFriend\HomeDoor_Act1_HelpForFriend.ink
 INCLUDE Quests\Act1\SweetHome\HomeDoor_Act1_SweetHome.ink
-INCLUDE Quests\Act1\TeamGame\HomeDoor_Act1_TeamGame.ink
+INCLUDE Quests\Act1\Fishing\HomeDoor_Act1_TreasureHunt_Fishing.ink
 
 == NameQuest
 { 
-- CurrentQuest == "help_for_friend": -> Act1_HelpForFriend
-- CurrentQuest == "sweet_home": -> Act1_SweetHome
-- CurrentQuest == "team_game": -> Act1_TeamGame
+- isTaskInProgress("help_for_friend", 0): -> Act1_HelpForFriend
+- isTaskInProgress("sweet_home", 0): -> Act1_SweetHome
+- isTaskInProgress("meeting", 0) or isTaskInProgress("treasure_hunt", 0) or isTaskInProgress("fishing", 0): -> Act1_TreasureHunt_Fishing
 } 
 -> END
 
@@ -27,7 +29,6 @@ INCLUDE Quests\Act1\TeamGame\HomeDoor_Act1_TeamGame.ink
     {Дверь_Открыта == "Да":
         + [Зайти в дом]
         //~setDoneSubTask("3", "3")
-        //~changeScene("MyHome")
         -> END
     }
     {Ключ_Подобран == true: 

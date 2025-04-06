@@ -14,7 +14,7 @@ public class BarController : MonoBehaviour
     public Image bar;
     public BarType type;
 
-    void Start()
+    public void Init()
     {
         var playerStats = ServiceLocator.Get<PlayerStats>();
 
@@ -32,11 +32,6 @@ public class BarController : MonoBehaviour
                 bar.fillAmount = 0;
                 break;
         }
-    }
-
-    private void OnDestroy()
-    {
-        if (type == BarType.Health) ServiceLocator.Get<PlayerStats>().ClearAllListeners();
     }
 
     void setFill(PlayerStats playerStats)

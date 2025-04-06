@@ -1,5 +1,6 @@
 using MiniGames.QuickTempPressKeyCertainRange;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace MiniGames
@@ -93,7 +94,8 @@ namespace MiniGames
 
         private void DrawCircle()
         {
-            CircleDrawer circleDrawer = GameObject.Find("Circle").GetComponent<CircleDrawer>();
+            GameObject circle = GameObject.Find("Circle");
+            CircleDrawer circleDrawer = circle.GetComponent<CircleDrawer>();
             circleDrawer.DrawCirle();
         }
 

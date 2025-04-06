@@ -17,7 +17,7 @@ namespace MiniGames
         private BorderGenerator _borderGenerator;
         private PlayerController _playerController;
         private EndPointController _endpointController;
-        private TimeController _timeController;
+        private TimeControllerMiniGame _timeController;
         private CheckBoxController _checkBoxController;
 
         private const float _speedPlayer = 30f;
@@ -78,7 +78,7 @@ namespace MiniGames
             _borderGenerator = mapMiniGame.GetComponent<BorderGenerator>();
             _playerController = GameObject.Find("Player MiniGame").GetComponent<PlayerController>();
             _endpointController = GameObject.Find("EndPoint MiniGame").GetComponent<EndPointController>();
-            _timeController = GameObject.Find("Time Indicator MiniGame").GetComponent<TimeController>();
+            _timeController = GameObject.Find("Time Indicator MiniGame").GetComponent<TimeControllerMiniGame>();
             _checkBoxController = GameObject.Find("CheckBoxes MiniGame").GetComponent<CheckBoxController>();
         }
 
@@ -108,8 +108,7 @@ namespace MiniGames
 
         private void OnTimeEnd()
         {
-            // TODO: Потом Расскоментить
-            //FinishGame(new MiniGameResultInfo(TypeResultMiniGames.Failed, 0));
+            FinishGame(new MiniGameResultInfo(TypeResultMiniGames.Failed, 0));
         }
 
         protected override void BuildUI()

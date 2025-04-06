@@ -8,6 +8,8 @@ public class SystemManager : MonoBehaviour
     private GameObject _gameSystems, _player, _mainCamera, _canvases, _sun, _hubCamera;
     public MiniGamesManager MiniGamesManager { get; set; }
 
+    public GameObject Player => _player;
+
     void Awake()
     {
         if (_instance != null)
@@ -15,11 +17,12 @@ public class SystemManager : MonoBehaviour
             Debug.LogWarning("Íà ñöåíå áîëüøå îäíîãî äèàëîãà");
         }
         _instance = this;
+        _getLinks();
     }
 
     public static SystemManager GetInstance() => _instance;
 
-    void Start()
+    private void _getLinks()
     {
         _gameSystems = this.gameObject;
         _player = GameObject.FindGameObjectWithTag("Player");
@@ -58,6 +61,7 @@ public class SystemManager : MonoBehaviour
 
     public void SetHubCamera(bool state)
     {
+        Debug.LogWarning(_hubCamera);
         if (_hubCamera == null) return;
         _hubCamera.SetActive(state);
     }

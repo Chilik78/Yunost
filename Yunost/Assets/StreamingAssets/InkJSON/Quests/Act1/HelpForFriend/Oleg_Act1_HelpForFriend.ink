@@ -1,11 +1,11 @@
 
 == Act1_HelpForFriend
-{CurrentSubquest == "talk_oleg": -> Act1_HelpForFriend_TalkOleg}
-{CurrentSubquest == "check_door": -> Act1_HelpForFriend_RepeatCheckDoor}
-{CurrentSubquest == "search_tools" && repeatTalkSearchTools == false: -> Act1_HelpForFriend_SearchTools}
-{CurrentSubquest == "search_tools" && repeatTalkSearchTools == true: -> Act1_HelpForFriend_RepeatSearchTools}
-{CurrentSubquest == "open_door" && screwdriverExist == true && picklockExist == true: -> Act1_HelpForFriend_OpenDoor}
-{CurrentSubquest == "talk_result": -> Act1_HelpForFriend_TalkResult}
+{isSubTaskInProgress("help_for_friend","talk_oleg"): -> Act1_HelpForFriend_TalkOleg}
+{isSubTaskInProgress("help_for_friend","check_door"): -> Act1_HelpForFriend_RepeatCheckDoor}
+{isSubTaskInProgress("help_for_friend","search_tools") && repeatTalkSearchTools == false: -> Act1_HelpForFriend_SearchTools}
+{isSubTaskInProgress("help_for_friend","search_tools") && repeatTalkSearchTools == true: -> Act1_HelpForFriend_RepeatSearchTools}
+{isSubTaskInProgress("help_for_friend","open_door") && screwdriverExist == true && picklockExist == true: -> Act1_HelpForFriend_OpenDoor}
+{isSubTaskInProgress("help_for_friend","talk_result"): -> Act1_HelpForFriend_TalkResult}
 -> END
 
 == Act1_HelpForFriend_TalkOleg

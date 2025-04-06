@@ -1,14 +1,17 @@
 INCLUDE globals.ink
 EXTERNAL itemIsExist(item)
-EXTERNAL setDoneTask(idTask)
-EXTERNAL setDoneSubTask(idTask, idSubTask)
-EXTERNAL tpSofia()
+EXTERNAL setStateTask(taskId, state)
+EXTERNAL setDoneSubTask(taskId, subTaskId)
+EXTERNAL isTaskInProgress(taskId, type)
+EXTERNAL isSubTaskInProgress(taskId, subTaskId)
+EXTERNAL applyPlacement(act, name)
 -> NameQuest
-INCLUDE Quests\Act1\TeamGame\Sofia_Act1_TeamGame.ink
+INCLUDE Quests\Act1\Meeting\Sofia_Act1_Meeting.ink
+INCLUDE Quests\\Act1\TreasureHunt\Sofia_Act1_TreasureHunt.ink
 
 == NameQuest
 { 
-- CurrentQuest == "team_game" && CurrentSubquest == "talk_counselors": -> Act1_TeamGame
-- CurrentQuest == "team_game" && CurrentSubquest != "talk_counselors": -> Act1_TeamGameTalk
+- isTaskInProgress("meeting", 0) or isTaskInProgress("fishing", 0): -> Act1_Meeting
+- isTaskInProgress("treasure_hunt", 0): -> Act1_TreasureHunt
 } 
 -> END

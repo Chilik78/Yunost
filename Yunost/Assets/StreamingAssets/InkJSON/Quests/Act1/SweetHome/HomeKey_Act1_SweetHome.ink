@@ -1,9 +1,9 @@
 
 == Act1_SweetHome
 Ключ: У входа в Администрацию лежит Ключ. Видимо, его сюда положили, чтобы не забыть забрать. Вопрос в том, кого ожидает этот ключ?
-+ {meetDirector == true or CurrentSubquest == "search_key"} [Взять ключ] 
++ {meetDirector == true or isSubTaskInProgress("sweet_home","search_key")} [Взять ключ] 
 ~pickupItem("key")
-{CurrentSubquest == "search_key": 
+{isSubTaskInProgress("sweet_home","search_key"): 
 ~setDoneSubTask("sweet_home", "search_key")
 }
 -> END

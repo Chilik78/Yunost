@@ -7,6 +7,7 @@ TagManager:
   - NPC
   - Iteract
   - Item
+  - Mark
   - MiniGame ReachEndPointWithObstacles Border
   - MiniGame ReachEndPointWithObstacles Obstacle
   - MiniGame ReachEndPointWithObstacles Dangerous Obstacle

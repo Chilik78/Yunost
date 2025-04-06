@@ -24,6 +24,8 @@ public class InventoryManager : MonoBehaviour
     private CraftingManager craftingManager;
     private ListOfItems listOfItems;
 
+
+
     void Start()
     {
         inventoryUI = GameObject.Find("InventoryPanel");
@@ -46,6 +48,7 @@ public class InventoryManager : MonoBehaviour
         inventoryButton.onClick.AddListener(ToggleInventory);
 
         universalTutorialManager = FindObjectOfType<UniversalTutorialManager>();
+
 
         listOfItems = ServiceLocator.Get<ListOfItems>();
 
@@ -198,9 +201,11 @@ public class InventoryManager : MonoBehaviour
 
     public void PickupNearbyItem()
     {
+
+
+
         if (nearbyItem != null && nearbyItem.item != null)
-        {
-            
+        { 
             AddItem(nearbyItem.item);
             Destroy(nearbyItem.gameObject);
             HidePickupUI();

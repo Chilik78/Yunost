@@ -1,9 +1,9 @@
 
 == Act1_SweetHome
 {
-- CurrentSubquest == "open_door" or CurrentSubquest == "go_to_home": -> Act1_SweetHomeRepeatTalk
-- CurrentSubquest == "director" or meetDirector == false: -> Act1_SweetHomeHaventKey
-- CurrentSubquest == "director" && itemIsExist("key"): -> Act1_SweetHomeHaveKeyTalkDirector
+- isSubTaskInProgress("sweet_home","open_door") or isSubTaskInProgress("sweet_home","go_to_home"): -> Act1_SweetHomeRepeatTalk
+- isSubTaskInProgress("sweet_home","director") or meetDirector == false: -> Act1_SweetHomeHaventKey
+- isSubTaskInProgress("sweet_home","director") && itemIsExist("key"): -> Act1_SweetHomeHaveKeyTalkDirector
 - repeatTalkOleg == true: -> Act1_SweetHomeRepeatTalk
 }
 

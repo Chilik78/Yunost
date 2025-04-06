@@ -10714,7 +10714,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Texture: {fileID: 2800000, guid: a824fdb28b157ff4ea5cb6ce68e173b0, type: 3}
+  m_Texture: {fileID: 2800000, guid: a26b0e865fc699c4ab54aa8a58670269, type: 3}
   m_UVRect:
     serializedVersion: 2
     x: 0
@@ -13537,7 +13537,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4819208298052715649}
   - component: {fileID: 3118597935252512542}
-  - component: {fileID: 5148951948632587495}
   - component: {fileID: 5186263645415325248}
   - component: {fileID: 7207004486253657115}
   m_Layer: 0
@@ -13613,14 +13612,6 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
---- !u!81 &5148951948632587495
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8513393989473493969}
-  m_Enabled: 1
 --- !u!114 &5186263645415325248
 MonoBehaviour:
   m_ObjectHideFlags: 0

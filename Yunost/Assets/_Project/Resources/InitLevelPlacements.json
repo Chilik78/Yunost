@@ -1,0 +1,45 @@
+[
+    {
+        "act": "Акт 1",
+        "name": "meeting_admin",
+        "npcPlacemnets": [
+            {
+                "name": "Lisa",
+                "mark": "lisa_admin"
+            },
+            {
+                "name": "Sofia",
+                "mark": "sofia_admin"
+            },
+            {
+                "name": "Makar",
+                "mark": "makar_admin"
+            },
+            {
+                "name": "Oleg",
+                "mark": "oleg_admin"
+            }
+        ]
+    },
+    {
+        "act": "Акт 1",
+        "name": "sofia_treasure_hunt_fire",
+        "npcPlacemnets": [
+            {
+                "name": "Sofia",
+                "mark": "sofia_fire_main_camp"
+            }
+        ]
+    },
+    {
+        "act": "Акт 1",
+        "name": "oleg_fishing_pier",
+        "npcPlacemnets": [
+            {
+                "name": "Oleg",
+                "mark": "oleg_pier_forest_area"
+            }
+        ]
+    }
+
+]
