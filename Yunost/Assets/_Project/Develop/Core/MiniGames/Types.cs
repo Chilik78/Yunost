@@ -18,6 +18,8 @@ namespace MiniGames
         ReachEndPointWithObstacles,
         /// <summary> На взлом замка </summary>
         BreakingLock,
+        ///<summary> Лабиринт </summary>
+        Maze
     }
 
     public enum TypeDifficultMiniGames

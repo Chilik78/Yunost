@@ -50,6 +50,7 @@ namespace MiniGames
                 case TypesMiniGames.ConnectElements: break;
                 case TypesMiniGames.ReachEndPointWithObstacles: _currGame = new ReachEndPointWithObstaclesMiniGame(); break;
                 case TypesMiniGames.BreakingLock: _currGame = new BreakingLockMiniGame(); break;
+                case TypesMiniGames.Maze: _currGame = new MazeMiniGame(); break;
                 default: break;
             }
         }
@@ -68,6 +69,7 @@ namespace MiniGames
                 case TypesMiniGames.ConnectElements: break;
                 case TypesMiniGames.ReachEndPointWithObstacles: path += "ReachEndPointWithObstacles"; break;
                 case TypesMiniGames.BreakingLock: path += "BreakingLock"; break;
+                case TypesMiniGames.Maze: path += "Maze"; break;
                 default: break;
             }
             return Resources.Load(path);
