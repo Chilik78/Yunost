@@ -4,39 +4,66 @@ using UnityEngine;
 
 namespace ProgressModul
 {
-    public class NPC
+    public class NPC : ISaveLoadObject
     {
-        private string _loyaltyKey = "loyalty";
-        private string _maxLoayaltyKey = "max_loyalty";
         private string _name;
 
-        private string _getKey(string key) => key + _name;
+        private int _loyalty = 0;
+        private int _maxLoyalty = 100;
 
-        public NPC(string name, int loyalty = 0, int maxLoayalty = 100)
+        public NPC(string name, int loyalty = 0, int maxLoyalty = 100)
         {
             _name = name;
-            PlayerPrefs.SetInt(_getKey(_loyaltyKey), loyalty);
-            PlayerPrefs.SetInt(_getKey(_maxLoayaltyKey), maxLoayalty);
+            _loyalty = loyalty;
+            _maxLoyalty=maxLoyalty;
         }
+
+        public string Name => _name;
 
         public int MaxLoyalty
         {
-            get => PlayerPrefs.GetInt(_getKey(_maxLoayaltyKey));
+            get => _maxLoyalty;
         }
 
         public int Loyalty
         {
-            get => PlayerPrefs.GetInt(_getKey(_loyaltyKey));
+            get => _loyalty;
             set
             {
                 if (value >= 0 && value <= MaxLoyalty)
                 {
-                    PlayerPrefs.SetInt(_getKey(_loyaltyKey), value);
+                    _loyalty = value;
                 }
             }
         }
 
+        public string ComponentSaveId => $"NPC_{Name}";
 
+        public SaveLoadData GetSaveLoadData()
+        {
+            return new GameTimeControlSaveLoadData(ComponentSaveId, Loyalty, MaxLoyalty);
+        }
+
+        public void RestoreValues(SaveLoadData loadData)
+        {
+            if (loadData?.Data == null || loadData.Data.Length < 2)
+            {
+                Debug.LogError($"Can't restore values.");
+                return;
+            }
+
+            // [0] - (field)
+            // [1] - (filed)
+
+            Loyalty = int.Parse(loadData.Data[0].ToString());
+
+            _maxLoyalty = int.Parse(loadData.Data[1].ToString());
+        }
+
+        public void SetDefault()
+        {
+
+        }
     }
 }
 

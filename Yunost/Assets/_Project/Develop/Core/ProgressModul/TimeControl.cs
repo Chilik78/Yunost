@@ -1,19 +1,20 @@
 ﻿
+
 using UnityEngine;
 
 namespace ProgressModul
 {
-    public class TimeControl
+    public class TimeControl : ISaveLoadObject
     {
-        private string _currentTimeKey = "current_time";
-        private string _hoursKey = "hours";
-        private string _minutesKey = "minutes";
+        private int _currentTime;
+        private int _hours;
+        private int _minutes;
         public delegate void TimeChangedHandler(int time, int h, int m);
         public event TimeChangedHandler TimeChanged;
 
 
-        public int Hours { get => PlayerPrefs.GetInt(_hoursKey); private set => PlayerPrefs.SetInt(_hoursKey, value); }
-        public int Minutes { get => PlayerPrefs.GetInt(_minutesKey); private set => PlayerPrefs.SetInt(_minutesKey, value); }
+        public int Hours { get => _hours; private set => _hours = value; }
+        public int Minutes { get => _minutes; private set => _minutes = value; }
 
         public TimeControl() { }
         public TimeControl(int h, int m)
@@ -45,16 +46,49 @@ namespace ProgressModul
             CurrentTime = CurrentTime + time;
         }
 
+        public string ComponentSaveId => "TimeControl";
+
+        public SaveLoadData GetSaveLoadData()
+        {
+            return new TimeControlSaveLoadData(ComponentSaveId, CurrentTime, Hours, Minutes);
+        }
+
+        public void RestoreValues(SaveLoadData loadData)
+        {
+            if (loadData?.Data == null || loadData.Data.Length < 3)
+            {
+                Debug.LogError($"Can't restore values.");
+                return;
+            }
+
+            // [0] - (field)
+            // [1] - (filed)
+            // [2] - (field)
+
+            CurrentTime = int.Parse(loadData.Data[0].ToString());
+
+            Hours = int.Parse(loadData.Data[1].ToString());
+
+            Minutes = int.Parse(loadData.Data[2].ToString());
+        }
+
+        public void SetDefault()
+        {
+            
+        }
+
         public int CurrentTime
         {
-            get => PlayerPrefs.GetInt(_currentTimeKey);
+            get => _currentTime;
             set
             {
                 if (value > 0)
                 {
-                    PlayerPrefs.SetInt(_currentTimeKey, value);
+                    _currentTime = value;
                 }
             }
         }
+
+       
     }
 }

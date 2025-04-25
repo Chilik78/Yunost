@@ -15,7 +15,7 @@ public class InitSystem : MonoBehaviour
     void Awake()
     {
         //TODO: Для дебага
-        _isLoaded = false; // PlayerPrefs.GetInt("is_loaded") == 1;
+        _isLoaded = false;//PlayerPrefs.GetInt("is_loaded") == 1;
         _copyConfig = Instantiate(config);
         if (_instance != null)
         {
@@ -36,6 +36,7 @@ public class InitSystem : MonoBehaviour
 
         var visualCue = Instantiate(Resources.Load("VisualCue"));
         ServiceLocator.Register(visualCue);
+        Debug.LogWarning("InitS");
     }
 
     public static InitSystem GetInstance() => _instance;
@@ -71,6 +72,9 @@ public class InitSystem : MonoBehaviour
         saveLoadSystem.AddToSaveLoad(taskObserver);
         saveLoadSystem.AddToSaveLoad(listOfItems);
         saveLoadSystem.AddToSaveLoad(dialogVariables);
+        saveLoadSystem.AddToSaveLoad(timeControl);
+        saveLoadSystem.AddToSaveLoad(gameTimeControl);
+        saveLoadSystem.AddToSaveLoad(playerStats);
 
         ServiceLocator.Register(taskObserver);
         ServiceLocator.Register(listOfItems);
@@ -97,6 +101,9 @@ public class InitSystem : MonoBehaviour
         saveLoadSystem.AddToSaveLoad(taskObserver);
         saveLoadSystem.AddToSaveLoad(listOfItems);
         saveLoadSystem.AddToSaveLoad(dialogVariables);
+        saveLoadSystem.AddToSaveLoad(timeControl);
+        saveLoadSystem.AddToSaveLoad(gameTimeControl);
+        saveLoadSystem.AddToSaveLoad(playerStats);
 
         ServiceLocator.Register(taskObserver);
         ServiceLocator.Register(listOfItems);
@@ -152,7 +159,7 @@ public class InitSystem : MonoBehaviour
             Destroy(player);
         }
         config.HP = _copyConfig.HP;
-        config.Act = _copyConfig.Act;
+        config.LevelPositions = _copyConfig.LevelPositions;
         config.SideIGT = _copyConfig.SideIGT;
         config.Stamina = _copyConfig.Stamina;
         config.MainIGT = _copyConfig.MainIGT;
@@ -206,6 +213,13 @@ public class InitSystem : MonoBehaviour
 
             var player = SystemManager.GetInstance().Player;
             MarkController.GetInstance().ObjectToMark(player.transform, config.PositionMark);
+
+            LevelManager.GetInstance().ApplyPlacement(config.LevelPositions.act, config.LevelPositions.name);
+
+            foreach(var npcData in config.NPCSLoyality)
+            {
+                NPCManager.GetInstance().SetLoyality(npcData.name, npcData.loyalty);
+            }
         }
         catch (Exception)
         {

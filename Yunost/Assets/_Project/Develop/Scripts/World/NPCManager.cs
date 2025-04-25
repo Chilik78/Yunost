@@ -1,5 +1,7 @@
+using Global;
 using ProgressModul;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class NPCManager : MonoBehaviour
@@ -17,12 +19,15 @@ public class NPCManager : MonoBehaviour
 
     private void Awake()
     {
+        var slsystem = ServiceLocator.Get<SaveLoadSystem>();
         foreach(var name in _npcsNames)
         {
             _npcsData.Add(name, new NPC(name));
             _npcsObjects.Add(name, GameObject.Find(name));
+            slsystem.AddToSaveLoad(_npcsData[name]);
         }
         _instance = this;
+        Debug.LogWarning("NPCM");
     }
 
     void Start()
@@ -38,5 +43,10 @@ public class NPCManager : MonoBehaviour
     public void AddLoyality(string name, int value)
     {
         _npcsData[name].Loyalty += value;
+    }
+
+    public void SetLoyality(string name, int value)
+    {
+        _npcsData[name].Loyalty = value;
     }
 }

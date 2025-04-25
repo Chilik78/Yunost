@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace ProgressModul
@@ -72,6 +73,7 @@ namespace ProgressModul
                 if (!_componentsIdToSaveObject.ContainsKey(objectId))
                 {
                     Debug.LogError($"Can't restore data for object with id {objectId}");
+                    Debug.LogWarning(string.Join(", ", _componentsIdToSaveObject.Keys));
                     continue;
                 }
 

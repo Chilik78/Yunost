@@ -30,6 +30,13 @@ public abstract class TaskList : MonoBehaviour
     {
         LoadTasks();
         UpdateTasksList();
+        var msgManager = GameObject.Find("GameSystems").GetComponent<MessageBoxManager>();
+        var border = ServiceLocator.Get<GameTimeControl>().MainTime + 1;
+        var mainTasks = ServiceLocator.Get<TaskObserver>().GetTasks(TaskState.InProgress, TaskType.Main, border);
+        foreach (var t in mainTasks)
+        {
+            msgManager.UpdateQuest(t.Name);
+        }
     }
 
     protected abstract void LoadTasks(); 

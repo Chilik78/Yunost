@@ -1,60 +1,55 @@
-using Newtonsoft.Json.Linq;
 using System;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace ProgressModul
 {
     public class PlayerStats : ISaveLoadObject
     {
-        private string _healthKey = "health";
-        private string _staminaKey = "stamina";
-        private string _maxHealthKey = "max_health";
-        private string _maxStaminaKey = "max_stamina";
-        private string _xKey = "x";
-        private string _zKey = "z";
-        private string _rotYKey = "rot_y";
+        private int _health = 0;
+        private int _stamina = 0;
+        private int _maxHealth = 0;
+        private int _maxStamina = 0; 
+        private float _x = -1;
+        private float _z = -1;
+        private float _rotY = -1;
 
         public event Action HealthChanged;
         public event Action StaminaChanged;
 
         public PlayerStats(int health, int stamina, int maxHealth = 100, int maxStamina = 100)
         {
-            PlayerPrefs.SetInt(_healthKey, health);
-            PlayerPrefs.SetInt(_staminaKey, stamina);
-            PlayerPrefs.SetInt(_maxHealthKey, maxHealth);
-            PlayerPrefs.SetInt(_maxStaminaKey, maxStamina);
-            PlayerPrefs.SetFloat(_xKey, -1);
-            PlayerPrefs.SetFloat(_zKey, -1);
-            PlayerPrefs.SetFloat(_rotYKey, -1);
+            _health = health;
+            _stamina = stamina;
+            _maxHealth = maxHealth;
+            _maxStamina = maxStamina;
         }
 
         public PlayerStats() { }
 
         public float X
         {
-            get => PlayerPrefs.GetFloat(_xKey);
+            get => _x;
             set  {
-                PlayerPrefs.SetFloat(_xKey, value);
+                _x = value;
             }
 
         }
 
         public float Z
         {
-            get => PlayerPrefs.GetFloat(_zKey);
+            get => _z;
             set
             {
-                PlayerPrefs.SetFloat(_zKey, value);
+                _z = value;
             }
         }
 
         public float RotY
         {
-            get => PlayerPrefs.GetFloat(_rotYKey);
+            get => _rotY;
             set
             {
-                PlayerPrefs.SetFloat(_rotYKey, value);
+                _rotY = value;
             }
         }
 
@@ -76,7 +71,7 @@ namespace ProgressModul
 
         public void RestoreValues(SaveLoadData loadData)
         {
-            if (loadData?.Data == null || loadData.Data.Length < 4)
+            if (loadData?.Data == null || loadData.Data.Length < 5)
             {
                 Debug.LogError($"Can't restore values.");
                 return;
@@ -106,23 +101,23 @@ namespace ProgressModul
 
         public int MaxHealth
         {
-            get => PlayerPrefs.GetInt(_maxHealthKey);
+            get => _maxHealth;
         }
 
         public int MaxStamina
         {
-            get => PlayerPrefs.GetInt (_maxStaminaKey);
+            get => _maxStamina;
         }
 
         public int Health
         {
-            get => PlayerPrefs.GetInt(_healthKey);
+            get => _health;
 
             set
             {
                 if (value >= 0 && value <= MaxHealth) 
                 { 
-                    PlayerPrefs.SetInt(_healthKey, value);
+                    _health = value;
                     if(HealthChanged != null)
                     {
                         HealthChanged();
@@ -133,13 +128,13 @@ namespace ProgressModul
 
         public int Stamina
         {
-            get => PlayerPrefs.GetInt(_staminaKey);
+            get => _stamina;
 
             set
             {
                 if (value >= 0 && value <= MaxStamina)
                 {
-                    PlayerPrefs.SetInt(_staminaKey, value);
+                    _stamina = value;
                     if (StaminaChanged != null)
                     {
                         StaminaChanged();
