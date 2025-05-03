@@ -29,6 +29,9 @@
 + [Воспользуюсь этой возможностью.] -> END
 
 == Act1_TreasureHunt_Discussion
+Вы: Как у тебя дела?
+София: Норм.
++ [Ок.]
 -> END
 
 == Act1_TreasureHunt_Digging

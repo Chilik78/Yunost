@@ -7,6 +7,8 @@ EXTERNAL isTaskInProgress(taskId, type)
 EXTERNAL isSubTaskInProgress(taskId, subTaskId)
 EXTERNAL changeTime(h, m)
 EXTERNAL startMiniGame(idMiniGame, idDifficulty)
+EXTERNAL checkStateMiniGame()
+EXTERNAL hitStamina(value)
 -> NameQuest
 INCLUDE Quests\Act1\TreasureHunt\DiggingPlace_Act1_TreasureHunt.ink
 

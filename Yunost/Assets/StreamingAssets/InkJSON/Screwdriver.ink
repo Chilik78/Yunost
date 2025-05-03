@@ -11,7 +11,7 @@ INCLUDE Quests\Act1\HelpForFriend\Screwdriver_Act1_HelpForFriend.ink
 
 == NameQuest
 { 
-- isTaskInProgress("help_for_friend", 0): -> Act1_HelpForFriend
+- isSubTaskInProgress("help_for_friend", "search_tools"): -> Act1_HelpForFriend
 }
 -> Repeat
 

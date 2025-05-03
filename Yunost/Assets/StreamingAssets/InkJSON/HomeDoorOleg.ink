@@ -1,11 +1,13 @@
 INCLUDE globals.ink
 EXTERNAL hitHealth(value)
+EXTERNAL hitStamina(value)
 EXTERNAL startMiniGame(idMiniGame, idDifficulty)
 EXTERNAL itemIsExist(item)
 EXTERNAL setStateTask(taskId, state)
 EXTERNAL setDoneSubTask(taskId, subTaskId)
 EXTERNAL isTaskInProgress(taskId, type)
 EXTERNAL isSubTaskInProgress(taskId, subTaskId)
+EXTERNAL checkStateMiniGame()
 
 -> NameQuest
 

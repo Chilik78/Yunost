@@ -19,6 +19,11 @@ INCLUDE Quests\Act1\Fishing\Oleg_Act1_Fishing.ink
 - isTaskInProgress("meeting", 0) or isTaskInProgress("treasure_hunt", 0): -> Act1_Meeting
 - isTaskInProgress("fishing", 0): -> Act1_Fishing
 }
+-> Default
+
+== Default
+Олег: *Стоит и насвистывает мелодию из рекламы*
++ [*Уйти*]
 -> END
 
 

@@ -57,6 +57,9 @@ VAR passedOleg = false
 VAR homeDoorOpened = false
 
 /// Fishing
+VAR useFishPlace1 = false
+VAR useFishPlace2 = false
+VAR useFishPlace3 = false
 
 // Oleg
 VAR isTalkingDiscussionFishing = false
@@ -66,6 +69,9 @@ VAR difficultyFishing = 0
 
 // ResultMiniGames
 VAR act1Fishing = false
+VAR fishPlace1Win = false
+VAR fishPlace2Win = false
+VAR fishPlace3Win = false
 
 
 

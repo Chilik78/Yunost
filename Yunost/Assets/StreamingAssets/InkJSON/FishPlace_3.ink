@@ -7,14 +7,14 @@ EXTERNAL isTaskInProgress(taskId, type)
 EXTERNAL isSubTaskInProgress(taskId, subTaskId)
 EXTERNAL changeTime(h, m)
 EXTERNAL startMiniGame(idMiniGame, idDifficulty)
+EXTERNAL checkStateMiniGame()
+EXTERNAL hitStamina(value)
 -> NameQuest
 INCLUDE Quests\Act1\Fishing\FishPlace3_Act1_Fishing.ink
 
-VAR useFishPlace3 = false
-
 == NameQuest
 { 
-- isSubTaskInProgress("fishing", "fishing_at_beach"): -> Act1_Fishing
+- isSubTaskInProgress("fishing", "fishing_at_beach") && (useFishPlace3 == false): -> Act1_Fishing
 }
 -> Default
 

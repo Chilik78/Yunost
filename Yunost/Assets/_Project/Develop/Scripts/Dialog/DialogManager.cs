@@ -43,6 +43,10 @@ public class DialogManager : MonoBehaviour
 
     private string tmpText;
 
+    int countMiniGame = 0;
+
+    MiniGameResultInfo resultMiniGame;
+
     private void Awake()
     {
         if (instance != null)
@@ -163,14 +167,26 @@ public class DialogManager : MonoBehaviour
             bool isExist = ServiceLocator.Get<ListOfItems>().ItemExists(item);
             return isExist;
         });
-
+        
+        
         // Запуск мини игр
         currentStory.BindExternalFunction("startMiniGame", (int indexMiniGame, int indexDifficulty) => {
-            MiniGameContext testContext = new MiniGameContext(ChoiceMiniGame(indexMiniGame), ChoiceDifficultyMiniGame(indexDifficulty), 5);
-            
             // TODO: Возвращаемое значение "Результат прохождения мини-игры" 
-            
-            GameObject.Find("GameSystems").GetComponent<MiniGamesManager>().RunMiniGame(testContext);
+            resultMiniGame = null;
+            MiniGameContext testContext = new MiniGameContext(ChoiceMiniGame(indexMiniGame), ChoiceDifficultyMiniGame(indexDifficulty), 5);
+            MiniGamesManager manager = GameObject.Find("GameSystems").GetComponent<MiniGamesManager>();
+            manager.RunMiniGame(testContext);
+            manager.MiniGameEnd += (MiniGameResultInfo result) => { resultMiniGame = result;
+                Debug.Log($"Мини игра завершилась");
+            };
+            //countMiniGame++;
+            //Debug.Log($"Мини игра идёт {countMiniGame}-й раз");
+        });
+
+        currentStory.BindExternalFunction("checkStateMiniGame", () =>
+        {
+            int state = checkStateMiniGame();
+            return state;
         });
 
         // Проверка на наличие предмета в инвентаре
@@ -211,6 +227,12 @@ public class DialogManager : MonoBehaviour
             ServiceLocator.Get<PlayerStats>().HitHealth(value);
         });
 
+        // Уменьшение выносливости
+        currentStory.BindExternalFunction("hitStamina", (int value) => {
+            ServiceLocator.Get<PlayerStats>().HitStamina(value);
+        });
+
+
         // Изменение позиции игрока
         currentStory.BindExternalFunction("tp", (string objName, string id) =>
         {
@@ -236,6 +258,26 @@ public class DialogManager : MonoBehaviour
         });
 
         ContinueStory();
+    }
+
+    // Проверка состояния мини игры
+    public int checkStateMiniGame()
+    {
+        int state = -1;
+        if (resultMiniGame != null)
+        {
+            switch(resultMiniGame.getResultMiniGame)
+            {
+                case (TypeResultMiniGames.Сompleted):
+                    state = 1;
+                    break;
+                case (TypeResultMiniGames.Failed):
+                    state = 0;
+                    break;
+            }
+            Debug.Log($"Результат мини игры = {state}");
+        }
+        return state;
     }
 
     // Закрытие диалогового окна
@@ -494,6 +536,8 @@ public class DialogManager : MonoBehaviour
         }
 
     }
+
+    
 
     // Получение индекса нажатой кнопки пользователем
     public void MakeChoice(int choiceIndex)
