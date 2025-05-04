@@ -572,6 +572,7 @@ public class DialogManager : MonoBehaviour
             case 5: return TypesMiniGames.ConnectElements;
             case 6: return TypesMiniGames.ReachEndPointWithObstacles;
             case 7: return TypesMiniGames.BreakingLock;
+            case 8: return TypesMiniGames.Maze;
             default:
                 return TypesMiniGames.BreakingLock;
         }

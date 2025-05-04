@@ -6,7 +6,7 @@
 TODO: Перемещение NPC
 ~applyPlacement("Акт 1", "meeting_admin")
 -> END
-+ {isSubTaskInProgress("treasure_hunt", "go_to_bed_night") or isSubTaskInProgress("fishing", "go_to_bed_night_fishing")} [Войти в Дом №1] 
++ {isSubTaskInProgress("treasure_hunt", "reading_newspaper") or isSubTaskInProgress("fishing", "reading_newspaper")} [Войти в Дом №1] 
 ~tp("Player", "start_hub_home")
 -> END
 + {isSubTaskInProgress("meeting", "leave_house")} [Осмотреть дверь] -> Act1_TreasureHunt_Fishing_CheckDoorIn

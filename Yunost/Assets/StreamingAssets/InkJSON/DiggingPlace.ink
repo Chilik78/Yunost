@@ -16,4 +16,8 @@ INCLUDE Quests\Act1\TreasureHunt\DiggingPlace_Act1_TreasureHunt.ink
 { 
 - isTaskInProgress("treasure_hunt", 0): -> Act1_TreasureHunt
 } 
--> END
+-> Default
+
+== Default
+Место для выкапывания: В землю воткнут красный флажок. Очевидно, что это нужное место для выкапывания ямы.
++ [*Уйти*] -> END

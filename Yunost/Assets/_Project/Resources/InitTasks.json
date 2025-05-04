@@ -170,16 +170,22 @@
                     "stackIndex": 3
                 },
                 {
-                    "id": "go_to_bed_night",
-                    "description": "Лечь спать",
+                    "id": "reading_newspaper",
+                    "description": "Решите головоломку в новостной газете на столе",
                     "flow": "1",
                     "stackIndex": 4
                 },
                 {
+                    "id": "go_to_bed_night",
+                    "description": "Лечь спать",
+                    "flow": "1",
+                    "stackIndex": 5
+                },
+                                {
                     "id": "act1",
                     "description": "Поздравляем, вы прошли Акт-1",
                     "flow": "1",
-                    "stackIndex": 5
+                    "stackIndex": 6
                 }
             ]
         },
@@ -223,16 +229,22 @@
                     "stackIndex": 4
                 },
                 {
+                    "id": "reading_newspaper",
+                    "description": "Решите головоломку в новостной газете на столе",
+                    "flow": "1",
+                    "stackIndex": 5
+                },
+                {
                     "id": "go_to_bed_night_fishing",
                     "description": "Лечь спать",
                     "flow": "1",
-                    "stackIndex": 5
+                    "stackIndex": 6
                 },
                 {
                     "id": "act1_fishing",
                     "description": "Поздравляем, вы прошли Акт-1",
                     "flow": "1",
-                    "stackIndex": 6
+                    "stackIndex": 7
                 }
             ]
         }
